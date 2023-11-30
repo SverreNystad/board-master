@@ -53,6 +53,12 @@ To run all the tests, run the following command in the root directory of the pro
 gradlew test
 ```
 
+## Code Coverage
+To generate a code coverage report, use the following Gradle command:
+
+```bash
+gradle test jacocoTestReport
+```
 
 ## Contributors
 <table align="center">
