@@ -15,6 +15,7 @@
 
 - [board-master](#board-master)
   - [Introduction](#introduction)
+    - [Minimax Algorithm](#minimax-algorithm)
     - [Planned Features](#planned-features)
   - [Setup](#setup)
     - [Prerequisites](#prerequisites)
