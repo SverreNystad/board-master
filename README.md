@@ -62,7 +62,7 @@ gradlew test
 To generate a code coverage report, use the following Gradle command:
 
 ```bash
-gradle test jacocoTestReport
+gradlew test jacocoTestReport
 ```
 
 ## Contributors
