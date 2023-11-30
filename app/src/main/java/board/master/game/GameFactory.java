@@ -20,9 +20,6 @@ public class GameFactory {
      * @return An instance of a class that implements StateHandler, corresponding to the specified game type.
      */
     public static StateHandler getGame(String gameType) throws IllegalArgumentException  {
-        if (gameType == null) {
-            return null;
-        }
 
         switch (gameType) {
             case "TIC-TAC-TOE":
