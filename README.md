@@ -13,12 +13,17 @@
 <details> 
 <summary><b>📋 Table of contents </b></summary>
 
-1. [Introduction](#introduction)
-2. [Setup](#setup)
-3. [Usage](#usage)
-4. [Tests](#tests)
-5. [Contributors](#contributors)
-6. [License](#license)
+- [board-master](#board-master)
+  - [Introduction](#introduction)
+    - [Planned Features](#planned-features)
+  - [Setup](#setup)
+    - [Prerequisites](#prerequisites)
+    - [Clone the repository](#clone-the-repository)
+  - [Usage](#usage)
+  - [Tests](#tests)
+  - [Code Coverage](#code-coverage)
+  - [Contributors](#contributors)
+  - [License](#license)
 
 </details>
 
@@ -37,7 +42,7 @@ To setup the project, one needs to have all the prerequisites installed. Clone t
 ### Clone the repository
 ```bash
 git clone https://github.com/SverreNystad/board-master.git
-cd BoardMaster
+cd board-master
 ```
 
 
