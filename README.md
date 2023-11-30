@@ -19,7 +19,10 @@
     - [Planned Features](#planned-features)
   - [Setup](#setup)
     - [Prerequisites](#prerequisites)
-    - [Clone the repository](#clone-the-repository)
+  - [Setup](#setup-1)
+    - [1. Clone the repository](#1-clone-the-repository)
+    - [2. Navigate to the Project Directory:](#2-navigate-to-the-project-directory)
+    - [3. Build the Project:](#3-build-the-project)
   - [Usage](#usage)
   - [Tests](#tests)
   - [Code Coverage](#code-coverage)
@@ -41,14 +44,29 @@ To setup the project, one needs to have all the prerequisites installed. Clone t
 
 ### Prerequisites
 - Ensure that git is installed on your machine. [Download Git](https://git-scm.com/downloads)
-- Java JDK 17 or higher.
+- Java JDK 17 or higher (Download from Oracle's website)
 
 
-### Clone the repository
+## Setup
+Follow these steps to set up BoardMaster on your local machine:
+
+### 1. Clone the repository
 ```cmd
 git clone https://github.com/SverreNystad/board-master.git
+```
+
+### 2. Navigate to the Project Directory:
+After cloning, move into the BoardMaster project directory:
+```cmd
 cd board-master
 ```
+
+### 3. Build the Project:
+Inside the project directory, use Gradle to build the project:
+```cmd
+gradlew build
+```
+This command compiles the project and downloads all necessary dependencies.
 
 
 ## Usage
