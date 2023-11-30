@@ -31,7 +31,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("kahoot.intern.java.challenge.App")
+    mainClass.set("board.master.java.App")
 }
 
 tasks.named<Test>("test") {
