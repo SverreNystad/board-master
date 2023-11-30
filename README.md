@@ -40,7 +40,7 @@ To setup the project, one needs to have all the prerequisites installed. Clone t
 
 
 ### Clone the repository
-```bash
+```cmd
 git clone https://github.com/SverreNystad/board-master.git
 cd board-master
 ```
@@ -48,20 +48,20 @@ cd board-master
 
 ## Usage
 To run the project, run the following command in the root directory of the project:
-```bash
+```cmd
 gradlew run
 ```
 
 ## Tests
 To run all the tests, run the following command in the root directory of the project:
-```bash
+```cmd
 gradlew test
 ```
 
 ## Code Coverage
 To generate a code coverage report, use the following Gradle command:
 
-```bash
+```cmd
 gradlew test jacocoTestReport
 ```
 
