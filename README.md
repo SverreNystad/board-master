@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Project Version](https://img.shields.io/badge/version-0.0.1-blue)](https://img.shields.io/badge/version-0.0.1-blue)
 
-<img src="docs/images/BoardMaster.png" width="50%" alt="Cogito Image" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="docs/images/BoardMaster.png" width="50%" alt="BoardMaster" style="display: block; margin-left: auto; margin-right: auto;">
 </div>
 
 <details> 
@@ -27,10 +27,12 @@
 ### Planned Features
 
 ## Setup
-To setup the project, one needs to have all the prerequisites installed. Then one needs to clone the repository, setup a virtual environment, and install the dependencies. This is described in more detail below.
+To setup the project, one needs to have all the prerequisites installed. Clone the repository, install the dependencies and build the project. This is described in more detail below.
 
 ### Prerequisites
 - Ensure that git is installed on your machine. [Download Git](https://git-scm.com/downloads)
+- Java JDK 17 or higher.
+
 
 ### Clone the repository
 ```bash
