@@ -43,9 +43,33 @@ The games this algorithm works great for are what game theorists call determinis
 To setup the project, one needs to have all the prerequisites installed. Clone the repository, install the dependencies and build the project. This is described in more detail below.
 
 ### Prerequisites
-- Ensure that git is installed on your machine. [Download Git](https://git-scm.com/downloads)
-- Java JDK 17 or higher (Download from Oracle's website)
+Before setting up BoardMaster, ensure that your system meets the following requirements:
+<ul> 
 
+Ensure that git is installed on your machine. [Download Git](https://git-scm.com/downloads)
+
+</ul>
+<ul>
+  <details> <summary><b> Java JDK 17 or higher (Download from Oracle's website) </b></summary>
+  BoardMaster requires Java JDK to be installed. The project is tested with JDK 17, but it should work fine with any version 17 or higher.
+
+  * Java JDK 17 or higher - Java Development Kit is essential for compiling and running Java applications.
+    * Download and install it from Oracle's Java JDK Download Page or adopt an open-source JDK like AdoptOpenJDK.
+    * After installation, verify the installation by running java -version and ```javac -version``` in your command line or terminal.
+  </details>
+</ul>
+<ul>
+  <details> 
+  <summary><b> Gradle 8 or higher </b></summary>
+  Gradle is used as the build tool for BoardMaster. It automates the process of building, testing, and deploying the application.
+
+  * Gradle 8 or higher - Gradle brings advanced build toolkit to manage dependencies and other aspects of the build process.
+    * You can download Gradle from the Gradle Download Page.
+    * Alternatively, if you are using a Gradle Wrapper script (gradlew or gradlew.bat), you do not need to manually install Gradle, as the wrapper script will handle the installation for you.
+    * To confirm that Gradle is properly installed, run ```gradlew -v``` in your command line or terminal which will display the installed Gradle version.
+  </details>
+</ul>
+Ensure that both Java and Gradle are properly installed and configured in your system's PATH environment variable for seamless execution of BoardMaster.
 
 ## Setup
 Follow these steps to set up BoardMaster on your local machine:
