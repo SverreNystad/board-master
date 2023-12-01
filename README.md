@@ -1,7 +1,7 @@
 # board-master
 <div align="center">
 
-![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/SverreNystad/board-master/main.yml)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/SverreNystad/board-master/gradle.yml)
 ![GitHub top language](https://img.shields.io/github/languages/top/SverreNystad/board-master)
 ![GitHub language count](https://img.shields.io/github/languages/count/SverreNystad/board-master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
