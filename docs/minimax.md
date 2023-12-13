@@ -8,7 +8,7 @@ The algorithm works by simulating all possible moves in the game, predicting the
 ## Understanding Game Trees
 A game tree is a visual representation of all possible moves in a game from a given point. Each node represents a game state, and each branch represents a possible move. Minimax evaluates these nodes to decide the best move.
 
-<img src="docs/images/Minimax_tree.svg" width="50%" alt="game_tree" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="images/Minimax_tree.svg" width="50%" alt="game_tree" style="display: block; margin-left: auto; margin-right: auto;">
 
 ## Basic Algorithm
 Minimax performs a depth-first search on the game tree. Here's how it works:
