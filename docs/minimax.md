@@ -8,7 +8,7 @@ The algorithm works by simulating all possible moves in the game, predicting the
 ## Understanding Game Trees
 A game tree is a visual representation of all possible moves in a game from a given point. Each node represents a game state, and each branch represents a possible move. Minimax evaluates these nodes to decide the best move.
 
-<img src="images/Minimax_tree.svg" width="50%" alt="game_tree" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Minimax.svg" width="50%" alt="game_tree" style="display: block; margin-left: auto; margin-right: auto;">
 
 ## Basic Algorithm
 Minimax performs a depth-first search on the game tree. Here's how it works:
@@ -90,6 +90,8 @@ def minimax_depth(node, depth, isMaximizingPlayer) -> float:
 
 ### Alpha-Beta Pruning
 Alpha-Beta pruning optimizes Minimax by eliminating branches that don't need to be explored. It uses two values, alpha and beta, to represent the minimum score that the maximizing player is assured and the maximum score that the minimizing player is assured, respectively.
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/91/AB_pruning.svg" width="50%" alt="gaxme_tree" style="display: block; margin-left: auto; margin-right: auto;">
 
 **Pseudocode:**
 ```py
