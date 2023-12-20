@@ -1,4 +1,4 @@
-package board.master.game;
+package board.master.model.game;
 
 /**
  * Factory class for creating game instances.

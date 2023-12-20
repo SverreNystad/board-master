@@ -1,4 +1,4 @@
-package board.master.game;
+package board.master.model.game;
 
 public class NimAction extends Action {
     private int take;

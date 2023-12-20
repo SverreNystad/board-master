@@ -1,7 +1,7 @@
-package board.master.agents;
+package board.master.model.agents;
 
-import board.master.game.Action;
-import board.master.game.StateHandler;
+import board.master.model.game.Action;
+import board.master.model.game.StateHandler;
 
 /**
  * The Agent interface represents an agent that can play a game.

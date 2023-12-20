@@ -1,4 +1,4 @@
-package board.master.game;
+package board.master.model.game;
 
 import java.util.List;
 
@@ -13,7 +13,8 @@ public class TicTacToe implements StateHandler {
     // TODO: Define the game board and other state variables
 
     /**
-     * Constructs a new TicTacToe game with an empty board and sets the starting player.
+     * Constructs a new TicTacToe game with an empty board and sets the starting
+     * player.
      */
     public TicTacToe() {
         // TODO: Initialize the game board and set the starting player
@@ -33,7 +34,8 @@ public class TicTacToe implements StateHandler {
      */
     @Override
     public List<Action> getActions() {
-        // TODO: Implement method to return a list of legal actions (moves) for the current state
+        // TODO: Implement method to return a list of legal actions (moves) for the
+        // current state
         return null; // Placeholder return
     }
 
@@ -50,7 +52,8 @@ public class TicTacToe implements StateHandler {
      */
     @Override
     public boolean isTerminal() {
-        // TODO: Implement method to check if the current state is a terminal state (game over)
+        // TODO: Implement method to check if the current state is a terminal state
+        // (game over)
         return false; // Placeholder return
     }
 
@@ -63,6 +66,7 @@ public class TicTacToe implements StateHandler {
         return 0; // Placeholder return
     }
 
-    // Additional helper methods specific to Tic Tac Toe, such as checking for a win, can be added here
+    // Additional helper methods specific to Tic Tac Toe, such as checking for a
+    // win, can be added here
     // TODO: Implement helper methods for game-specific logic
 }
