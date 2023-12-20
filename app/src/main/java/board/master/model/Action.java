@@ -1,4 +1,4 @@
-package board.master.model.game;
+package board.master.model;
 
 /**
  * Abstract class representing a generic action or move in a game.

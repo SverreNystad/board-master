@@ -1,8 +1,11 @@
-package board.master.model.game;
+package board.master.model.game.nim;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import board.master.model.Action;
+import board.master.model.StateHandler;
 
 /**
  * Nim class implementing the StateHandler interface.

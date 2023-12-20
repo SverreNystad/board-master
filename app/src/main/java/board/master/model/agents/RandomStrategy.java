@@ -1,10 +1,9 @@
 package board.master.model.agents;
 
-import board.master.model.game.StateHandler;
+import board.master.model.Action;
+import board.master.model.StateHandler;
 
 import java.util.List;
-
-import board.master.model.game.Action;
 
 /**
  * RandomStrategy

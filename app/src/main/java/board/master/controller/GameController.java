@@ -1,10 +1,10 @@
 package board.master.controller;
 
+import board.master.model.Action;
+import board.master.model.GameFactory;
+import board.master.model.StateHandler;
 import board.master.model.agents.Agent;
 import board.master.model.agents.RandomStrategy;
-import board.master.model.game.Action;
-import board.master.model.game.GameFactory;
-import board.master.model.game.StateHandler;
 
 public class GameController {
 

@@ -1,4 +1,7 @@
-package board.master.model.game;
+package board.master.model;
+
+import board.master.model.game.nim.Nim;
+import board.master.model.game.tic_tac_toe.TicTacToe;
 
 /**
  * Factory class for creating game instances.

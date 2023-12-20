@@ -1,6 +1,9 @@
-package board.master.model.game;
+package board.master.model.game.tic_tac_toe;
 
 import java.util.List;
+
+import board.master.model.Action;
+import board.master.model.StateHandler;
 
 /**
  * TicTacToe class implementing the StateHandler interface.
