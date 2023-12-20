@@ -12,12 +12,12 @@ import board.master.game.StateHandler;
  */
 public interface Agent {
 
-  /**
-   * Calculates the best move to make in a given game state.
-   * 
-   * @param state The current state of the game.
-   * @return The best action to take in the current state.
-   */
-  public Action getAction(StateHandler state);
+    /**
+     * Calculates the best move to make in a given game state.
+     * 
+     * @param state The current state of the game.
+     * @return The best action to take in the current state.
+     */
+    public Action getAction(StateHandler state);
 
 }
