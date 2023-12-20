@@ -24,7 +24,8 @@ public class GameFactory {
         switch (gameType) {
             case "TIC-TAC-TOE":
                 return new TicTacToe();
-        
+            case "NIM":
+                return new Nim(13, 3);
             default:
                 throw new IllegalArgumentException("Invalid game type: " + gameType);
         }
