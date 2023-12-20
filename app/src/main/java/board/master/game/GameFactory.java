@@ -19,9 +19,9 @@ public class GameFactory {
      * @param gameType A string representing the type of game.
      * @return An instance of a class that implements StateHandler, corresponding to the specified game type.
      */
-    public static StateHandler getGame(String gameType) throws IllegalArgumentException  {
+    public static StateHandler getGame(String gameType) throws IllegalArgumentException {
 
-        switch (gameType) {
+        switch (gameType.toUpperCase()) {
             case "TIC-TAC-TOE":
                 return new TicTacToe();
             case "NIM":
