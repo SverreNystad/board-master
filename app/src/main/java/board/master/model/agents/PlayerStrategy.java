@@ -15,6 +15,9 @@ public class PlayerStrategy implements Agent {
         this.inputHandler = inputHandler;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Action getAction(StateHandler state) {
         String userInput = inputHandler.getInput();
