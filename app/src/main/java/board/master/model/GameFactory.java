@@ -15,6 +15,7 @@ import board.master.model.game.tic_tac_toe.TicTacToe;
  * for modifications and extensions.
  */
 public class GameFactory {
+
     /**
      * Returns a StateHandler object for the specified game type.
      * 
