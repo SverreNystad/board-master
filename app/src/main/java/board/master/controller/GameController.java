@@ -8,6 +8,7 @@ import board.master.view.ViewFactory;
 import board.master.model.StateHandler;
 import board.master.model.agents.Agent;
 import board.master.model.agents.AgentFactory;
+import board.master.model.input.InputHandler;
 
 public class GameController {
 
@@ -16,11 +17,11 @@ public class GameController {
     private Agent secondAgent;
     private View view;
 
-    public GameController(String gameName, String firstAgentStrategy, String secondAgentStrategy) {
+    public GameController(String gameName, String firstAgentStrategy, String secondAgentStrategy, InputHandler inputHandler) {
         this.model = GameFactory.getGame(gameName);
         this.view = ViewFactory.getView(gameName);
-        this.firstAgent = AgentFactory.getAgent(firstAgentStrategy);
-        this.secondAgent = AgentFactory.getAgent(secondAgentStrategy);
+        this.firstAgent = AgentFactory.getAgent(firstAgentStrategy, inputHandler);
+        this.secondAgent = AgentFactory.getAgent(secondAgentStrategy, inputHandler);
     }
 
     public void startGame() {
@@ -35,7 +36,7 @@ public class GameController {
 
             // Update model and view
             model.result(action);
-            view.updateBoard(model.getState());
+            view.updateBoard(model);
 
             if (model.isTerminal()) {
                 break;
