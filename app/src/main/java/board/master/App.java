@@ -4,15 +4,14 @@
 package board.master;
 
 import board.master.controller.GameController;
+import board.master.model.input.InputHandler;
+import board.master.model.input.TerminalInputHandler;
 
 public class App {
 
-    public String getGreeting() {
-        return "Hello World!";
-    }
-
     public static void main(String[] args) {
-        GameController gameController = new GameController("Nim", "RandomStrategy");
+        InputHandler inputHandler = new TerminalInputHandler();
+        GameController gameController = new GameController("Nim", "Player", "Random", inputHandler);
         gameController.startGame();
     }
 }
