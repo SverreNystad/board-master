@@ -32,7 +32,7 @@ public class ViewFactory {
             case "TIC-TAC-TOE":
                 return new CLITicTacToeView();
             case "NIM":
-                    return new CLINimView();
+                return new CLINimView();
             default:
                 throw new IllegalArgumentException("Invalid game type: " + gameType);
         }
