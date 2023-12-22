@@ -30,7 +30,7 @@ public class ViewFactory {
 
         switch (gameType.toUpperCase()) {
             case "TIC-TAC-TOE":
-                return new TicTacToeView();
+                return new CLITicTacToeView();
             case "NIM":
                     return new CLINimView();
             default:

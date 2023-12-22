@@ -69,6 +69,10 @@ public class TicTacToe implements StateHandler {
         return 0; // Placeholder return
     }
 
+
+    public String getBoard() {
+        return "";
+    }
     // Additional helper methods specific to Tic Tac Toe, such as checking for a
     // win, can be added here
     // TODO: Implement helper methods for game-specific logic
