@@ -19,7 +19,7 @@ public class GameController {
 
     public GameController(String gameName, String firstAgentStrategy, String secondAgentStrategy, InputHandler inputHandler) {
         this.model = GameFactory.getGame(gameName);
-        this.view = ViewFactory.getView(gameName);
+        this.view = ViewFactory.getView(gameName, "GUI", this);
         this.firstAgent = AgentFactory.getAgent(firstAgentStrategy, inputHandler);
         this.secondAgent = AgentFactory.getAgent(secondAgentStrategy, inputHandler);
     }
@@ -33,13 +33,17 @@ public class GameController {
             } else {
                 action = secondAgent.getAction(model);
             }
-
-            // Update model and view
+            makeMove(action);
+        }
+    }
+    
+    public void makeMove(Action action) {
+        if (action != null) {
             model.result(action);
             view.updateBoard(model);
-
             if (model.isTerminal()) {
-                break;
+                // view.printWinner(model);
+                System.exit(0);
             }
         }
     }
