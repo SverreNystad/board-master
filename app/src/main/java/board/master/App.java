@@ -4,14 +4,14 @@
 package board.master;
 
 import board.master.controller.GameController;
+import board.master.model.input.GUIInputHandler;
 import board.master.model.input.InputHandler;
-import board.master.model.input.TerminalInputHandler;
 
 public class App {
 
     public static void main(String[] args) {
-        InputHandler inputHandler = new TerminalInputHandler();
-        GameController gameController = new GameController("Nim", "Player", "Random", inputHandler);
+        InputHandler inputHandler = new GUIInputHandler();
+        GameController gameController = new GameController("TicTacToe", "Player", "Random", inputHandler);
         gameController.startGame();
     }
 }
