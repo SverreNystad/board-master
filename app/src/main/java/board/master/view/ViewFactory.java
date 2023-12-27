@@ -1,5 +1,7 @@
 package board.master.view;
 
+import board.master.controller.GameController;
+
 /**
  * Factory class for creating game views.
  * 
@@ -26,11 +28,14 @@ public class ViewFactory {
      * @return An instance of a class that implements StateHandler, corresponding to
      *         the specified game type.
      */
-    public static View getView(String gameType) throws IllegalArgumentException {
+    public static View getView(String gameType, String type, GameController gameController) throws IllegalArgumentException {
 
         switch (gameType.toUpperCase()) {
-            case "TIC-TAC-TOE":
-                return new CLITicTacToeView();
+            case "TICTACTOE":
+                if (type.equals("GUI"))
+                    return new GUITicTacToe(gameController);
+                if (type.equals("CLI"))
+                    return new CLITicTacToeView(gameController);
             case "NIM":
                 return new CLINimView();
             default:

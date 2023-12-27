@@ -32,7 +32,7 @@ public class GameFactory {
     public static StateHandler getGame(String gameType) throws IllegalArgumentException {
 
         switch (gameType.toUpperCase()) {
-            case "TIC-TAC-TOE":
+            case "TICTACTOE":
                 return new TicTacToe();
             case "NIM":
                 return new Nim(13, 3);
