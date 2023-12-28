@@ -22,7 +22,6 @@ public class Chess implements StateHandler {
     /**
      * {@inheritDoc}
      */
-    @Override
     public int toMove() {
         // TODO
         return 0;
@@ -31,7 +30,6 @@ public class Chess implements StateHandler {
     /**
      * {@inheritDoc}
      */
-    @Override
     public List<Action> getActions() {
         // TODO
         return new ArrayList<Action>();
@@ -40,15 +38,14 @@ public class Chess implements StateHandler {
     /**
      * {@inheritDoc}
      */
-    @Override
     public StateHandler result(Action action) {
         // TODO
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public boolean isTerminal() {
         // TODO
         return true;
@@ -57,7 +54,6 @@ public class Chess implements StateHandler {
     /**
      * {@inheritDoc}
      */
-    @Override
     public int Utility() {
         // TODO
         return 0;
@@ -66,7 +62,6 @@ public class Chess implements StateHandler {
     /**
      * {@inheritDoc}
      */
-    @Override
     public Board getBoard() {
         return this.board;
     }
