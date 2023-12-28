@@ -39,7 +39,7 @@ public interface StateHandler {
      *
      * @param action the action ({@link Action}) to be taken in the current state.
      */
-    public void result(Action action);
+    public StateHandler result(Action action);
 
     /**
      * Determines if the current state is a terminal state, indicating the end of
