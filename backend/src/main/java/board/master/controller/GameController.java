@@ -16,7 +16,7 @@ import board.master.service.GameService;
 
 
 @RestController
-@RequestMapping("/api/chess")
+@RequestMapping("/api")
 public class GameController {
 
     private final GameService gameService;
@@ -27,20 +27,48 @@ public class GameController {
     }
 
     @PostMapping("/start")
-    public GameResponse startGame(@RequestParam GameStartRequest request) {
+    public ResponseEntity<GameResponse> startGame(@RequestParam GameStartRequest request) {
         // Logic to start a new game
-        return gameService.startGame(request);
+        try {
+            GameResponse response = gameService.startGame(request);
+            return ResponseEntity.ok(response);
+        } 
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        } 
+        catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @PostMapping("/move")
-    public GameResponse playerMove(@RequestParam PlayerMoveRequest request) {
+    public ResponseEntity<GameResponse> playerMove(@RequestParam PlayerMoveRequest request) {
         // Logic to handle player's move
-        return gameService.playerMove(request);
+        try {
+            GameResponse response = gameService.playerMove(request);
+            return ResponseEntity.ok(response);
+        }
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+
+        }
+        catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @GetMapping("/bot-move")
-    public GameResponse botMove(@RequestParam String gameId) {
+    public ResponseEntity<GameResponse> botMove(@RequestParam String gameId) {
         // Logic to generate bot's move
-        return gameService.botMove(gameId);
+        try {
+            GameResponse response = gameService.botMove(gameId);
+            return ResponseEntity.ok(response);
+        }
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+        catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }
