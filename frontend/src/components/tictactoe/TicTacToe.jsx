@@ -27,6 +27,15 @@ function TicTacToe() {
     }
   }
 
+  
+  const makeMove = async () => {
+    
+  }
+
+  const botMove = async () => {
+
+  }
+
 
 
   return (
