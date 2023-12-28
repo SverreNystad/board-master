@@ -1,4 +1,4 @@
-package board.master.model.games;
+package board.master.model.games.chess;
 
 import board.master.model.Board;
 import board.master.model.StateHandler;
@@ -41,7 +41,7 @@ public class Chess implements StateHandler {
      * {@inheritDoc}
      */
     @Override
-    public void result(Action action) {
+    public StateHandler result(Action action) {
         // TODO
     }
 
