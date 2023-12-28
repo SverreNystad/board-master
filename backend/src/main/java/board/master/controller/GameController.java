@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import board.master.model.GameStartRequest;
+import board.master.model.Board;
 import board.master.model.GameResponse;
 import board.master.model.PlayerMoveRequest;
 
@@ -42,5 +43,11 @@ public class GameController {
     public GameResponse botMove(@RequestParam String gameId) {
         // Logic to generate bot's move
         return gameService.botMove(gameId);
+    }
+
+    @GetMapping("/test")
+    public GameResponse test() {
+        // Logic to generate bot's move
+        return new GameResponse("is", "status", new Board(0, 0));
     }
 }
