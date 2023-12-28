@@ -39,7 +39,7 @@ public class TicTacToeTest {
         @Test
         @DisplayName("Test of deep copy constructor with mutated")
         void testDeepCopyConstructorMutated() {
-            int value = 1;
+            String value = "1";
             int x = 1;
             int y = 2;
             ticTacToe.setPosition(x, y, value);
