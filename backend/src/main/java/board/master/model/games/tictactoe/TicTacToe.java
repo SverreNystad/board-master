@@ -86,9 +86,8 @@ public class TicTacToe implements StateHandler {
         return 0;
     }
 
-    public void setPosition(int x, int y, int value) {
-        List<List<String>> cells = board.getGrid();
-        cells.get(x).get(y);
+    public void setPosition(int x, int y, String value) {
+        board.setPosition(x, y, value);
         // this.board[x][y] = value;
     }
 
