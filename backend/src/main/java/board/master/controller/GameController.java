@@ -2,8 +2,8 @@ package board.master.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class GameController {
     }
 
     @PostMapping("/start")
-    public ResponseEntity<GameResponse> startGame(@RequestParam GameStartRequest request) {
+    public ResponseEntity<GameResponse> startGame(@RequestBody GameStartRequest request) {
         // Logic to start a new game
         try {
             GameResponse response = gameService.startGame(request);
@@ -42,7 +42,7 @@ public class GameController {
     }
 
     @PostMapping("/move")
-    public ResponseEntity<GameResponse> playerMove(@RequestParam PlayerMoveRequest request) {
+    public ResponseEntity<GameResponse> playerMove(@RequestBody PlayerMoveRequest request) {
         // Logic to handle player's move
         try {
             GameResponse response = gameService.playerMove(request);
@@ -58,7 +58,7 @@ public class GameController {
     }
 
     @GetMapping("/bot-move")
-    public ResponseEntity<GameResponse> botMove(@RequestParam String gameId) {
+    public ResponseEntity<GameResponse> botMove(@RequestBody String gameId) {
         // Logic to generate bot's move
         try {
             GameResponse response = gameService.botMove(gameId);
