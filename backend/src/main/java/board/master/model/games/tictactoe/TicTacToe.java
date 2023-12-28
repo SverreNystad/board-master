@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import board.master.model.Board;
+import board.master.model.Move;
 import board.master.model.Action;
 import board.master.model.StateHandler;
 
@@ -48,9 +49,17 @@ public class TicTacToe implements StateHandler {
      */
     @Override
     public List<Action> getActions() {
+        
         // TODO: Implement method to return a list of legal actions (moves) for the
         // current state
         List<Action> actions = new ArrayList<Action>();
+        for (int x = 0; x < this.board.getRows(); x++) {
+            for (int y = 0; y < this.board.getColumns(); y++) {
+                if (this.board.getPosition(x, y).equals("")) {
+                    actions.add((Action) new Move(Integer.toString(x), Integer.toString(y)));
+                }
+            }
+        }
         return actions; // Placeholder return
     }
 
@@ -59,8 +68,12 @@ public class TicTacToe implements StateHandler {
      */
     @Override
     public StateHandler result(Action action) {
-        // TODO: Implement method to apply an action and update the game state
-        return null;
+        Move move = (Move) action;
+        String value = (this.toMove() == 1) ? "X" : "O";
+        TicTacToe newState = new TicTacToe(this);
+        newState.setPosition(Integer.parseInt(move.getX()), Integer.parseInt(move.getY()), value);
+        
+        return newState;
     }
 
     /**
@@ -68,8 +81,41 @@ public class TicTacToe implements StateHandler {
      */
     @Override
     public boolean isTerminal() {
-        // TODO: Implement method to check if the current state is a terminal state
-        // (game over)
+        //if board is full 
+        if (getActions().size() == 0) {
+            return true;
+        }
+
+        //check for win in rows and columns
+        for (int i = 0; i < 3; i++) {
+            Boolean isNotEmpty = !board.getPosition(i, i).equals("");
+            if (board.getPosition(i, 0).equals(board.getPosition(i, 1)) 
+            && board.getPosition(i, 1).equals(board.getPosition(i, 2)) && isNotEmpty) {
+                return true;
+            }
+
+            if (board.getPosition(0, i).equals(board.getPosition(1, i)) 
+            && board.getPosition(1, i).equals(board.getPosition(2, i)) 
+            && isNotEmpty) {
+                return true;
+            }
+        }
+
+        Boolean isNotEmpty = !board.getPosition(1, 1).equals("");
+
+        //check for win in diagonals
+        if (board.getPosition(0, 0).equals(board.getPosition(1, 1)) 
+        && board.getPosition(1, 1).equals(board.getPosition(2, 2)) 
+        && isNotEmpty) {
+            return true;
+        }
+
+        if(board.getPosition(0, 2).equals(board.getPosition(1, 1))
+        && board.getPosition(1, 1).equals(board.getPosition(2, 0))
+        && isNotEmpty) {
+            return true;
+        }
+  
         return false; // Placeholder return
     }
 
@@ -82,8 +128,8 @@ public class TicTacToe implements StateHandler {
         return 0; // Placeholder return
     }
 
-    public int getPosition(int x, int y) {
-        return 0;
+    public String getPosition(int x, int y) {
+        return board.getPosition(x, y);
     }
 
     public void setPosition(int x, int y, String value) {
@@ -93,6 +139,40 @@ public class TicTacToe implements StateHandler {
 
     public Board getBoard() {
         return this.board;
+    }
+
+    public String checkWin() {
+        String checkWin = null;
+        //check for win in rows and columns
+        for (int i = 0; i < 3; i++) {
+            Boolean isNotEmpty = !board.getPosition(i, i).equals("");
+            if (board.getPosition(i, 0).equals(board.getPosition(i, 1)) 
+            && board.getPosition(i, 1).equals(board.getPosition(i, 2)) && isNotEmpty) {
+                return board.getPosition(i, 0);
+            }
+
+            if (board.getPosition(0, i).equals(board.getPosition(1, i)) 
+            && board.getPosition(1, i).equals(board.getPosition(2, i)) 
+            && isNotEmpty) {
+                return board.getPosition(i, 0);
+            }
+        }
+
+        Boolean isNotEmpty = !board.getPosition(1, 1).equals("");
+
+        //check for win in diagonals
+        if (board.getPosition(0, 0).equals(board.getPosition(1, 1)) 
+        && board.getPosition(1, 1).equals(board.getPosition(2, 2)) 
+        && isNotEmpty) {
+            return board.getPosition(1, 1);
+        }
+
+        if(board.getPosition(0, 2).equals(board.getPosition(1, 1))
+        && board.getPosition(1, 1).equals(board.getPosition(2, 0))
+        && isNotEmpty) {
+            return board.getPosition(1, 1);
+        }
+        return checkWin;
     }
 
 

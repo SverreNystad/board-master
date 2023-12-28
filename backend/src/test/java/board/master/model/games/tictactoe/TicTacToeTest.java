@@ -69,9 +69,46 @@ public class TicTacToeTest {
 
     }
 
-    @Test
-    void testIsTerminal() {
+    @Nested
+    @DisplayName("Test if TicTacToe is terminal")
+    class TicTacToeIsTerminal {
+        @Test
+        @DisplayName("Test of TicTacToe not terminal")
+        void testIsNotTerminal() {
+            assertEquals(false, ticTacToe.isTerminal());
+        }
 
+        @Test
+        @DisplayName("Test if TicTacToe is terminal when row is of the same value")
+        void testIsTerminal() {
+            String value = "1";
+            int x = 1;
+            for (int y = 0; y < ticTacToe.getBoard().getColumns(); y++) {
+                ticTacToe.setPosition(x, y, value);
+            }
+            assertEquals(true, ticTacToe.isTerminal());
+        }
+
+        @Test
+        @DisplayName("Test if TicTacToe is terminal when diagonal is of the same value")
+        void testIsTerminal2() {
+            String value = "1";
+            for (int index = 0; index < ticTacToe.getBoard().getRows(); index++) {
+                ticTacToe.setPosition(index, index, value);
+            }
+            assertEquals(true, ticTacToe.isTerminal());
+        }
+
+        @Test
+        @DisplayName("Test if TicTacToe is terminal when full")
+        void testIsTerminal3() {
+            for (int x = 0; x < ticTacToe.getBoard().getRows(); x++) {
+                for (int y = 0; y < ticTacToe.getBoard().getColumns(); y++) {
+                    ticTacToe.setPosition(x, y, "1");
+                }
+            }
+            assertEquals(true, ticTacToe.isTerminal());
+        }
     }
 
     @Test
