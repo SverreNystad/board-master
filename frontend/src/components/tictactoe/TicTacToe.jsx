@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import Board from './Board';
+
 const baseUrl = 'http://localhost:8080/api';
 const startGameUrl = `${baseUrl}/start`;
 const makeMoveUrl = `${baseUrl}/move`;
@@ -28,8 +30,8 @@ function TicTacToe() {
   }
 
   
-  const makeMove = async () => {
-    
+  const makeMove = async (x, y) => {
+    console.log("Making Move" + x + y);
   }
 
   const botMove = async () => {
@@ -46,7 +48,7 @@ function TicTacToe() {
         <div>
           <p>Game ID: {gameData.gameId}</p>
           <p>Status: {gameData.status}</p>
-          {/* Render more game data as needed */}
+          <Board grid={gameData.board.grid} onClickCallback={makeMove} /> {/* Render the Board */}
         </div>
       )}
     </div>
