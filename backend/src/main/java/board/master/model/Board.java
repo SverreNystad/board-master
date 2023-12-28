@@ -50,4 +50,10 @@ public class Board {
     public String getPosition(int x, int y) {
         return this.grid.get(x).get(y);
     }
+
+    public void setPosition(int x, int y, String value) {
+        List<String> row = this.grid.get(x);
+        row.set(y, value);
+        this.grid.set(x, row);
+    }
 }
