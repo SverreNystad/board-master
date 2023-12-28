@@ -110,7 +110,7 @@ This command compiles the project and downloads all necessary dependencies.
 ## Usage
 To run the project, run the following command in the root directory of the project:
 ```cmd
-gradlew run
+gradlew bootrun
 ```
 
 ## Tests
