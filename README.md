@@ -85,6 +85,20 @@ After cloning, move into the BoardMaster project directory:
 cd board-master
 ```
 
+### Frontend
+Install node package manager
+```cmd
+npm install
+```
+
+Start node package manager
+```cmd
+npm start
+```
+### Backend
+```cmd
+```
+
 ### 3. Build the Project:
 Inside the project directory, use Gradle to build the project:
 ```cmd
