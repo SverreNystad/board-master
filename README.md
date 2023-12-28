@@ -19,12 +19,15 @@
     - [Planned Features](#planned-features)
   - [Setup](#setup)
     - [Prerequisites](#prerequisites)
-  - [Setup](#setup-1)
+  - [Installation](#installation)
     - [1. Clone the repository](#1-clone-the-repository)
     - [2. Navigate to the Project Directory:](#2-navigate-to-the-project-directory)
-    - [3. Build the Project:](#3-build-the-project)
-  - [Usage](#usage)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+  - [Start backend](#start-backend)
   - [Tests](#tests)
+    - [Frontend](#frontend-1)
+    - [Backend](#backend-1)
   - [Code Coverage](#code-coverage)
   - [Contributors](#contributors)
   - [License](#license)
@@ -71,7 +74,7 @@ Ensure that git is installed on your machine. [Download Git](https://git-scm.com
 </ul>
 Ensure that both Java and Gradle are properly installed and configured in your system's PATH environment variable for seamless execution of BoardMaster.
 
-## Setup
+## Installation
 Follow these steps to set up BoardMaster on your local machine:
 
 ### 1. Clone the repository
@@ -96,31 +99,32 @@ Start node package manager
 npm start
 ```
 ### Backend
-```cmd
-```
-
-### 3. Build the Project:
-Inside the project directory, use Gradle to build the project:
+Build the backend:
+Inside the project directory `backend`, use Gradle to build the project:
 ```cmd
 gradlew build
 ```
 This command compiles the project and downloads all necessary dependencies.
 
 
-## Usage
+## Start backend
 To run the project, run the following command in the root directory of the project:
 ```cmd
-gradlew bootrun
+gradlew bootRun
 ```
 
 ## Tests
-To run all the tests, run the following command in the root directory of the project:
+### Frontend
+No tests yet
+
+### Backend
+To run all the tests, run the following command in the `backend` directory of the project:
 ```cmd
 gradlew test
 ```
 
 ## Code Coverage
-To generate a code coverage report, use the following Gradle command:
+To generate a code coverage report, use the following Gradle command in `backend` directory of the project:
 
 ```cmd
 gradlew test jacocoTestReport
