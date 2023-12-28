@@ -36,7 +36,16 @@ public class GameService {
                     throw new IllegalArgumentException("Invalid start request");
                 }
             case "tic-tac-toe":
-                return new GameResponse("id", "tie", new Board(3,3));
+                try {
+                    StateHandler ticTacToe = new TicTacToe();
+                    Agent agent = AgentFactory.createAgent(request.getBotType());
+                    Game game = new Game(generateGameId(), agent, ticTacToe);
+                    games.put(game.getGameId(), game);
+                    return new GameResponse(game.getGameId(), "in-progress", game.getBoard());
+                }
+                catch (IllegalArgumentException e) {
+                    throw new IllegalArgumentException("Invalid start request");
+                }
             default:
                 throw new IllegalArgumentException("Invalid game type");
         }
