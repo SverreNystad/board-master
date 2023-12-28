@@ -87,32 +87,7 @@ public class TicTacToe implements StateHandler {
         }
 
         //check for win in rows and columns
-        for (int i = 0; i < 3; i++) {
-            Boolean isNotEmpty = !board.getPosition(i, i).equals("");
-            if (board.getPosition(i, 0).equals(board.getPosition(i, 1)) 
-            && board.getPosition(i, 1).equals(board.getPosition(i, 2)) && isNotEmpty) {
-                return true;
-            }
-
-            if (board.getPosition(0, i).equals(board.getPosition(1, i)) 
-            && board.getPosition(1, i).equals(board.getPosition(2, i)) 
-            && isNotEmpty) {
-                return true;
-            }
-        }
-
-        Boolean isNotEmpty = !board.getPosition(1, 1).equals("");
-
-        //check for win in diagonals
-        if (board.getPosition(0, 0).equals(board.getPosition(1, 1)) 
-        && board.getPosition(1, 1).equals(board.getPosition(2, 2)) 
-        && isNotEmpty) {
-            return true;
-        }
-
-        if(board.getPosition(0, 2).equals(board.getPosition(1, 1))
-        && board.getPosition(1, 1).equals(board.getPosition(2, 0))
-        && isNotEmpty) {
+        if(checkWin() != null) {
             return true;
         }
   
@@ -124,8 +99,14 @@ public class TicTacToe implements StateHandler {
      */
     @Override
     public int Utility() {
-        // TODO: Implement method to calculate the utility of the current state
-        return 0; // Placeholder return
+        switch (checkWin().toUpperCase()) {
+            case "X":
+                return 1;
+            case "O":
+                return -1;
+            default:
+                return 0;
+        }
     }
 
     public String getPosition(int x, int y) {
@@ -141,7 +122,13 @@ public class TicTacToe implements StateHandler {
         return this.board;
     }
 
-    public String checkWin() {
+    /**
+     * Checks for a win in the current state of the game. 
+     * Returns the symbol of the winning player if there is a win, 
+     * or null if there is no win yet or the game is a draw.
+     * @return
+     */
+    private String checkWin() {
         String checkWin = null;
         //check for win in rows and columns
         for (int i = 0; i < 3; i++) {
