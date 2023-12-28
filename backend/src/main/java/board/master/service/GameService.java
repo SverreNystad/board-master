@@ -8,12 +8,11 @@ import board.master.model.GameResponse;
 import board.master.model.PlayerMoveRequest;
 import board.master.model.Board;
 import board.master.model.Game;
-import board.master.model.games.Chess;
+import board.master.model.games.chess.Chess;
 import board.master.model.StateHandler;
 import board.master.model.agents.Agent;
 import board.master.model.agents.AgentFactory;
 import board.master.model.Action;
-import board.master.model.Move;
 
 import java.util.HashMap;
 
