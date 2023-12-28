@@ -1,4 +1,4 @@
-package board.master.model.game.tictactoe;
+package board.master.model.games.tictactoe;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -23,7 +23,14 @@ public class TicTacToe implements StateHandler {
      * player.
      */
     public TicTacToe() {
-        // this.board = new int[3][3];
+        this.board = new Board(3, 3);
+        // TODO: Initialize the game board and set the starting player
+    }
+
+    public TicTacToe(TicTacToe ticTacToe) {
+        this.board = new Board(ticTacToe.getBoard().getRows(), 
+        ticTacToe.getBoard().getColumns());
+        this.board.setGrid(ticTacToe.getBoard().getGrid());
         // TODO: Initialize the game board and set the starting player
     }
 
@@ -51,9 +58,9 @@ public class TicTacToe implements StateHandler {
      * {@inheritDoc}
      */
     @Override
-    public void result(Action action) {
+    public StateHandler result(Action action) {
         // TODO: Implement method to apply an action and update the game state
-
+        return null;
     }
 
     /**
@@ -80,12 +87,17 @@ public class TicTacToe implements StateHandler {
     }
 
     public void setPosition(int x, int y, int value) {
+        List<List<String>> cells = board.getGrid();
+        cells.get(x).get(y);
         // this.board[x][y] = value;
     }
 
     public Board getBoard() {
         return this.board;
     }
+
+
+
     // Additional helper methods specific to Tic Tac Toe, such as checking for a
     // win, can be added here
     // TODO: Implement helper methods for game-specific logic
