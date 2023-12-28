@@ -46,4 +46,8 @@ public class Board {
     public int getColumns() {
         return columns;
     }
+
+    public String getPosition(int x, int y) {
+        return this.grid.get(x).get(y);
+    }
 }
