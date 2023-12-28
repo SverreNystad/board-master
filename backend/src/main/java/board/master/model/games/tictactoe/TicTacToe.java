@@ -1,7 +1,9 @@
-package board.master.model.game.tic_tac_toe;
+package board.master.model.game.tictactoe;
 
 import java.util.List;
+import java.util.ArrayList;
 
+import board.master.model.Board;
 import board.master.model.Action;
 import board.master.model.StateHandler;
 
@@ -14,14 +16,14 @@ public class TicTacToe implements StateHandler {
 
     // Game board representation, player turn, and other necessary state variables
     // TODO: Define the game board and other state variables
-    private int[][] board;
+    private Board board;
     
     /**
      * Constructs a new TicTacToe game with an empty board and sets the starting
      * player.
      */
     public TicTacToe() {
-        this.board = new int[3][3];
+        // this.board = new int[3][3];
         // TODO: Initialize the game board and set the starting player
     }
 
@@ -41,7 +43,7 @@ public class TicTacToe implements StateHandler {
     public List<Action> getActions() {
         // TODO: Implement method to return a list of legal actions (moves) for the
         // current state
-        List<Action> actions = List.of(new TicTacToeAction(0, 0));
+        List<Action> actions = new ArrayList<Action>();
         return actions; // Placeholder return
     }
 
@@ -74,23 +76,15 @@ public class TicTacToe implements StateHandler {
     }
 
     public int getPosition(int x, int y) {
-        return this.board[x][y];
+        return 0;
     }
 
     public void setPosition(int x, int y, int value) {
-        this.board[x][y] = value;
+        // this.board[x][y] = value;
     }
 
-    public String getBoard() {
-        String boardRep = "";
-        for (int i = 0; i < this.board.length; i++) {
-            String row = "";
-            for (int j = 0; j < this.board[i].length; j++) {
-                row += this.board[i][j];
-            }
-            boardRep += row + "\n";
-        }
-        return boardRep;
+    public Board getBoard() {
+        return this.board;
     }
     // Additional helper methods specific to Tic Tac Toe, such as checking for a
     // win, can be added here

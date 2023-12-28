@@ -1,6 +1,5 @@
 package board.master.model;
 
-import board.master.model.game.nim.Nim;
 import board.master.model.game.tic_tac_toe.TicTacToe;
 
 /**
@@ -34,8 +33,6 @@ public class GameFactory {
         switch (gameType.toUpperCase()) {
             case "TICTACTOE":
                 return new TicTacToe();
-            case "NIM":
-                return new Nim(13, 3);
             default:
                 throw new IllegalArgumentException("Invalid game type: " + gameType);
         }
