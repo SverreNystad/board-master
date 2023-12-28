@@ -2,6 +2,7 @@ package board.master.model.agents;
 
 import board.master.model.Action;
 import board.master.model.StateHandler;
+import java.lang.Math;
 
 /**
  * Class implementing the Minimax algorithm.
@@ -27,8 +28,18 @@ public class Minimax implements Agent {
      */
     @Override
     public Action getAction(StateHandler state) {
-        // TODO: Implement the minimax algorithm to choose and return the best action.
-        throw new UnsupportedOperationException("Unimplemented method 'getAction'");
+        float currentBestValue = Float.NEGATIVE_INFINITY;
+        Action currentBestAction = null;
+
+        for (Action action : state.getActions()) {
+            float value = evaluateState(state.result(action));
+            if (currentBestValue < value) {
+                currentBestValue = value;
+                currentBestAction = action;
+                
+            }
+        }
+        return currentBestAction;
     }
 
     /**
@@ -41,9 +52,31 @@ public class Minimax implements Agent {
      * @param state The game state to evaluate.
      * @return The numerical evaluation of the state.
      */
-    private static int evaluateState(StateHandler state) {
-        // TODO: Implement an evaluation method for the game states.
-        throw new UnsupportedOperationException("Method not implemented yet.");
+    private static float evaluateState(StateHandler state) {
+        final int Max = 1;
+        final int Min = -1;
+
+        if (state.isTerminal()) {
+            return state.Utility();
+        }
+        float value;
+        switch (state.toMove()) {
+            case Max:
+                value = Float.NEGATIVE_INFINITY;
+                for (Action action : state.getActions()) {
+                    value = Math.max(value, evaluateState(state.result(action)));
+                }
+                return value;
+            
+            case Min:
+                value = Float.POSITIVE_INFINITY;
+                for (Action action : state.getActions()) {
+                    value = Math.min(value, evaluateState(state.result(action)));
+                }
+                return value;
+            default:
+                return 0;
+        }
     }
 
     // Additional methods for optimizations (like alpha-beta pruning) and utility
