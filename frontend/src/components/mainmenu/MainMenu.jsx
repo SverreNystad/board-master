@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'; // <-- useContext is imported here
 import { Link } from 'react-router-dom';
 import './MainMenu.css';
-import routes from '../../routes/routeDefinitions.jsx';
+import { routes } from '../../routes/routeDefinitions.jsx';
 
 
 function MainMenu() {
