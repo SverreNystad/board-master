@@ -1,4 +1,5 @@
 import React from 'react';
+import './Board.css';
 
 function Board({ grid, onClickCallback, shallLoad }) {
   const handleClick = (rowIndex, columnIndex) => () => {
@@ -8,10 +9,10 @@ function Board({ grid, onClickCallback, shallLoad }) {
   };
 
   return (
-    <div style={boardContainerStyle}>
+    <div className='boardContainer'>
       {shallLoad && (
-        <div style={loadingOverlayStyle}>
-          <div style={loadingSymbolStyle}>Waiting on bots action</div>
+        <div className='loadingOverlay'>
+          <div className='loadingSymbol'>Waiting on bots action</div>
         </div>
       )}
       <div style={{ display: 'flex', flexDirection: 'column' }}>
