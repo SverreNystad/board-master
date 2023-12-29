@@ -31,4 +31,8 @@ public class Game {
     public Board getBoard() {
         return stateHandler.getBoard();
     }
+
+    public void setStateHandler(StateHandler transformedGame) {
+        this.stateHandler = transformedGame;
+    }
 }
