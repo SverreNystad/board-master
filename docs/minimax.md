@@ -47,7 +47,7 @@ This function evaluates the utility of a game state. (AKA goodness of a situatio
 
 **Pseudocode:**
 ```py
-function minimax(node, isMaximizingPlayer) -> float:
+def minimax(node, isMaximizingPlayer) -> float:
     if node is a terminal node:
         return the heuristic value of node
 
