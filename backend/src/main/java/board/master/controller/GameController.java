@@ -88,9 +88,10 @@ public class GameController {
         }
     }
 
-    @GetMapping("/test")
-    public GameResponse test() {
+    @GetMapping("/mock")
+    public ResponseEntity<GameResponse> test() {
         // Logic to generate bot's move
-        return new GameResponse("is", "status", new Board(0, 0));
+        GameResponse response = new GameResponse("ID1223", "status", new Board(3, 3));
+        return ResponseEntity.ok(response);
     }
 }
