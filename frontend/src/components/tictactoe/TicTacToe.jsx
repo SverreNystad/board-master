@@ -6,7 +6,7 @@ import Board from './Board';
 const baseUrl = 'http://localhost:8080/api';
 const startGameUrl = `${baseUrl}/start`;
 const makeMoveUrl = `${baseUrl}/move`;
-const botMoveUrl = `${baseUrl}/bot`;
+const botMoveUrl = `${baseUrl}/bot-move`;
 function TicTacToe() {
   const [gameData, setGameData] = useState(null);
   const [shallLoad, setShallLoad] = useState(false);
