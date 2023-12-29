@@ -2,6 +2,8 @@ import React from 'react';
 
 function Board({ grid, onClickCallback, shallLoad }) {
   const handleClick = (rowIndex, columnIndex) => () => {
+    // When the shallLoad prop is true, do not allow the user to click
+    if (shallLoad) return;
     onClickCallback(rowIndex, columnIndex);
   };
 
