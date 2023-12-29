@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { apiRoutes } from '../../routes/routeDefinitions';
 import Board from './Board';
@@ -10,6 +10,11 @@ function TicTacToe() {
   const [gameData, setGameData] = useState(null);
   const [shallLoad, setShallLoad] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    console.log(gameData);
+  }, [gameData]);
+
 
   const startGame = async () => {
     try {
@@ -57,8 +62,9 @@ function TicTacToe() {
   const botMove = async () => {
     console.log("Bot Move");
     setShallLoad(true);
+    console.log(gameData.gameId);
     let requestBody = {
-      gameId: gameData.gameId
+      gameId: gameData.gameId,
     }
     try {
       const response = await axios.get(apiRoutes.botMove, requestBody);
