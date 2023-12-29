@@ -1,3 +1,5 @@
+package board.master.model.games.chess;
+
 public abstract class Piece {
     
     public enum Color {
