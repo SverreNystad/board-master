@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import board.master.model.Board;
+import board.master.model.Move;
 import board.master.model.games.tictactoe.TicTacToe;
 
 public class TicTacToeTest {
@@ -111,6 +112,32 @@ public class TicTacToeTest {
         }
     }
 
+    @Nested
+    @DisplayName("Test of result")
+    class TicTacToeResult {
+        @Test
+        @DisplayName("Test of result when not terminal")
+        void testResult() {
+            String value = "1";
+            int x = 1;
+            int y = 2;
+            ticTacToe.setPosition(x, y, value);
+            TicTacToe newTicTacToe = (TicTacToe) ticTacToe.result(new Move(x, y, value));
+            assertEquals(value, newTicTacToe.getBoard().getPosition(x, y));
+        }
+
+        @Test
+        @DisplayName("Test of result when terminal")
+        void testResult2() {
+            String value = "1";
+            int x = 1;
+            for (int y = 0; y < ticTacToe.getBoard().getColumns(); y++) {
+                ticTacToe.setPosition(x, y, value);
+            }
+            TicTacToe newTicTacToe = (TicTacToe) ticTacToe.result(new Move(x, 0));
+            assertEquals(value, newTicTacToe.getBoard().getPosition(x, 0));
+        }
+    }
     @Test
     void testResult() {
 
@@ -121,9 +148,38 @@ public class TicTacToeTest {
 
     }
 
-    @Test
-    void testToMove() {
+    @Nested
+    @DisplayName("Test of toMove")
+    class TicTacToeToMove {
+        @Test
+        @DisplayName("Test of toMove when board is empty")
+        void testToMove() {
+            int value = 1;
+            assertEquals(value, ticTacToe.toMove());
+        }
 
+        @Test
+        @DisplayName("Test of toMove when 3 pieces are laid")
+        void testToMove2() {
+            String value = "-1";
+            int x = 1;
+            for (int y = 0; y < ticTacToe.getBoard().getColumns(); y++) {
+                ticTacToe.setPosition(x, y, value);
+            }
+            assertEquals(Integer.parseInt(value), ticTacToe.toMove());
+        }
+
+        @Test
+        @DisplayName("Test of toMove when board is full")
+        void testToMove3() {
+            String value = "1";
+            for (int x = 0; x < ticTacToe.getBoard().getRows(); x++) {
+                for (int y = 0; y < ticTacToe.getBoard().getColumns(); y++) {
+                    ticTacToe.setPosition(x, y, value);
+                }
+            }
+            assertEquals(0, ticTacToe.toMove());
+        }
     }
 }
 
