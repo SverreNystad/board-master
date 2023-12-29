@@ -33,6 +33,7 @@ function Board({ grid, onClickCallback, shallLoad }) {
   );
 }
 
+// Magic code
 const cellStyle = {
   width: '50px',
   height: '50px',
