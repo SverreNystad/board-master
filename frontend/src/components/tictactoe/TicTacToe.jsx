@@ -17,7 +17,7 @@ function TicTacToe() {
         botType: "minimax", // or "random"
         gameType: "tic-tac-toe" // or "chess", based on your game logic
       };
-      const response = await axios.get(apiRoutes.mock, requestData);
+      const response = await axios.post(apiRoutes.startGame, requestData);
 
       // Update state with response data
       setGameData(response.data);
