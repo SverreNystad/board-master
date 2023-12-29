@@ -32,7 +32,7 @@ public class Minimax implements Agent {
         Action currentBestAction = null;
 
         for (Action action : state.getActions()) {
-            float value = evaluateState(state.result(action));
+            float value = evaluateState(state.result(action), true);
             if (currentBestValue < value) {
                 currentBestValue = value;
                 currentBestAction = action;
@@ -52,30 +52,25 @@ public class Minimax implements Agent {
      * @param state The game state to evaluate.
      * @return The numerical evaluation of the state.
      */
-    private static float evaluateState(StateHandler state) {
-        final int MAX = 1;
-        final int MIN = -1;
+    private static float evaluateState(StateHandler state, Boolean isMaximizingPlayer) {
 
         if (state.isTerminal()) {
             return state.utility();
         }
         float value;
-        switch (state.toMove()) {
-            case MAX:
+        if (isMaximizingPlayer) {
                 value = Float.NEGATIVE_INFINITY;
                 for (Action action : state.getActions()) {
-                    value = Math.max(value, evaluateState(state.result(action)));
+                    value = Math.max(value, evaluateState(state.result(action), !isMaximizingPlayer));
                 }
                 return value;
-            
-            case MIN:
+        }
+        else {
                 value = Float.POSITIVE_INFINITY;
                 for (Action action : state.getActions()) {
-                    value = Math.min(value, evaluateState(state.result(action)));
+                    value = Math.min(value, evaluateState(state.result(action), !isMaximizingPlayer));
                 }
                 return value;
-            default:
-                return 0;
         }
     }
 
