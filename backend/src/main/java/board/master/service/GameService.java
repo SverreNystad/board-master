@@ -60,12 +60,16 @@ public class GameService {
      * @return updated game state
      */
     public GameResponse playerMove(PlayerMoveRequest request) throws IllegalArgumentException {
+        System.out.println("Player move request: id:" + request.getGameId() + " x:" + request.getMove().getX() + " y:" + request.getMove().getY());
+        
         // Get move object
         Action action = request.getMove();
 
         // Get game object
         Game game = games.get(request.getGameId());
-
+        
+        System.out.println("Game: " + game + " " + game.getGameId() + " getAgent " + game.getAgent() + " getStateHandler " + game.getStateHandler());
+        System.out.println("Games: " + games.keySet());
         if (game.getStateHandler().getActions().contains(action)) {
             game.getStateHandler().result(action);
         }
