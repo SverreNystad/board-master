@@ -1,5 +1,6 @@
 package board.master.model.agents;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -8,15 +9,12 @@ import java.util.List;
 public class AgentFactory {
 
     public static Agent createAgent(String agentStrategy) throws IllegalArgumentException {
-
-        switch (agentStrategy.toUpperCase()) {
-            case "MINIMAX":
-                return new Minimax();
-            case "RANDOM":
-                return new RandomStrategy();
-            default:
-                throw new IllegalArgumentException("Invalid agent type: " + agentStrategy);
+        for (String agent : getAgentTypesList()) {
+            if (agentStrategy.toUpperCase().equals(agent)) {
+                return getAgentTypes().get(agent);
+            }
         }
+        throw new IllegalArgumentException("Invalid agent type");
     }
 
     /**
@@ -24,11 +22,15 @@ public class AgentFactory {
      * 
      * @return list of valid agent types
      */
-    public static List<String> getAgentTypes() {
-        // TODO Create a way to get the list of valid agent types that will be updated when new agents are added
-        // Maybe use a hashmap to store the agent types and their descriptions
-        // And return the keys of the hashmap, make then this hashmap used in createAgent method to make them stay in sync
-        return null;
+    private static HashMap<String, Agent> getAgentTypes() {
+        HashMap<String, Agent> agents = new HashMap<>();
+        agents.put("MINIMAX", new Minimax());
+        agents.put("RANDOM", new RandomStrategy());
+        return agents;
+    }
+
+    public static List<String> getAgentTypesList() {
+        return List.copyOf(getAgentTypes().keySet());
     }
 
 }
