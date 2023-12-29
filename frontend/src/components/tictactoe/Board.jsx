@@ -21,8 +21,8 @@ function Board({ grid, onClickCallback, shallLoad }) {
             {row.map((cell, columnIndex) => (
               <div className='cell' key={columnIndex} style={cellStyle} onClick={handleClick(rowIndex, columnIndex)}>
                 <div>
-                  <b>X</b>
-                {cell}
+                  {!!!cell && <b className='toBePlaced'>X</b>}
+                <b className='toBekept'>{cell}</b>
                 </div>
               </div>
             ))}
