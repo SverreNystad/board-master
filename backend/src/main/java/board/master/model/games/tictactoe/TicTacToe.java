@@ -120,9 +120,9 @@ public class TicTacToe implements StateHandler {
         //String checkWin = checkWin();
         switch (checkWin()) {
             case "X":
-                return 1;
-            case "O":
                 return -1;
+            case "O":
+                return 1;
             default:
                 return 0;
         }
