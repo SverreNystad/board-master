@@ -1,7 +1,5 @@
 package board.master.model; 
 
-import board.master.model.Action;
-
 public class Move extends Action {
     
     private final String x; // e.g., "e2"
@@ -26,5 +24,17 @@ public class Move extends Action {
 
     public String getY() {
         return y;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Move)) {
+            return false;
+        }
+        Move otherMove = (Move) obj;
+        return this.x.equals(otherMove.getX()) && this.y.equals(otherMove.getY());
     }
 }

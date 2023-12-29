@@ -17,4 +17,5 @@ package board.master.model;
  */
 public abstract class Action {
 
+    public abstract boolean equals(Object obj);
 }
