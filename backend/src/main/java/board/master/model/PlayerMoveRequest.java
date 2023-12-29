@@ -5,9 +5,9 @@ public class PlayerMoveRequest {
     private String gameId;
     private Move move;
 
-    public PlayerMoveRequest(String gameId, Move move) {
+    public PlayerMoveRequest(String gameId, int x, int y) {
         this.gameId = gameId;
-        this.move = move;
+        this.move = new Move(x, y);
     }
 
     public String getGameId() {
