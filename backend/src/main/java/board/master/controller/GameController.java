@@ -15,7 +15,6 @@ import board.master.model.PlayerMoveRequest;
 
 import board.master.service.GameService;
 
-
 @RestController
 @RequestMapping("/api")
 public class GameController {
@@ -27,6 +26,9 @@ public class GameController {
         this.gameService = gameService;
     }
 
+    /**
+     * Endpoint to start a new game
+     */
     @PostMapping("/start")
     public ResponseEntity<GameResponse> startGame(@RequestBody GameStartRequest request) {
         // Logic to start a new game
