@@ -1,6 +1,5 @@
 package board.master.model;
 
-
 public class PlayerMoveRequest {
     private String gameId;
     private Move move;
