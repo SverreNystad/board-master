@@ -65,6 +65,9 @@ public class TicTacToe implements StateHandler {
      */
     @Override
     public List<Action> getActions() {
+        if (checkWin() != "") {
+            return new ArrayList<Action>();
+        }
         // current state
         List<Action> actions = new ArrayList<Action>();
         for (int x = 0; x < this.board.getRows(); x++) {
@@ -99,13 +102,8 @@ public class TicTacToe implements StateHandler {
         if (getActions().size() == 0) {
             return true;
         }
-
-        //check for win in rows and columns
-        if(checkWin() != "") {
-            return true;
-        }
   
-        return false; // Placeholder return
+        return false;
     }
 
     /**
