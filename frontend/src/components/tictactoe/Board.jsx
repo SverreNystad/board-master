@@ -19,7 +19,7 @@ function Board({ grid, onClickCallback, shallLoad }) {
         {grid.map((row, rowIndex) => (
           <div key={rowIndex} style={{ display: 'flex' }}>
             {row.map((cell, columnIndex) => (
-              <div key={columnIndex} style={cellStyle} onClick={handleClick(rowIndex, columnIndex)}>
+              <div className='cell' key={columnIndex} style={cellStyle} onClick={handleClick(rowIndex, columnIndex)}>
                 {cell}
               </div>
             ))}
@@ -39,5 +39,7 @@ const cellStyle = {
   alignItems: 'center',
   cursor: 'pointer'
 };
+
+
 
 export default Board;
