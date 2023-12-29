@@ -48,6 +48,7 @@ function TicTacToe() {
       console.log("Move Made:", response.data);
       botMove();
     } catch (error) {
+      setErrorMessage(error.message);
       console.error("Error making move:", error);
     }
 
@@ -66,6 +67,7 @@ function TicTacToe() {
       setGameData(response.data);
       console.log("Bot Move:", response.data);
     } catch (error) {
+      setErrorMessage(error.message);
       console.error("Error making bot move:", error);
 
     } finally {
