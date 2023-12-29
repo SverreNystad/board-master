@@ -15,7 +15,7 @@ function Board({ grid, onClickCallback, shallLoad }) {
           <div className='loadingSymbol'>Waiting on bots action</div>
         </div>
       )}
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className='columnGrid'>
         {grid.map((row, rowIndex) => (
           <div key={rowIndex} style={{ display: 'flex' }}>
             {row.map((cell, columnIndex) => (

@@ -55,6 +55,13 @@
     border: '1px solid #ccc';
     border-radius: '5px';
   }
+
+.columnGrid {
+    display: 'flex';
+    flex-direction: 'column';
+    justify-content: 'center';
+    align-items: 'center';
+}
   
 .cellStyle {
     width: '50px';
