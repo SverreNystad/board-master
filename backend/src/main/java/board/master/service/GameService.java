@@ -67,23 +67,15 @@ public class GameService {
 
         // Get game object
         Game game = games.get(request.getGameId());
-        
-        System.out.println("Game: " + game + " " + game.getGameId() + " getAgent " + game.getAgent() + " getStateHandler " + game.getStateHandler());
-        System.out.println("Games   : " + games.keySet());
-        System.out.println("Action x and y: " + ((Move) action).getX() + " " + ((Move) action).getY());
-        System.out.println("Actions : " + game.getStateHandler().getActions());
-        System.out.println("Does it contain action" + game.getStateHandler().getActions().contains(action));
-
-        for (Action a : game.getStateHandler().getActions()) {
-            System.out.println("Action x and y: " + ((Move) a).getX() + " " + ((Move) a).getY());
-        }
 
         if (game.getStateHandler().getActions().contains(action)) {
-            game.getStateHandler().result(action);
+            StateHandler transformedGame = game.getStateHandler().result(action);
+            // update game state
+            game.setStateHandler(transformedGame);
         }
         else {
             System.out.println("Invalid move");
-            throw new IllegalArgumentException("Invalid move");
+            throw new IllegalArgumentException("Invalid move" + action.toString());
         }
         if (game.getStateHandler().isTerminal()) {
             return new GameResponse(game.getGameId(), "terminal", game.getBoard());
@@ -94,15 +86,14 @@ public class GameService {
     }
 
     public GameResponse botMove(String gameId) {
-        // Logic to generate bot's move
-        System.out.println("gameId: " + gameId);
         Game game = games.get(gameId);
-        System.out.println("Bot move request: id:" + gameId);
-        System.out.println("Game: " + game + " " + game.getGameId() + " getAgent " + game.getAgent() + " getStateHandler " + game.getStateHandler());
-        Action action = game.getAgent().getAction(game.getStateHandler());
-        StateHandler transformedGame = game.getStateHandler().result(action);
+        Agent agent = game.getAgent();
+        Action action = agent.getAction(game.getStateHandler());
+        
         // update game state
+        StateHandler transformedGame = game.getStateHandler().result(action);
         game.setStateHandler(transformedGame);
+
         if (transformedGame.isTerminal()) {
             return new GameResponse(game.getGameId(), "terminal", game.getBoard());
         }
