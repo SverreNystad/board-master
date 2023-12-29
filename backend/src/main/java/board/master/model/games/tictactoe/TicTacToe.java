@@ -40,8 +40,24 @@ public class TicTacToe implements StateHandler {
      */
     @Override
     public int toMove() {
-        // TODO: Implement method to return the current player's turn
-        return 0; // Placeholder return
+        int emptySpaces = 0;
+        for (int x = 0; x < this.board.getRows(); x++) {
+            for (int y = 0; y < this.board.getColumns(); y++) {
+                if (this.board.getPosition(x, y).equals("")) {
+                    emptySpaces++;
+                }
+            }
+        }
+        //In this code, X always goes first
+        if (emptySpaces == 0) {
+            return 0;
+        }
+        if (emptySpaces % 2 == 0) { //if even, it's O's turn
+            return -1;
+        }
+        else { //if odd, it's X's turn
+            return 1;
+        }
     }
 
     /**
@@ -56,11 +72,11 @@ public class TicTacToe implements StateHandler {
         for (int x = 0; x < this.board.getRows(); x++) {
             for (int y = 0; y < this.board.getColumns(); y++) {
                 if (this.board.getPosition(x, y).equals("")) {
-                    actions.add((Action) new Move(Integer.toString(x), Integer.toString(y)));
+                    actions.add((Action) new Move(x, y, ""));
                 }
             }
         }
-        return actions; // Placeholder return
+        return actions;
     }
 
     /**
