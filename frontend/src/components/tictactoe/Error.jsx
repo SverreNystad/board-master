@@ -1,4 +1,4 @@
-import errorStyle from './errorStyle.css';
+import errorStyle from './Error.css';
 
 function Error({ error }) {
     return (
@@ -7,3 +7,5 @@ function Error({ error }) {
         </div>
     );
     }
+
+export default Error;

@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { apiRoutes } from '../../routes/routeDefinitions';
 import Board from './Board';
+import Error from './Error';
 import './TicTacToe.css';
+
 
 function TicTacToe() {
   const [gameData, setGameData] = useState(null);
   const [shallLoad, setShallLoad] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const startGame = async () => {
     try {
@@ -23,6 +26,7 @@ function TicTacToe() {
       setGameData(response.data);
       console.log("Game Started:", response.data);
     } catch (error) {
+      setErrorMessage(error.message);
       console.error("Error starting game:", error);
     }
   }
@@ -82,6 +86,7 @@ function TicTacToe() {
           <div className='board-container'>
             <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad}/> {/* Render the Board */}
           </div>
+          <Error error={errorMessage} />
         </div>
       )}
     </div>
