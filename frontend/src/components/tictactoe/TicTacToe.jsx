@@ -9,6 +9,7 @@ const makeMoveUrl = `${baseUrl}/move`;
 const botMoveUrl = `${baseUrl}/bot`;
 function TicTacToe() {
   const [gameData, setGameData] = useState(null);
+  const [shallLoad, setShallLoad] = useState(false);
 
   const startGame = async () => {
     try {
@@ -48,7 +49,7 @@ function TicTacToe() {
         <div>
           <p>Game ID: {gameData.gameId}</p>
           <p>Status: {gameData.status}</p>
-          <Board grid={gameData.board.grid} onClickCallback={makeMove} /> {/* Render the Board */}
+          <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad}/> {/* Render the Board */}
         </div>
       )}
     </div>
