@@ -88,9 +88,10 @@
     transform: translateY(-2px);
 }
 
-.cell:active div {
-    opacity: 1; /* Ensure the text remains visible when clicked */
-    transform: scale(1.1); /* Adjust the value as needed */
+
+/* .cell:active div {
+    opacity: 1; Ensure the text remains visible when clicked
+    transform: scale(1.1); Adjust the value as needed
     transform-origin: center;
     transition: opacity 0.1s ease, transform 0.1s ease;
-  }
+  } */

@@ -88,9 +88,9 @@ function TicTacToe() {
           <div className='board-container'>
             <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad}/> {/* Render the Board */}
           </div>
-          <Error error={errorMessage} />
         </div>
       )}
+      <Error error={errorMessage} />
     </div>
   );
 }
