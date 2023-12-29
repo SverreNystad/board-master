@@ -2,8 +2,6 @@ package board.master.model.games.tictactoe;
 
 import java.util.List;
 
-import javax.swing.plaf.nimbus.State;
-
 import java.util.ArrayList;
 
 import board.master.model.Board;
@@ -187,11 +185,4 @@ public class TicTacToe implements StateHandler {
     // Additional helper methods specific to Tic Tac Toe, such as checking for a
     // win, can be added here
     // TODO: Implement helper methods for game-specific logic
-    public static void main(String[] args) {
-        StateHandler state = new TicTacToe();
-        StateHandler newState = state.result(new Move(0, 0));
-
-        System.out.println(state.getActions().size());
-        System.out.println(newState.getActions().size());  
-    }
 }
