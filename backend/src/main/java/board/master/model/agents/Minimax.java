@@ -57,7 +57,7 @@ public class Minimax implements Agent {
         final int MIN = -1;
 
         if (state.isTerminal()) {
-            return state.Utility();
+            return state.utility();
         }
         float value;
         switch (state.toMove()) {
