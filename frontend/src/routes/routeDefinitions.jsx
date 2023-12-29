@@ -8,10 +8,9 @@ const baseUrl = 'http://localhost:8080/api';
 
 
 const apiRoutes = {
-  startGame: `${baseUrl}/start-game`,
+  startGame: `${baseUrl}/start`,
   makeMove: `${baseUrl}/move`,
   botMove: `${baseUrl}/bot-move`,
-  mock: `${baseUrl}/mock`,
 };
 
 export { routes, apiRoutes };
