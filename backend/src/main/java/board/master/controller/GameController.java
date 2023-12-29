@@ -73,9 +73,8 @@ public class GameController {
      * @param gameId - String with the id of the game to make a move in
      * @return GameResponse with the game id, status and board
      */
-    @GetMapping("/bot-move")
+    @PostMapping("/bot-move")
     public ResponseEntity<GameResponse> botMove(@RequestBody String gameId) {
-        
         try {
             GameResponse response = gameService.botMove(gameId);
             return ResponseEntity.ok(response);
