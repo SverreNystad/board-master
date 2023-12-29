@@ -10,7 +10,7 @@ public class AgentFactory {
     public static Agent createAgent(String agentStrategy) throws IllegalArgumentException {
 
         switch (agentStrategy.toUpperCase()) {
-            case "MINI-MAX":
+            case "MINIMAX":
                 return new Minimax();
             case "RANDOM":
                 return new RandomStrategy();

@@ -12,6 +12,7 @@ public class GameStartRequest {
     public GameStartRequest(String playerColor, String botType, String gameType) {
         this.playerColor = playerColor;
         this.botType = botType;
+        this.gameType = gameType;
     }
 
     public String getPlayerColor() {
