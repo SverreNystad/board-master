@@ -11,6 +11,7 @@ const apiRoutes = {
   startGame: `${baseUrl}/start`,
   makeMove: `${baseUrl}/move`,
   botMove: `${baseUrl}/bot-move`,
+  getAgents: `${baseUrl}/agents`,
 };
 
 export { routes, apiRoutes };
