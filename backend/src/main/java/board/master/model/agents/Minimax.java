@@ -53,22 +53,22 @@ public class Minimax implements Agent {
      * @return The numerical evaluation of the state.
      */
     private static float evaluateState(StateHandler state) {
-        final int Max = 1;
-        final int Min = -1;
+        final int MAX = 1;
+        final int MIN = -1;
 
         if (state.isTerminal()) {
             return state.Utility();
         }
         float value;
         switch (state.toMove()) {
-            case Max:
+            case MAX:
                 value = Float.NEGATIVE_INFINITY;
                 for (Action action : state.getActions()) {
                     value = Math.max(value, evaluateState(state.result(action)));
                 }
                 return value;
             
-            case Min:
+            case MIN:
                 value = Float.POSITIVE_INFINITY;
                 for (Action action : state.getActions()) {
                     value = Math.min(value, evaluateState(state.result(action)));
