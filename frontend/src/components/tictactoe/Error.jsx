@@ -4,7 +4,6 @@ function Error({ error }) {
     return (
         <div className='error'>
         {error}
-        some error
         </div>
     );
     }
