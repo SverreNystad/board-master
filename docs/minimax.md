@@ -47,7 +47,7 @@ This function evaluates the utility of a game state. (AKA goodness of a situatio
 
 **Pseudocode:**
 ```py
-function minimax(node, isMaximizingPlayer) -> float:
+def minimax(node, isMaximizingPlayer) -> float:
     if node is a terminal node:
         return the heuristic value of node
 
@@ -134,4 +134,49 @@ def negamax(node, depth, color) -> float:
         bestValue = max(bestValue, value)
 
     return bestValue
+```
+
+### Iterative Deepening in Minimax
+Iterative Deepening is an enhancement to the Minimax algorithm that combines the benefits of depth-first and breadth-first search. Here’s how it can be integrated:
+
+#### What is Iterative Deepening?
+Iterative Deepening involves performing a series of depth-limited searches, each time increasing the depth limit, until a goal state is found or a specified depth is reached. This approach is beneficial because it retains the memory efficiency of depth-first search while ensuring that the shallowest goal state is found first, like in breadth-first search.
+
+#### Integrating Iterative Deepening with Minimax
+In the context of Minimax, Iterative Deepening is used to explore the game tree gradually. At each iteration, the depth of the search is increased. This is particularly useful in games with a vast number of possible moves, as it allows the algorithm to search more efficiently within a time constraint or other resource limitations.
+
+**Pseudocode for Iterative Deepening Minimax:**
+Here’s how you might implement Iterative Deepening in a Minimax algorithm:
+```py
+def iterativeDeepeningMinimax(state, maxDepth) -> Action:
+    """
+    Performs iterative deepening minimax search up to the specified maxDepth.
+    Returns the best action from the root state.
+    """
+    best_action = None
+    for depth in range(1, maxDepth + 1):
+        best_action = depthLimitedMinimax(state, depth)
+    return best_action
+
+def depthLimitedMinimax(state, depth, isMaximizingPlayer=True) -> float:
+    """
+    Minimax function with depth limitation.
+    """
+    if depth == 0 or node is a terminal node:
+        return the heuristic value of state
+
+    if isMaximizingPlayer:
+        bestValue = float('-inf')
+        for child in node.children:
+            value = depthLimitedMinimax(child, depth - 1, False)
+            bestValue = max(bestValue, value)
+        return bestValue
+
+    else:
+        bestValue = float('inf')
+        for child in node.children:
+            value = depthLimitedMinimax(child, depth - 1, True)
+            bestValue = min(bestValue, value)
+        return bestValue
+
 ```
