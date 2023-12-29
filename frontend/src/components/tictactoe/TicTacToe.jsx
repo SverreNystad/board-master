@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { apiRoutes } from '../../routes/routeDefinitions';
 import Board from './Board';
-
+import './TicTacToe.css';
 
 function TicTacToe() {
   const [gameData, setGameData] = useState(null);
@@ -79,7 +79,9 @@ function TicTacToe() {
         <div>
           <p>Game ID: {gameData.gameId}</p>
           <p>Status: {gameData.status}</p>
-          <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad}/> {/* Render the Board */}
+          <div className='board-container'>
+            <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad}/> {/* Render the Board */}
+          </div>
         </div>
       )}
     </div>
