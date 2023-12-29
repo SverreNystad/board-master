@@ -10,10 +10,26 @@ function TicTacToe() {
   const [gameData, setGameData] = useState(null);
   const [shallLoad, setShallLoad] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [botType, setBotType] = useState("");
+  const [availableBots, setAvailableBots] = useState([]);
+
+  useEffect(() => {
+    getAgents();
+    console.log(availableBots);
+  }, []);
 
   useEffect(() => {
     console.log(gameData);
   }, [gameData]);
+
+  useEffect(() => {
+    setBotType(availableBots[0]);
+  } , [availableBots]);
+
+  useEffect(() => { 
+    console.log(botType);
+  }, [botType]);
+
 
 
   const startGame = async () => {
@@ -22,7 +38,7 @@ function TicTacToe() {
       // Mock request data
       let requestData = {
         playerColor: "white", // or "black"
-        botType: "minimax", // or "random"
+        botType: botType,
         gameType: "tic-tac-toe" // or "chess", based on your game logic
       };
       const response = await axios.post(apiRoutes.startGame, requestData);
@@ -36,7 +52,21 @@ function TicTacToe() {
     }
   }
 
-  
+  const getAgents = async () => {
+    try {
+      console.log("Getting Agent");
+      const response = await axios.get(apiRoutes.getAgents);
+
+      // Update state with response data
+      setAvailableBots(response.data);
+      console.log("Agent:", response.data);
+    } catch (error) {
+      setErrorMessage(error.message);
+      console.error("Error getting agent:", error);
+    }
+
+  }
+
   const makeMove = async (x, y) => {
     console.log("Making Move" + x + y);
 
@@ -86,6 +116,14 @@ function TicTacToe() {
   return (
     <div className="TicTacToe">
       <h1>BoardMaster TicTacToe</h1>
+      <h2>Choose bot-type:</h2>
+      <div>
+        <select onChange={(e) => setBotType(e.target.value)}>
+          {availableBots.map((bot) => {
+            return <option value={bot}>{bot}</option>
+          })}
+        </select>
+      </div>
       <button onClick={startGame}>Start Game</button>
       {gameData && (
         <div>
