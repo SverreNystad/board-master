@@ -73,13 +73,24 @@
     font-size: large;
 }
 
+.cell:hover b {
+    font-size: large;
+}
+
+.cell div {
+    opacity: 0; /* Set initial opacity to 0 to make the text invisible */
+    transition: opacity 0.3s ease; /* Add a smooth transition for opacity */
+}
+
 .cell:hover div{
-    /* background-color: #000; */
+    opacity: 1;
     transition: background-color 0.3s ease;
-    transform: translateY(-5px);
+    transform: translateY(-2px);
 }
 
 .cell:active div {
-    transform: translateY(2px); /* Adjust the value as needed */
-    transition: transform 0.1s ease;
+    opacity: 1; /* Ensure the text remains visible when clicked */
+    transform: scale(1.1); /* Adjust the value as needed */
+    transform-origin: center;
+    transition: opacity 0.1s ease, transform 0.1s ease;
   }
