@@ -1,9 +1,10 @@
-import errorStyle from './Error.css';
+import './Error.css';
 
 function Error({ error }) {
     return (
-        <div style={errorStyle}>
+        <div className='error'>
         {error}
+        some error
         </div>
     );
     }
