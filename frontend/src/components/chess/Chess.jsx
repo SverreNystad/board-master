@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import routes from '../../routes/routeDefinitions.jsx';
+import { routes } from '../../routes/routeDefinitions.jsx';
 
 
 function Chess() {

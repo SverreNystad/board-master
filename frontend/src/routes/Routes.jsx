@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import routes from './routeDefinitions';
+import { routes } from './routeDefinitions';
 
 // Import your page components
 import Chess from '../components/chess/Chess';

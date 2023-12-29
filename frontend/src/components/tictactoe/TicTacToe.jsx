@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { apiRoutes } from '../../routes/routeDefinitions';
 import Board from './Board';
 
-const baseUrl = 'http://localhost:8080/api';
-const startGameUrl = `${baseUrl}/start`;
-const makeMoveUrl = `${baseUrl}/move`;
-const botMoveUrl = `${baseUrl}/bot`;
+
 function TicTacToe() {
   const [gameData, setGameData] = useState(null);
   const [shallLoad, setShallLoad] = useState(false);
@@ -14,13 +11,13 @@ function TicTacToe() {
   const startGame = async () => {
     try {
       console.log("Starting Game");
+      // Mock request data
       let requestData = {
         playerColor: "white", // or "black"
         botType: "minimax", // or "random"
         gameType: "tic-tac-toe" // or "chess", based on your game logic
       };
-      // Replace with your backend URL
-      const response = await axios.post(startGameUrl, requestData);
+      const response = await axios.get(apiRoutes.mock, requestData);
 
       // Update state with response data
       setGameData(response.data);
@@ -33,18 +30,33 @@ function TicTacToe() {
   
   const makeMove = async (x, y) => {
     console.log("Making Move" + x + y);
+
+    let requestBoard = {
+      gameId: gameData.gameId,
+      x: x,
+      y: y
+    } 
+
+    try {
+      const response = await axios.post(apiRoutes.makeMove, requestBoard);
+      // Update state with response data
+      setGameData(response.data);
+      console.log("Move Made:", response.data);
+      botMove();
+    } catch (error) {
+      console.error("Error making move:", error);
+    }
+
   }
 
   const botMove = async () => {
     console.log("Bot Move");
     setShallLoad(true);
-
+    let requestBody = {
+      gameId: gameData.gameId
+    }
     try {
-      const response = await axios.get(botMoveUrl, {
-        params: {
-          gameId: gameData.gameId
-        }
-      });
+      const response = await axios.get(apiRoutes.botMove, requestBody);
 
       // Update state with response data
       setGameData(response.data);
