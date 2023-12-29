@@ -54,7 +54,7 @@ public class Chess implements StateHandler {
     /**
      * {@inheritDoc}
      */
-    public int Utility() {
+    public int utility() {
         // TODO
         return 0;
     }

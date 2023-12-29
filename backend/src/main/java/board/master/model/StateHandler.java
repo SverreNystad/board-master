@@ -60,7 +60,7 @@ public interface StateHandler {
      *
      * @return the utility (int) of the current state for the player.
      */
-    public int Utility();
+    public int utility();
 
     /**
      * Returns the board object associated with the current state.

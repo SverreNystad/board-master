@@ -65,14 +65,12 @@ public class TicTacToe implements StateHandler {
      */
     @Override
     public List<Action> getActions() {
-        
-        // TODO: Implement method to return a list of legal actions (moves) for the
         // current state
         List<Action> actions = new ArrayList<Action>();
         for (int x = 0; x < this.board.getRows(); x++) {
             for (int y = 0; y < this.board.getColumns(); y++) {
                 if (this.board.getPosition(x, y).equals("")) {
-                    actions.add((Action) new Move(x, y, ""));
+                    actions.add((Action) new Move(x, y));
                 }
             }
         }
@@ -103,7 +101,7 @@ public class TicTacToe implements StateHandler {
         }
 
         //check for win in rows and columns
-        if(checkWin() != null) {
+        if(checkWin() != "") {
             return true;
         }
   
@@ -114,8 +112,9 @@ public class TicTacToe implements StateHandler {
      * {@inheritDoc}
      */
     @Override
-    public int Utility() {
-        switch (checkWin().toUpperCase()) {
+    public int utility() {
+        //String checkWin = checkWin();
+        switch (checkWin()) {
             case "X":
                 return 1;
             case "O":
@@ -129,9 +128,8 @@ public class TicTacToe implements StateHandler {
         return board.getPosition(x, y);
     }
 
-    public void setPosition(int x, int y, String value) {
+    private void setPosition(int x, int y, String value) {
         board.setPosition(x, y, value);
-        // this.board[x][y] = value;
     }
 
     public Board getBoard() {
@@ -145,7 +143,7 @@ public class TicTacToe implements StateHandler {
      * @return
      */
     private String checkWin() {
-        String checkWin = null;
+        String checkWin = "";
         //check for win in rows and columns
         for (int i = 0; i < 3; i++) {
             Boolean isNotEmpty = !board.getPosition(i, i).equals("");
