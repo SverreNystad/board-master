@@ -20,7 +20,10 @@ function Board({ grid, onClickCallback, shallLoad }) {
           <div key={rowIndex} style={{ display: 'flex' }}>
             {row.map((cell, columnIndex) => (
               <div className='cell' key={columnIndex} style={cellStyle} onClick={handleClick(rowIndex, columnIndex)}>
+                <div>
+                  <b>X</b>
                 {cell}
+                </div>
               </div>
             ))}
           </div>

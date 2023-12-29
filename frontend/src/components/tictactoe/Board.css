@@ -69,6 +69,17 @@
 
 }
 
-.cell:hover {
-    background-color: #000;
+.cell b {
+    font-size: large;
 }
+
+.cell:hover div{
+    /* background-color: #000; */
+    transition: background-color 0.3s ease;
+    transform: translateY(-5px);
+}
+
+.cell:active div {
+    transform: translateY(2px); /* Adjust the value as needed */
+    transition: transform 0.1s ease;
+  }
