@@ -36,7 +36,25 @@ function TicTacToe() {
   }
 
   const botMove = async () => {
+    console.log("Bot Move");
+    setShallLoad(true);
 
+    try {
+      const response = await axios.get(botMoveUrl, {
+        params: {
+          gameId: gameData.gameId
+        }
+      });
+
+      // Update state with response data
+      setGameData(response.data);
+      console.log("Bot Move:", response.data);
+    } catch (error) {
+      console.error("Error making bot move:", error);
+
+    } finally {
+      setShallLoad(false);
+    }
   }
 
 
