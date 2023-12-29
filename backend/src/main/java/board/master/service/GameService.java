@@ -6,7 +6,7 @@ import java.util.UUID;
 import board.master.model.GameStartRequest;
 import board.master.model.GameResponse;
 import board.master.model.PlayerMoveRequest;
-import board.master.model.Board;
+import board.master.model.Move;
 import board.master.model.Game;
 import board.master.model.games.chess.Chess;
 import board.master.model.games.tictactoe.TicTacToe;
@@ -69,11 +69,20 @@ public class GameService {
         Game game = games.get(request.getGameId());
         
         System.out.println("Game: " + game + " " + game.getGameId() + " getAgent " + game.getAgent() + " getStateHandler " + game.getStateHandler());
-        System.out.println("Games: " + games.keySet());
+        System.out.println("Games   : " + games.keySet());
+        System.out.println("Action x and y: " + ((Move) action).getX() + " " + ((Move) action).getY());
+        System.out.println("Actions : " + game.getStateHandler().getActions());
+        System.out.println("Does it contain action" + game.getStateHandler().getActions().contains(action));
+
+        for (Action a : game.getStateHandler().getActions()) {
+            System.out.println("Action x and y: " + ((Move) a).getX() + " " + ((Move) a).getY());
+        }
+
         if (game.getStateHandler().getActions().contains(action)) {
             game.getStateHandler().result(action);
         }
         else {
+            System.out.println("Invalid move");
             throw new IllegalArgumentException("Invalid move");
         }
         if (game.getStateHandler().isTerminal()) {
@@ -86,10 +95,15 @@ public class GameService {
 
     public GameResponse botMove(String gameId) {
         // Logic to generate bot's move
+        System.out.println("gameId: " + gameId);
         Game game = games.get(gameId);
+        System.out.println("Bot move request: id:" + gameId);
+        System.out.println("Game: " + game + " " + game.getGameId() + " getAgent " + game.getAgent() + " getStateHandler " + game.getStateHandler());
         Action action = game.getAgent().getAction(game.getStateHandler());
-        game.getStateHandler().result(action);
-        if (game.getStateHandler().isTerminal()) {
+        StateHandler transformedGame = game.getStateHandler().result(action);
+        // update game state
+        game.setStateHandler(transformedGame);
+        if (transformedGame.isTerminal()) {
             return new GameResponse(game.getGameId(), "terminal", game.getBoard());
         }
         else {
