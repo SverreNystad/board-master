@@ -67,7 +67,7 @@ function TicTacToe() {
       gameId: gameData.gameId,
     }
     try {
-      const response = await axios.get(apiRoutes.botMove, requestBody);
+      const response = await axios.post(apiRoutes.botMove, requestBody);
 
       // Update state with response data
       setGameData(response.data);
