@@ -36,6 +36,8 @@
 
 ## Introduction
 
+### What is BoardMaster?
+BoardMaster is a full-stack application designed for players to enjoy various board games against a range of bots, such as RandomMoveAgent, MiniMaxAgent, and others. It offers an immersive gaming experience, combining classic board game fun with modern AI technology.
 
 ### Minimax Algorithm
 The games this algorithm works great for are what game theorists call deterministic , two-player turn-taking, perfect information, zero-sum games. These games are "fully observable", meaning that you can see everything that is going on in the game. They are also "deterministic", meaning that there is no element of chance involved in the game. There is no dice rolling or card drawing. The game is "zero-sum", meaning that one player's gain is the other player's loss. In other words, if you add up all the gains and losses for each player, they will sum to zero. Finally, the game is "turn-taking", meaning that the players alternate making moves, and "perfect information", meaning that no information is hidden from either player. Chess, checkers, tic-tac-toe, Go, and Othello are all examples of deterministic, two-player, turn-taking, perfect information, zero-sum games. However games that has too many possible moves, such as chess, will take too long to compute and will not be feasible to use this algorithm on.
