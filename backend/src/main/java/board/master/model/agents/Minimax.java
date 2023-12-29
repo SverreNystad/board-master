@@ -52,7 +52,7 @@ public class Minimax implements Agent {
      * @param state The game state to evaluate.
      * @return The numerical evaluation of the state.
      */
-    private static float evaluateState(StateHandler state) {
+    private static float evaluateState(StateHandler state, Boolean isMaximizingPlayer) {
         final int MAX = 1;
         final int MIN = -1;
 
@@ -60,18 +60,18 @@ public class Minimax implements Agent {
             return state.Utility();
         }
         float value;
-        switch (state.toMove()) {
-            case MAX:
+        switch (isMaximizingPlayer) {
+            case true:
                 value = Float.NEGATIVE_INFINITY;
                 for (Action action : state.getActions()) {
-                    value = Math.max(value, evaluateState(state.result(action)));
+                    value = Math.max(value, evaluateState(state.result(action), !isMaximizingPlayer));
                 }
                 return value;
             
-            case MIN:
+            case false:
                 value = Float.POSITIVE_INFINITY;
                 for (Action action : state.getActions()) {
-                    value = Math.min(value, evaluateState(state.result(action)));
+                    value = Math.min(value, evaluateState(state.result(action), !isMaximizingPlayer));
                 }
                 return value;
             default:
