@@ -6,10 +6,31 @@
     height: 100vh; 
   }
   
-button {
-   margin: 10px;
-   padding: 10px;
-   font-size: 16px;
-   width: 20vw;
+
+  button {
+    background-color: rgb(194, 182, 182); /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 20px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 6px #999;
 }
-  
+
+button:hover {
+    background-color: #45a049;
+    color: white;
+    box-shadow: 0 12px #666;
+    transform: translateY(-5px);
+}
+
+button:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(2px);
+}
