@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import board.master.model.GameStartRequest;
 import board.master.model.Board;
+import board.master.model.GameId;
 import board.master.model.GameResponse;
 import board.master.model.PlayerMoveRequest;
 
@@ -70,16 +71,18 @@ public class GameController {
     /**
      * Endpoint to getting bots move in the game.
      * 
-     * @param gameId - String with the id of the game to make a move in
+     * @param gameId - GameId with the id of the game to make a move in
      * @return GameResponse with the game id, status and board
      */
     @PostMapping("/bot-move")
-    public ResponseEntity<GameResponse> botMove(@RequestBody String gameId) {
+    public ResponseEntity<GameResponse> botMove(@RequestBody GameId gameId) {
         try {
-            GameResponse response = gameService.botMove(gameId);
+            String id = gameId.getGameId();
+            GameResponse response = gameService.botMove(id);
             return ResponseEntity.ok(response);
         }
         catch (IllegalArgumentException e) {
+            System.out.println("Bot move request: id:" + gameId + " error:" + e.getMessage());
             return ResponseEntity.badRequest().build();
         }
         catch (Exception e) {
