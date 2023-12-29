@@ -27,11 +27,13 @@ public class GameController {
     }
 
     /**
-     * Endpoint to start a new game
+     * Endpoint to start a new game.
+     * 
+     * @param request - GameStartRequest for what type of game to start, who is the first player and what bot to fight against
+     * @return GameResponse with the game id, status and board
      */
     @PostMapping("/start")
     public ResponseEntity<GameResponse> startGame(@RequestBody GameStartRequest request) {
-        // Logic to start a new game
         try {
             GameResponse response = gameService.startGame(request);
             return ResponseEntity.ok(response);
@@ -44,9 +46,14 @@ public class GameController {
         }
     }
 
+    /**
+     * Endpoint to make a move in the game specified with the same gameId.
+     * 
+     * @param request - PlayerMoveRequest for what game to make a move in and what move to make
+     * @return GameResponse with the game id, status and board
+     */
     @PostMapping("/move")
     public ResponseEntity<GameResponse> playerMove(@RequestBody PlayerMoveRequest request) {
-        // Logic to handle player's move
         try {
             GameResponse response = gameService.playerMove(request);
             return ResponseEntity.ok(response);
@@ -60,9 +67,15 @@ public class GameController {
         }
     }
 
+    /**
+     * Endpoint to getting bots move in the game.
+     * 
+     * @param gameId - String with the id of the game to make a move in
+     * @return GameResponse with the game id, status and board
+     */
     @GetMapping("/bot-move")
     public ResponseEntity<GameResponse> botMove(@RequestBody String gameId) {
-        // Logic to generate bot's move
+        
         try {
             GameResponse response = gameService.botMove(gameId);
             return ResponseEntity.ok(response);
