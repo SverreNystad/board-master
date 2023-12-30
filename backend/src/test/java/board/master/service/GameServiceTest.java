@@ -151,7 +151,7 @@ public class GameServiceTest {
         }
 
         @Test
-        @DisplayName("Test of valid request with illegal move")
+        @DisplayName("Test of request with illegal move")
         void testPlayerMoveIllegalMove() {
             int x = -1;
             int y = -1;
