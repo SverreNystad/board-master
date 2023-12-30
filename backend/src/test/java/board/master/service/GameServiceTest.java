@@ -133,6 +133,19 @@ public class GameServiceTest {
             GameResponse response = gameService.startGame(request);
             assertEquals(expectedBoard, response.getBoard());
         }
+
+        @Test
+        @DisplayName("Test of valid request with non-existing gameId")
+        void testPlayerMoveNonExistingGameId() {
+            int x = 1;
+            int y = 1;
+            String gameId = nonUsedGameId;
+
+            PlayerMoveRequest request = new PlayerMoveRequest(gameId, x, y);
+            assertThrows(IllegalArgumentException.class, () -> {
+                gameService.playerMove(request);
+            });
+        }
     }
 
     @Nested
