@@ -188,7 +188,4 @@ public class GameServiceTest {
 
 
     }
-
-    public void AssertThrows(Class<IllegalArgumentException> class1, Object object) {
-    }
 }
