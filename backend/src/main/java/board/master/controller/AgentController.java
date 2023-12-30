@@ -15,7 +15,7 @@ public class AgentController {
     
     @GetMapping("/agents")
     public ResponseEntity<List<String>> getAgents() {
-        List<String> agents = AgentFactory.getAgentTypesList();
+        List<String> agents = AgentFactory.getAvailableAgentTypesList();
         return ResponseEntity.ok(agents);
     }
 }

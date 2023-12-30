@@ -9,7 +9,7 @@ public class AgentFactoryTest {
     @Test
     @DisplayName("Test of createAgent with legal agent type")
     void testCreateAgent() {
-        String agentType = AgentFactory.getAgentTypesList().get(0);
+        String agentType = AgentFactory.getAvailableAgentTypesList().get(0);
         Agent agent = AgentFactory.createAgent(agentType);
         assert(agent != null);
         assert(agent instanceof Agent);
@@ -28,7 +28,7 @@ public class AgentFactoryTest {
     @Test
     @DisplayName("Test of isValidAgentType with all legal agent types")
     void testIsValidAgentType() {
-        for (String agentType : AgentFactory.getAgentTypesList()) {
+        for (String agentType : AgentFactory.getAvailableAgentTypesList()) {
             assert(AgentFactory.isValidAgentType(agentType));
         }
     }
