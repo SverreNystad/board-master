@@ -1,5 +1,9 @@
 package board.master.model;
 
+/**
+ * Request for starting a new game in the backend.
+ * The request is a immutable object.
+ */
 public class GameStartRequest {
     private final String playerColor; // "white" or "black"
     private final String botType;     // "minimax" or "random"
