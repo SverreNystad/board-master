@@ -14,6 +14,11 @@ public class Chess implements StateHandler {
         return new Board(8,8);
     }
 
+    public Chess() {
+        this.board = CreateInitialBoard();
+    }
+
+
     public Chess(Board board) {
         // TODO
         this.board = board;
