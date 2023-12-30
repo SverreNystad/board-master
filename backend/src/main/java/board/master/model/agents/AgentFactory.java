@@ -33,4 +33,8 @@ public class AgentFactory {
         return List.copyOf(getAgentTypes().keySet());
     }
 
+    public static boolean isValidAgentType(String agentType) {
+        return getAgentTypesList().contains(agentType.toUpperCase());
+    }
+
 }
