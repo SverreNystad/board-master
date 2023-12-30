@@ -89,11 +89,4 @@ public class GameController {
             return ResponseEntity.internalServerError().build();
         }
     }
-
-    @GetMapping("/mock")
-    public ResponseEntity<GameResponse> test() {
-        // Logic to generate bot's move
-        GameResponse response = new GameResponse("ID1223", "status", new Board(3, 3));
-        return ResponseEntity.ok(response);
-    }
 }
