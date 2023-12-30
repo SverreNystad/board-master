@@ -2,6 +2,7 @@ package board.master.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +22,9 @@ public class GameServiceTest {
     
     private String gameIdOfGameInService;
     private Board boardOfGameInService;
+
+    private final String nonUsedGameId = "nonUsedGameId";
+
 
     @BeforeEach
     void GameServiceSetup() {
@@ -109,7 +113,7 @@ public class GameServiceTest {
     @DisplayName("Test of playerMove")
     class playerMove {
         @Test
-        @DisplayName("Test of playerMove changes the board in the game")
+        @DisplayName("Test of legal playerMove changes the board in the game")
         void testPlayerMoveChess() {
             int x = 1;
             int y = 1;
@@ -122,7 +126,7 @@ public class GameServiceTest {
         }
 
         @Test
-        @DisplayName("Test of playerMove with tic-tac-toe")
+        @DisplayName("Test of legal playerMove with tic-tac-toe")
         void testPlayerMoveTicTacToe() {
             String gameType = "tic-tac-toe";
             String botType = "random";
@@ -139,9 +143,20 @@ public class GameServiceTest {
         void testPlayerMoveNonExistingGameId() {
             int x = 1;
             int y = 1;
-            String gameId = nonUsedGameId;
+            PlayerMoveRequest request = new PlayerMoveRequest(nonUsedGameId, x, y);
 
-            PlayerMoveRequest request = new PlayerMoveRequest(gameId, x, y);
+            assertThrows(IllegalArgumentException.class, () -> {
+                gameService.playerMove(request);
+            });
+        }
+
+        @Test
+        @DisplayName("Test of valid request with illegal move")
+        void testPlayerMoveIllegalMove() {
+            int x = -1;
+            int y = -1;
+            PlayerMoveRequest request = new PlayerMoveRequest(gameIdOfGameInService, x, y);
+
             assertThrows(IllegalArgumentException.class, () -> {
                 gameService.playerMove(request);
             });
@@ -152,7 +167,7 @@ public class GameServiceTest {
     @DisplayName("Test of botMove")
     class botMove {
         @Test
-        @DisplayName("Test of BotMOve changes the board in the game")
+        @DisplayName("Test of BotMove changes the board in the game")
         void testPlayerMoveChess() {
             Board originalBoard = boardOfGameInService;
 
@@ -160,5 +175,10 @@ public class GameServiceTest {
             GameResponse response = gameService.botMove(gameId);
             assertNotEquals(originalBoard, response.getBoard());
         }
+
+
+    }
+
+    public void AssertThrows(Class<IllegalArgumentException> class1, Object object) {
     }
 }
