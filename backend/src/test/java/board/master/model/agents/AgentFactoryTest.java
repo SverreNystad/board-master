@@ -23,4 +23,13 @@ public class AgentFactoryTest {
             AgentFactory.createAgent(agentType);
         });
     }
+
+
+    @Test
+    @DisplayName("Test of isValidAgentType with all legal agent types")
+    void testIsValidAgentType() {
+        for (String agentType : AgentFactory.getAgentTypesList()) {
+            assert(AgentFactory.isValidAgentType(agentType));
+        }
+    }
 }
