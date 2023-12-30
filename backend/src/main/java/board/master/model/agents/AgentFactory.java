@@ -8,6 +8,18 @@ import java.util.List;
  */
 public class AgentFactory {
 
+    private final static HashMap<String, Agent> agents = getAgentTypes();
+
+
+    /**
+     * Create an agent instance of the given type.
+     * 
+     * Supported agent types can be found in the {@code AgentFactory.getAgentTypesList} method.
+     * 
+     * @param agentStrategy - the type of agent to create
+     * @return an agent instance of the given type
+     * @throws IllegalArgumentException if the given agent type is unsupported
+     */
     public static Agent createAgent(String agentStrategy) throws IllegalArgumentException {
         Agent agent = agents.get(agentStrategy.toUpperCase());
         if (agent == null) {
@@ -28,12 +40,12 @@ public class AgentFactory {
         return agents;
     }
 
-    public static List<String> getAgentTypesList() {
-        return List.copyOf(getAgentTypes().keySet());
-    }
-
     public static boolean isValidAgentType(String agentType) {
         return getAgentTypesList().contains(agentType.toUpperCase());
+    }
+
+    public static List<String> getAgentTypesList() {
+        return List.copyOf(getAgentTypes().keySet());
     }
 
 }
