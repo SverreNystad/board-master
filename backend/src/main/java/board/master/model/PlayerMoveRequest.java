@@ -1,8 +1,8 @@
 package board.master.model;
 
 public class PlayerMoveRequest {
-    private String gameId;
-    private Move move;
+    private final String gameId;
+    private final Move move;
 
     public PlayerMoveRequest(String gameId, int x, int y) {
         this.gameId = gameId;
@@ -13,15 +13,7 @@ public class PlayerMoveRequest {
         return gameId;
     }
 
-    public void setGameId(String gameId) {
-        this.gameId = gameId;
-    }
-
     public Move getMove() {
         return move;
-    }
-
-    public void setMove(Move move) {
-        this.move = move;
     }
 }
