@@ -9,12 +9,11 @@ import java.util.List;
 public class AgentFactory {
 
     public static Agent createAgent(String agentStrategy) throws IllegalArgumentException {
-        for (String agent : getAgentTypesList()) {
-            if (agentStrategy.toUpperCase().equals(agent)) {
-                return getAgentTypes().get(agent);
-            }
+        Agent agent = agents.get(agentStrategy.toUpperCase());
+        if (agent == null) {
+            throw new IllegalArgumentException("Invalid agent type");
         }
-        throw new IllegalArgumentException("Invalid agent type");
+        return agent;
     }
 
     /**
