@@ -29,11 +29,13 @@ public class GameControllerSmokeTest {
     private String gameInService;
     private String legalPlayerMoveJson;
     private String legalBotMoveJson;
+    private String badRequestJson;
 
     @BeforeEach
     public void setup() throws Exception {
-        
+        badRequestJson = "{\"playerColor\":\"illegal\", \"botType\":\"illegal\", \"gameType\":\"illegal\"}";
         legalGameStartJson = "{\"playerColor\":\"white\", \"botType\":\"Random\", \"gameType\":\"tic-tac-toe\"}";
+        
         // Start a game to be used in tests
         MvcResult result = mockMvc.perform(post("/api/start")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -48,7 +50,6 @@ public class GameControllerSmokeTest {
         
         legalPlayerMoveJson = String.format("{\"gameId\":\"%s\", \"x\":1, \"y\":2}", gameInService);
         legalBotMoveJson = String.format("{\"gameId\":\"%s\"}", gameInService);
-
     }
 
     @Test
@@ -61,13 +62,30 @@ public class GameControllerSmokeTest {
     }
 
     @Test
+    @DisplayName("Test that startGameEndpoint works for bad request")
+    public void startGameEndpointBadRequestSmokeTest() throws Exception {
+        mockMvc.perform(post("/api/start")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(badRequestJson))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     @DisplayName("Test that playerMoveEndpoint works for legal ")
     public void playerMoveEndpointSmokeTest() throws Exception {
-        // Note: This requires a valid gameId which should be obtained from startGame response
         mockMvc.perform(post("/api/move")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(legalPlayerMoveJson))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Test that playerMoveEndpoint works for bad request ")
+    public void playerMoveEndpointBadRequestSmokeTest() throws Exception {
+        mockMvc.perform(post("/api/move")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(badRequestJson))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -78,5 +96,15 @@ public class GameControllerSmokeTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(legalBotMoveJson))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Test that botMoveEndpoint works for bad request ")
+    public void botMoveEndpointBadRequestSmokeTest() throws Exception {
+        // Note: This requires a valid gameId which should be obtained from startGame response
+        mockMvc.perform(post("/api/bot-move")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(badRequestJson))
+                .andExpect(status().isBadRequest());
     }
 }
