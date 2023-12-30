@@ -6,7 +6,7 @@ public class GameStartRequest {
     /**
      * Chess or tic-tac-toe
      */
-    private String gameType;
+    private final String gameType;
 
 
     public GameStartRequest(String playerColor, String botType, String gameType) {
