@@ -116,13 +116,13 @@ public class TicTacToe implements StateHandler {
      * {@inheritDoc}
      */
     @Override
-    public int utility() {
+    public int utility(int player) {
         //String checkWin = checkWin();
         switch (checkWin()) {
             case "X":
-                return -1;
+                return (player == 1) ? 1 : -1;
             case "O":
-                return 1;
+                return (player == -1) ? 1 : -1;
             default:
                 return 0;
         }
@@ -179,10 +179,4 @@ public class TicTacToe implements StateHandler {
         }
         return checkWin;
     }
-
-
-
-    // Additional helper methods specific to Tic Tac Toe, such as checking for a
-    // win, can be added here
-    // TODO: Implement helper methods for game-specific logic
 }
