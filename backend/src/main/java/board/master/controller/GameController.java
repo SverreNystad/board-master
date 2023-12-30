@@ -4,12 +4,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import board.master.model.GameStartRequest;
-import board.master.model.Board;
 import board.master.model.GameId;
 import board.master.model.GameResponse;
 import board.master.model.PlayerMoveRequest;
