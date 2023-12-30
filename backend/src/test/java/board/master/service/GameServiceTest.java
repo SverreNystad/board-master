@@ -64,6 +64,45 @@ public class GameServiceTest {
             GameResponse response = gameService.startGame(request);
             assertEquals(expectedBoard, response.getBoard());
         }
+
+        @Test
+        @DisplayName("Test of startGame with invalid game type")
+        void testStartGameInvalidGameType() {
+            String gameType = "invalid";
+            String botType = "random";
+            String playerColor = "white";
+            GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+            
+            assertThrows(IllegalArgumentException.class, () -> {
+                gameService.startGame(request);
+            });
+        }
+
+        @Test
+        @DisplayName("Test of startGame with invalid bot type")
+        void testStartGameInvalidBotType() {
+            String gameType = "chess";
+            String botType = "invalid";
+            String playerColor = "white";
+            GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+            
+            assertThrows(IllegalArgumentException.class, () -> {
+                gameService.startGame(request);
+            });
+        }
+
+        @Test
+        @DisplayName("Test creating of unique gameIds for games with same start request")
+        void testStartGameUniqueGameId() {
+            String gameType = "chess";
+            String botType = "random";
+            String playerColor = "white";
+            GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+
+            GameResponse response1 = gameService.startGame(request);
+            GameResponse response2 = gameService.startGame(request);
+            assertNotEquals(response1, response2);
+        }
     }
 
     @Nested
