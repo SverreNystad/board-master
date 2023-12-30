@@ -42,12 +42,14 @@ public class GameControllerSmokeTest {
                         .content(legalGameStartJson))
                 .andExpect(status().isOk())
                 .andReturn();
-
+        
+        // Retrieve the gameId from the response
         String responseContent = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(responseContent);
         gameInService = rootNode.path("gameId").asText(); // Assuming "gameId" is the field in your response
         
+        // Create legal move requests for the game in service
         legalPlayerMoveJson = String.format("{\"gameId\":\"%s\", \"x\":1, \"y\":2}", gameInService);
         legalBotMoveJson = String.format("{\"gameId\":\"%s\"}", gameInService);
     }
