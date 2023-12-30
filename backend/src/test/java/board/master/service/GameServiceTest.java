@@ -96,7 +96,9 @@ public class GameServiceTest {
         }
     }
 
-
+    @Nested
+    @DisplayName("Test of botMove")
+    class botMove {
         @Test
         @DisplayName("Test of BotMOve changes the board in the game")
         void testPlayerMoveChess() {
@@ -106,4 +108,5 @@ public class GameServiceTest {
             GameResponse response = gameService.botMove(gameId);
             assertNotEquals(originalBoard, response.getBoard());
         }
+    }
 }
