@@ -2,6 +2,7 @@ package board.master.model.agents;
 
 import board.master.model.Action;
 import board.master.model.StateHandler;
+
 import java.lang.Math;
 
 /**
@@ -16,6 +17,7 @@ import java.lang.Math;
  */
 public class Minimax implements Agent {
 
+    private int agentPlayerId;
     /**
      * Calculates the best move to make in a given game state.
      * 
@@ -28,11 +30,13 @@ public class Minimax implements Agent {
      */
     @Override
     public Action getAction(StateHandler state) {
+        this.agentPlayerId = state.toMove();
+
         float currentBestValue = Float.NEGATIVE_INFINITY;
         Action currentBestAction = null;
 
         for (Action action : state.getActions()) {
-            float value = evaluateState(state.result(action), true);
+            float value = evaluateState(state.result(action), false);
             if (currentBestValue < value) {
                 currentBestValue = value;
                 currentBestAction = action;
@@ -52,10 +56,10 @@ public class Minimax implements Agent {
      * @param state The game state to evaluate.
      * @return The numerical evaluation of the state.
      */
-    private static float evaluateState(StateHandler state, Boolean isMaximizingPlayer) {
+    private float evaluateState(StateHandler state, Boolean isMaximizingPlayer) {
 
         if (state.isTerminal()) {
-            return state.utility();
+            return state.utility(agentPlayerId);
         }
         float value;
         if (isMaximizingPlayer) {
@@ -73,9 +77,4 @@ public class Minimax implements Agent {
                 return value;
         }
     }
-
-    // Additional methods for optimizations (like alpha-beta pruning) and utility
-    // functions can be added here
-    // TODO: Consider implementing alpha-beta pruning for optimization
-
 }
