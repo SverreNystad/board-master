@@ -63,9 +63,14 @@ public class GameService {
         
         // Get move object
         Action action = request.getMove();
-
         // Get game object
-        Game game = games.get(request.getGameId());
+        Game game = null;
+        if (games.containsKey(request.getGameId())) {
+            game = games.get(request.getGameId());
+        }
+        else {
+            throw new IllegalArgumentException("Invalid game id: " + request.getGameId());
+        }
 
         if (game.getStateHandler().getActions().contains(action)) {
             StateHandler transformedGame = game.getStateHandler().result(action);
