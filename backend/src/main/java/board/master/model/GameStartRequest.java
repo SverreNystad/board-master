@@ -1,8 +1,8 @@
 package board.master.model;
 
 public class GameStartRequest {
-    private String playerColor; // "white" or "black"
-    private String botType;     // "minimax" or "random"
+    private final String playerColor; // "white" or "black"
+    private final String botType;     // "minimax" or "random"
     /**
      * Chess or tic-tac-toe
      */
@@ -19,16 +19,8 @@ public class GameStartRequest {
         return playerColor;
     }
 
-    public void setPlayerColor(String playerColor) {
-        this.playerColor = playerColor;
-    }
-
     public String getBotType() {
         return botType;
-    }
-
-    public void setBotType(String botType) {
-        this.botType = botType;
     }
 
     public String getGameType() {
