@@ -8,6 +8,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,17 +26,27 @@ public class GameControllerSmokeTest {
     private String legalGameStartJson;
 
     private String gameInService;
+    private String legalPlayerMoveJson;
+    private String legalBotMoveJson;
+
     @BeforeEach
     public void setup() throws Exception {
         
+        legalGameStartJson = "{\"playerColor\":\"white\", \"botType\":\"Random\", \"gameType\":\"tic-tac-toe\"}";
         // Start a game to be used in tests
-        gameInService = (String) mockMvc
-            .perform(post("/api/start")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(legalGameStartJson))
-                .andReturn().getAsyncResult();
+        MvcResult result = mockMvc.perform(post("/api/start")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(legalGameStartJson))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String responseContent = result.getResponse().getContentAsString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rootNode = objectMapper.readTree(responseContent);
+        gameInService = rootNode.path("gameId").asText(); // Assuming "gameId" is the field in your response
         
-        legalGameStartJson = "{\"playerColor\":\"white\", \"botType\":\"Random\", \"gameType\":\"chess\"}";
+        legalPlayerMoveJson = String.format("{\"gameId\":\"%s\", \"x\":1, \"y\":2}", gameInService);
+        legalBotMoveJson = String.format("{\"gameId\":\"%s\"}", gameInService);
 
     }
 
@@ -46,21 +61,18 @@ public class GameControllerSmokeTest {
     @Test
     public void playerMoveEndpoint_SmokeTest() throws Exception {
         // Note: This requires a valid gameId which should be obtained from startGame response
-        String playerMoveJson = "{\"gameId\":\"12345\", \"move\":{\"x\":1, \"y\":2}}";
         mockMvc.perform(post("/api/move")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(playerMoveJson))
+                        .content(legalPlayerMoveJson))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void botMoveEndpoint_SmokeTest() throws Exception {
-        // Assuming a JSON payload for GameId
         // Note: This requires a valid gameId which should be obtained from startGame response
-        String botMoveJson = "{\"gameId\":\"12345\"}";
         mockMvc.perform(post("/api/bot-move")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(botMoveJson))
+                        .content(legalBotMoveJson))
                 .andExpect(status().isOk());
     }
 }
