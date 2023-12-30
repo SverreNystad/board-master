@@ -13,12 +13,14 @@ import board.master.model.Move;
 
 public class TicTacToeTest {
     private TicTacToe ticTacToe;
+
+    private final int playerX = 1;
+    private final int playerO = -1;
+
     @BeforeEach
     void TicTacToeSetup() {
         ticTacToe = new TicTacToe();
     }
-
-    
     @Nested
     @DisplayName("TicTacToeConstructor")
     class TicTacToeConstructor {
@@ -55,13 +57,15 @@ public class TicTacToeTest {
         @DisplayName("Test of utility when board is empty")
         void testUtility() {
             int expected = 0;
-            assertEquals(expected, ticTacToe.utility());
+            assertEquals(expected, ticTacToe.utility(playerX));
+            assertEquals(expected, ticTacToe.utility(playerO));
         }
 
         @Test
         @DisplayName("Test of utility when board is full")
         void testUtility2() {
             int expected = 0;
+
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 0));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 1));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 1));
@@ -71,12 +75,15 @@ public class TicTacToeTest {
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 0));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 2));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 1));
-            assertEquals(expected, ticTacToe.utility());
+
+            assertEquals(expected, ticTacToe.utility(playerX));
+            assertEquals(expected, ticTacToe.utility(playerO));
         }
 
         @Test
         @DisplayName("Test of utility when X wins")
         void testUtility3() {
+
             int expected = -1;
             int x = 1;
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 0));
@@ -84,7 +91,7 @@ public class TicTacToeTest {
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 1));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x-1, 1));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 2));
-            assertEquals(expected, ticTacToe.utility());
+            assertEquals(expected, ticTacToe.utility(playerO));
         }
 
         @Test
@@ -98,7 +105,7 @@ public class TicTacToeTest {
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 1));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x-1, 1));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x,2));
-            assertEquals(expected, ticTacToe.utility());
+            assertEquals(expected, ticTacToe.utility(playerO));
         }
     }
 
