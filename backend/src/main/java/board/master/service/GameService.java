@@ -33,19 +33,24 @@ public class GameService {
      * @throws IllegalArgumentException if the agent type or game type are invalid
      */
     public GameResponse startGame(GameStartRequest request) throws IllegalArgumentException{
-        if (!AgentFactory.isValidAgentType(request.getBotType())) {
-            throw new IllegalArgumentException("Invalid agent type" + request.getBotType());
-        }
-        if (!GameStateHandlerFactory.isValidGameHandler(request.getGameType())) {
-            throw new IllegalArgumentException("Invalid game type" + request.getGameType());
-        }
+        validateAgentAndGameType(request.getBotType(), request.getGameType());
 
         Agent agent = AgentFactory.createAgent(request.getBotType());
         StateHandler stateHandler = GameStateHandlerFactory.createGameHandler(request.getGameType());
 
         Game game = new Game(generateGameId(), agent, stateHandler);
         games.put(game.getGameId(), game);
+        
         return new GameResponse(game.getGameId(), game.getStateHandler().isTerminal(), game.getBoard());
+    }
+
+    private void validateAgentAndGameType(String agentType, String gameType) throws IllegalArgumentException {
+        if (!AgentFactory.isValidAgentType(agentType)) {
+            throw new IllegalArgumentException("Invalid agent type" + agentType);
+        }
+        if (!GameStateHandlerFactory.isValidGameHandler(gameType)) {
+            throw new IllegalArgumentException("Invalid game type" + gameType);
+        }
     }
 
     /**
