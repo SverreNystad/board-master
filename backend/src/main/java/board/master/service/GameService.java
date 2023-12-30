@@ -23,6 +23,16 @@ public class GameService {
      */
     private HashMap<String, Game> games = new HashMap<>();
 
+    /**
+     * Logic to handle game creation
+     * 
+     * This method creates a new game and adds it to the list of running games.
+     * It checks that the agent type and game type are valid.
+     * 
+     * @param request from the player
+     * @return The {@link GameResponse} game state and id of the new game
+     * @throws IllegalArgumentException if the agent type or game type are invalid
+     */
     public GameResponse startGame(GameStartRequest request) throws IllegalArgumentException{
         // Find legal agents 
         
