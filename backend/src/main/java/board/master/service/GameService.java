@@ -53,19 +53,20 @@ public class GameService {
 
         Game game = new Game(generateGameId(), agent, stateHandler);
         games.put(game.getGameId(), game);
-        return new GameResponse(game.getGameId(), "in-progress", game.getBoard());
+        return new GameResponse(game.getGameId(), game.getStateHandler().isTerminal(), game.getBoard());
     }
 
     /**
      * Logic to handle player's move 
      * 
+     * It checks that the {@link PlayerMoveRequest}s game id is valid and that the move is valid.
+     * 
+     * 
      * @param request from the player
      * @return updated game state
+     * @throws IllegalArgumentException if the game id is invalid
      */
     public GameResponse playerMove(PlayerMoveRequest request) throws IllegalArgumentException {
-        System.out.println("Player move request: id:" + request.getGameId() + " x:" + request.getMove().getX() + " y:" + request.getMove().getY());
-        
-        // Get move object
         Action action = request.getMove();
         // Get game object
         Game game = null;
@@ -85,15 +86,19 @@ public class GameService {
             System.out.println("Invalid move");
             throw new IllegalArgumentException("Invalid move" + action.toString());
         }
-        if (game.getStateHandler().isTerminal()) {
-            return new GameResponse(game.getGameId(), "terminal", game.getBoard());
-        }
-        else {
-            return new GameResponse(game.getGameId(), "in-progress", game.getBoard());
-        }
+
+        return new GameResponse(game.getGameId(), game.getStateHandler().isTerminal(), game.getBoard());
+
     }
 
-    public GameResponse botMove(String gameId) {
+    /**
+     * Logic to handle bot's move
+     * 
+     * @param gameId of the game
+     * @return updated game state
+     * @throws IllegalArgumentException if the game id is invalid
+     */
+    public GameResponse botMove(String gameId) throws IllegalArgumentException {
         
         Game game = null;
         if (games.containsKey(gameId)) {
@@ -109,12 +114,7 @@ public class GameService {
         StateHandler transformedGame = game.getStateHandler().result(action);
         game.setStateHandler(transformedGame);
 
-        if (transformedGame.isTerminal()) {
-            return new GameResponse(game.getGameId(), "terminal", game.getBoard());
-        }
-        else {
-            return new GameResponse(game.getGameId(), "in-progress", game.getBoard());
-        }
+        return new GameResponse(game.getGameId(), game.getStateHandler().isTerminal(), game.getBoard());
     }
 
     /**
