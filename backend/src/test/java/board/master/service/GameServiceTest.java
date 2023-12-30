@@ -11,16 +11,29 @@ import org.junit.jupiter.api.Test;
 import board.master.model.Board;
 import board.master.model.GameResponse;
 import board.master.model.GameStartRequest;
+import board.master.model.PlayerMoveRequest;
 import board.master.model.games.chess.Chess;
 import board.master.model.games.tictactoe.TicTacToe;
 
 public class GameServiceTest {
     
     private GameService gameService;
+    
+    private String gameIdOfGameInService;
+    private Board boardOfGameInService;
 
     @BeforeEach
     void GameServiceSetup() {
         gameService = new GameService();
+
+        // Make a game to be used in tests
+        String gameType = "tic-tac-toe";
+        String botType = "random";
+        String playerColor = "white";
+        GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+        GameResponse response = gameService.startGame(request);
+        gameIdOfGameInService = response.getGameId();
+
     }
 
     @Nested
@@ -53,13 +66,44 @@ public class GameServiceTest {
         }
     }
 
-    @Test
-    void testPlayerMove() {
+    @Nested
+    @DisplayName("Test of playerMove")
+    class playerMove {
+        @Test
+        @DisplayName("Test of playerMove changes the board in the game")
+        void testPlayerMoveChess() {
+            int x = 1;
+            int y = 1;
 
+            Board originalBoard = boardOfGameInService;
+
+            PlayerMoveRequest request = new PlayerMoveRequest(gameIdOfGameInService, x, y);
+            GameResponse response = gameService.playerMove(request);
+            assertNotEquals(originalBoard, response.getBoard());
+        }
+
+        @Test
+        @DisplayName("Test of playerMove with tic-tac-toe")
+        void testPlayerMoveTicTacToe() {
+            String gameType = "tic-tac-toe";
+            String botType = "random";
+            String playerColor = "white";
+            Board expectedBoard = (new TicTacToe()).getBoard();
+
+            GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+            GameResponse response = gameService.startGame(request);
+            assertEquals(expectedBoard, response.getBoard());
+        }
     }
 
-    @Test
-    void testStartGame() {
 
-    }
+        @Test
+        @DisplayName("Test of BotMOve changes the board in the game")
+        void testPlayerMoveChess() {
+            Board originalBoard = boardOfGameInService;
+
+            String gameId = gameIdOfGameInService;
+            GameResponse response = gameService.botMove(gameId);
+            assertNotEquals(originalBoard, response.getBoard());
+        }
 }
