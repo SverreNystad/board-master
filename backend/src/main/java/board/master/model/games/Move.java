@@ -1,4 +1,6 @@
-package board.master.model; 
+package board.master.model.games;
+
+import board.master.model.Action;
 
 public class Move extends Action {
     

@@ -4,10 +4,10 @@ import java.util.List;
 
 import java.util.ArrayList;
 
-import board.master.model.Board;
-import board.master.model.Move;
 import board.master.model.Action;
 import board.master.model.StateHandler;
+import board.master.model.games.Board;
+import board.master.model.games.Move;
 
 /**
  * TicTacToe class implementing the StateHandler interface.

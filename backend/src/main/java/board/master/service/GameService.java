@@ -3,14 +3,14 @@ package board.master.service;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 
-import board.master.model.GameStartRequest;
-import board.master.model.GameResponse;
-import board.master.model.MoveRequest;
-import board.master.model.Game;
 import board.master.model.games.GameStateHandlerFactory;
 import board.master.model.StateHandler;
 import board.master.model.agents.Agent;
 import board.master.model.agents.AgentFactory;
+import board.master.model.communication.Game;
+import board.master.model.communication.GameResponse;
+import board.master.model.communication.GameStartRequest;
+import board.master.model.communication.MoveRequest;
 import board.master.model.Action;
 
 import java.util.HashMap;

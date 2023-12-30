@@ -2,6 +2,8 @@ package board.master.model;
 
 import java.util.List;
 
+import board.master.model.games.Board;
+
 /**
  * Interface representing the state handler for a game.
  * This interface provides methods to handle different states of the game,

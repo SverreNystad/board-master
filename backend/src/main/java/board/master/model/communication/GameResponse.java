@@ -1,4 +1,6 @@
-package board.master.model;
+package board.master.model.communication;
+
+import board.master.model.games.Board;
 
 public class GameResponse {
     private final String gameId;

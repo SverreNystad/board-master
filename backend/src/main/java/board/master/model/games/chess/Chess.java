@@ -1,7 +1,7 @@
 package board.master.model.games.chess;
 
-import board.master.model.Board;
 import board.master.model.StateHandler;
+import board.master.model.games.Board;
 import board.master.model.Action;
 
 import java.util.List;

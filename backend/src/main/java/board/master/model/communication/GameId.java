@@ -1,4 +1,4 @@
-package board.master.model;
+package board.master.model.communication;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

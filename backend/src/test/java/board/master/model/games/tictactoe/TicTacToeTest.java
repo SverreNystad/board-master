@@ -8,8 +8,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import board.master.model.Board;
-import board.master.model.Move;
+import board.master.model.games.Board;
+import board.master.model.games.Move;
 
 public class TicTacToeTest {
     private TicTacToe ticTacToe;

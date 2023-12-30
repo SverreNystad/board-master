@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import board.master.model.GameStartRequest;
-import board.master.model.GameId;
-import board.master.model.GameResponse;
-import board.master.model.MoveRequest;
-
+import board.master.model.communication.GameId;
+import board.master.model.communication.GameResponse;
+import board.master.model.communication.GameStartRequest;
+import board.master.model.communication.MoveRequest;
 import board.master.service.GameService;
 
 @RestController

@@ -1,4 +1,4 @@
-package board.master.model;
+package board.master.model.communication;
 
 /**
  * Request for starting a new game in the backend.

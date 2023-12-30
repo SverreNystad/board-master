@@ -9,10 +9,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import board.master.model.Board;
-import board.master.model.GameResponse;
-import board.master.model.GameStartRequest;
-import board.master.model.MoveRequest;
+import board.master.model.communication.GameResponse;
+import board.master.model.communication.GameStartRequest;
+import board.master.model.communication.MoveRequest;
+import board.master.model.games.Board;
 import board.master.model.games.chess.Chess;
 import board.master.model.games.tictactoe.TicTacToe;
 

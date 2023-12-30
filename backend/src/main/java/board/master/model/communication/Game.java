@@ -1,7 +1,9 @@
-package board.master.model;
+package board.master.model.communication;
 
+import board.master.model.StateHandler;
 import board.master.model.agents.Agent;
-import board.master.model.Game;
+import board.master.model.communication.Game;
+import board.master.model.games.Board;
 
 
 public class Game {
