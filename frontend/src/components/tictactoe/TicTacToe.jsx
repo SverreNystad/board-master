@@ -124,9 +124,11 @@ function TicTacToe() {
           })}
         </select>
       </div>
-      <button onClick={startGame}>Start Game</button>
+      {!!!gameData && <button onClick={startGame}>Start Game</button>}
+      
       {gameData && (
         <div>
+          <button onClick={startGame}>Restart Game</button>
           <p>Game ID: {gameData.gameId}</p>
           <p>Status: {gameData.status}</p>
           <div className='board-container'>
