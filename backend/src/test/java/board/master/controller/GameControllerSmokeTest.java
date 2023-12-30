@@ -2,6 +2,7 @@ package board.master.controller;
 
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -51,7 +52,8 @@ public class GameControllerSmokeTest {
     }
 
     @Test
-    public void startGameEndpoint_SmokeTest() throws Exception {
+    @DisplayName("Test that startGameEndpoint works for legal request")
+    public void startGameEndpointSmokeTest() throws Exception {
         mockMvc.perform(post("/api/start")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(legalGameStartJson))
@@ -59,7 +61,8 @@ public class GameControllerSmokeTest {
     }
 
     @Test
-    public void playerMoveEndpoint_SmokeTest() throws Exception {
+    @DisplayName("Test that playerMoveEndpoint works for legal ")
+    public void playerMoveEndpointSmokeTest() throws Exception {
         // Note: This requires a valid gameId which should be obtained from startGame response
         mockMvc.perform(post("/api/move")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -68,7 +71,8 @@ public class GameControllerSmokeTest {
     }
 
     @Test
-    public void botMoveEndpoint_SmokeTest() throws Exception {
+    @DisplayName("Test that botMoveEndpoint works for legal ")
+    public void botMoveEndpointSmokeTest() throws Exception {
         // Note: This requires a valid gameId which should be obtained from startGame response
         mockMvc.perform(post("/api/bot-move")
                         .contentType(MediaType.APPLICATION_JSON)
