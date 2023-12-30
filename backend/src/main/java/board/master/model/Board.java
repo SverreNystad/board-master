@@ -35,10 +35,6 @@ public class Board {
         return this.grid;
     }
 
-    public void setGrid(List<List<String>> grid) {
-        this.grid = grid;
-    }
-
     public int getRows() {
         return rows;
     }
