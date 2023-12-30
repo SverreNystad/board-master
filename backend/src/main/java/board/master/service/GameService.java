@@ -22,34 +22,28 @@ public class GameService {
     private HashMap<String, Game> games = new HashMap<>();
 
     public GameResponse startGame(GameStartRequest request) throws IllegalArgumentException{
-        // Logic to start a new game
+        // Find legal agents 
+        
+        if (!AgentFactory.isValidAgentType(request.getBotType())) {
+            throw new IllegalArgumentException("Invalid agent type");
+        }
+        Agent agent = AgentFactory.createAgent(request.getBotType());
+
+        StateHandler stateHandler = null;
         switch (request.getGameType()) {
             case "chess":
-                try {
-                    StateHandler chess = new Chess(Chess.CreateInitialBoard());
-                    Agent agent = AgentFactory.createAgent(request.getBotType());
-                    Game game = new Game(generateGameId(), agent, chess);
-                    games.put(game.getGameId(), game);
-                    return new GameResponse(game.getGameId(), "in-progress", game.getBoard());
-                }
-                catch (IllegalArgumentException e) {
-                    throw new IllegalArgumentException("Invalid start request");
-                }
+                stateHandler = new Chess();
+                break;
             case "tic-tac-toe":
-                try {
-                    StateHandler ticTacToe = new TicTacToe();
-                    Agent agent = AgentFactory.createAgent(request.getBotType());
-                    Game game = new Game(generateGameId(), agent, ticTacToe);
-                    games.put(game.getGameId(), game);
-                    return new GameResponse(game.getGameId(), "in-progress", game.getBoard());
-                }
-                catch (IllegalArgumentException e) {
-                    throw new IllegalArgumentException("Invalid start request");
-                }
+                stateHandler = new TicTacToe();
+                break;
             default:
-                throw new IllegalArgumentException("Invalid game type");
+                throw new IllegalArgumentException("Invalid game type" + request.getGameType());
         }
 
+        Game game = new Game(generateGameId(), agent, stateHandler);
+        games.put(game.getGameId(), game);
+        return new GameResponse(game.getGameId(), "in-progress", game.getBoard());
     }
 
     /**
