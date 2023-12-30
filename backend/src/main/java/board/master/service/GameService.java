@@ -34,10 +34,8 @@ public class GameService {
      * @throws IllegalArgumentException if the agent type or game type are invalid
      */
     public GameResponse startGame(GameStartRequest request) throws IllegalArgumentException{
-        // Find legal agents 
-        
         if (!AgentFactory.isValidAgentType(request.getBotType())) {
-            throw new IllegalArgumentException("Invalid agent type");
+            throw new IllegalArgumentException("Invalid agent type" + request.getBotType());
         }
         Agent agent = AgentFactory.createAgent(request.getBotType());
 
