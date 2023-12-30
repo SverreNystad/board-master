@@ -6,7 +6,6 @@ import java.util.UUID;
 import board.master.model.GameStartRequest;
 import board.master.model.GameResponse;
 import board.master.model.PlayerMoveRequest;
-import board.master.model.Move;
 import board.master.model.Game;
 import board.master.model.games.chess.Chess;
 import board.master.model.games.tictactoe.TicTacToe;
