@@ -18,7 +18,9 @@ import java.util.HashMap;
 
 @Service
 public class GameService {
-    
+    /**
+     * Map of games and their ids that are currently running
+     */
     private HashMap<String, Game> games = new HashMap<>();
 
     public GameResponse startGame(GameStartRequest request) throws IllegalArgumentException{
