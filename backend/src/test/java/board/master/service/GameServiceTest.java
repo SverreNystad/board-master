@@ -176,6 +176,16 @@ public class GameServiceTest {
             assertNotEquals(originalBoard, response.getBoard());
         }
 
+        @Test
+        @DisplayName("Test of valid request with non-existing gameId")
+        void testBotMoveNonExistingGameId() {
+            String gameId = nonUsedGameId;
+
+            assertThrows(IllegalArgumentException.class, () -> {
+                gameService.botMove(gameId);
+            });
+        }
+
 
     }
 

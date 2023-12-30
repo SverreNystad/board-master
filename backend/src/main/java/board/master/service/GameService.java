@@ -90,7 +90,14 @@ public class GameService {
     }
 
     public GameResponse botMove(String gameId) {
-        Game game = games.get(gameId);
+        
+        Game game = null;
+        if (games.containsKey(gameId)) {
+            game = games.get(gameId);
+        }
+        else {
+            throw new IllegalArgumentException("Invalid game id: " + gameId);
+        }
         Agent agent = game.getAgent();
         Action action = agent.getAction(game.getStateHandler());
         
