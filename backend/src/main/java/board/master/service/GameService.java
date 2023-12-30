@@ -59,8 +59,7 @@ public class GameService {
      * @throws IllegalArgumentException if the game id is invalid
      */
     public GameResponse playerMove(MoveRequest request) throws IllegalArgumentException {
-        Action action = request.getMove();
-        // Get game object
+        // Check validity of game id
         Game game = null;
         if (games.containsKey(request.getGameId())) {
             game = games.get(request.getGameId());
@@ -68,7 +67,8 @@ public class GameService {
         else {
             throw new IllegalArgumentException("Invalid game id: " + request.getGameId());
         }
-
+        // Do move if it is valid
+        Action action = request.getMove();
         if (game.getStateHandler().getActions().contains(action)) {
             StateHandler transformedGame = game.getStateHandler().result(action);
             // update game state
