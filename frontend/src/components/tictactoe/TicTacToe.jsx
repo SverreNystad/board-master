@@ -92,7 +92,6 @@ function TicTacToe() {
   const botMove = async () => {
     console.log("Bot Move");
     setShallLoad(true);
-    console.log(gameData.gameId);
     let requestBody = {
       gameId: gameData.gameId,
     }
@@ -132,7 +131,7 @@ function TicTacToe() {
           <p>Game ID: {gameData.gameId}</p>
           <p>Status: {gameData.status}</p>
           <div className='board-container'>
-            <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad}/> {/* Render the Board */}
+            <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad}/> 
           </div>
         </div>
       )}
