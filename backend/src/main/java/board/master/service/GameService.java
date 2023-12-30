@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import board.master.model.GameStartRequest;
 import board.master.model.GameResponse;
-import board.master.model.PlayerMoveRequest;
+import board.master.model.MoveRequest;
 import board.master.model.Game;
 import board.master.model.games.chess.Chess;
 import board.master.model.games.tictactoe.TicTacToe;
@@ -59,14 +59,14 @@ public class GameService {
     /**
      * Logic to handle player's move 
      * 
-     * It checks that the {@link PlayerMoveRequest}s game id is valid and that the move is valid.
+     * It checks that the {@link MoveRequest}s game id is valid and that the move is valid.
      * 
      * 
      * @param request from the player
      * @return updated game state
      * @throws IllegalArgumentException if the game id is invalid
      */
-    public GameResponse playerMove(PlayerMoveRequest request) throws IllegalArgumentException {
+    public GameResponse playerMove(MoveRequest request) throws IllegalArgumentException {
         Action action = request.getMove();
         // Get game object
         Game game = null;

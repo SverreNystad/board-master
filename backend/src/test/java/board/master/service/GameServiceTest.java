@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import board.master.model.Board;
 import board.master.model.GameResponse;
 import board.master.model.GameStartRequest;
-import board.master.model.PlayerMoveRequest;
+import board.master.model.MoveRequest;
 import board.master.model.games.chess.Chess;
 import board.master.model.games.tictactoe.TicTacToe;
 
@@ -120,7 +120,7 @@ public class GameServiceTest {
 
             Board originalBoard = boardOfGameInService;
 
-            PlayerMoveRequest request = new PlayerMoveRequest(gameIdOfGameInService, x, y);
+            MoveRequest request = new MoveRequest(gameIdOfGameInService, x, y);
             GameResponse response = gameService.playerMove(request);
             assertNotEquals(originalBoard, response.getBoard());
         }
@@ -143,7 +143,7 @@ public class GameServiceTest {
         void testPlayerMoveNonExistingGameId() {
             int x = 1;
             int y = 1;
-            PlayerMoveRequest request = new PlayerMoveRequest(nonUsedGameId, x, y);
+            MoveRequest request = new MoveRequest(nonUsedGameId, x, y);
 
             assertThrows(IllegalArgumentException.class, () -> {
                 gameService.playerMove(request);
@@ -155,7 +155,7 @@ public class GameServiceTest {
         void testPlayerMoveIllegalMove() {
             int x = -1;
             int y = -1;
-            PlayerMoveRequest request = new PlayerMoveRequest(gameIdOfGameInService, x, y);
+            MoveRequest request = new MoveRequest(gameIdOfGameInService, x, y);
 
             assertThrows(IllegalArgumentException.class, () -> {
                 gameService.playerMove(request);

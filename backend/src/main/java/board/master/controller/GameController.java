@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import board.master.model.GameStartRequest;
 import board.master.model.GameId;
 import board.master.model.GameResponse;
-import board.master.model.PlayerMoveRequest;
+import board.master.model.MoveRequest;
 
 import board.master.service.GameService;
 
@@ -52,7 +52,7 @@ public class GameController {
      * @return GameResponse with the game id, status and board
      */
     @PostMapping("/move")
-    public ResponseEntity<GameResponse> playerMove(@RequestBody PlayerMoveRequest request) {
+    public ResponseEntity<GameResponse> playerMove(@RequestBody MoveRequest request) {
         try {
             GameResponse response = gameService.playerMove(request);
             return ResponseEntity.ok(response);
