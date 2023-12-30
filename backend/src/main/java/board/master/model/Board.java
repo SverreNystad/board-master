@@ -56,4 +56,22 @@ public class Board {
         row.set(y, value);
         this.grid.set(x, row);
     }
+
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Board)) {
+            return false;
+        }
+        Board otherBoard = (Board) other;
+        for (int r = 0; r < this.rows; r++) {
+            for (int c = 0; c < this.columns; c++) {
+                if (!this.getPosition(r, c).equals(otherBoard.getPosition(r, c))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
