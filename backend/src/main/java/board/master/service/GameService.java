@@ -7,8 +7,7 @@ import board.master.model.GameStartRequest;
 import board.master.model.GameResponse;
 import board.master.model.MoveRequest;
 import board.master.model.Game;
-import board.master.model.games.chess.Chess;
-import board.master.model.games.tictactoe.TicTacToe;
+import board.master.model.games.GameStateHandlerFactory;
 import board.master.model.StateHandler;
 import board.master.model.agents.Agent;
 import board.master.model.agents.AgentFactory;
@@ -37,19 +36,12 @@ public class GameService {
         if (!AgentFactory.isValidAgentType(request.getBotType())) {
             throw new IllegalArgumentException("Invalid agent type" + request.getBotType());
         }
-        Agent agent = AgentFactory.createAgent(request.getBotType());
-
-        StateHandler stateHandler = null;
-        switch (request.getGameType()) {
-            case "chess":
-                stateHandler = new Chess();
-                break;
-            case "tic-tac-toe":
-                stateHandler = new TicTacToe();
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid game type" + request.getGameType());
+        if (!GameStateHandlerFactory.isValidGameHandler(request.getGameType())) {
+            throw new IllegalArgumentException("Invalid game type" + request.getGameType());
         }
+
+        Agent agent = AgentFactory.createAgent(request.getBotType());
+        StateHandler stateHandler = GameStateHandlerFactory.createGameHandler(request.getGameType());
 
         Game game = new Game(generateGameId(), agent, stateHandler);
         games.put(game.getGameId(), game);
