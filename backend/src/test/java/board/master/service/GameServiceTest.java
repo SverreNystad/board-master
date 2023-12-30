@@ -33,9 +33,10 @@ public class GameServiceTest {
             String gameType = "chess";
             String botType = "random";
             String playerColor = "white";
+            Board expectedBoard = Chess.CreateInitialBoard();
             GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
             GameResponse response = gameService.startGame(request);
-            assertEquals(Chess.CreateInitialBoard(), response.getBoard());
+            assertEquals(expectedBoard, response.getBoard());
         }
 
         @Test
