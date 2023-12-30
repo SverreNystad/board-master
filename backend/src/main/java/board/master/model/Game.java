@@ -5,8 +5,8 @@ import board.master.model.Game;
 
 
 public class Game {
-    private String gameId;
-    private Agent agent;
+    private final String gameId;
+    private final Agent agent;
     private StateHandler stateHandler;
 
     public Game(String gameId, Agent agent, StateHandler stateHandler) {
@@ -23,13 +23,13 @@ public class Game {
     public Agent getAgent() {
         return agent;
     }
+    
+    public Board getBoard() {
+        return stateHandler.getBoard();
+    }
 
     public StateHandler getStateHandler() {
         return stateHandler;
-    }
-
-    public Board getBoard() {
-        return stateHandler.getBoard();
     }
 
     public void setStateHandler(StateHandler transformedGame) {
