@@ -3,8 +3,6 @@ package board.master.service;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 
-import javax.swing.plaf.nimbus.State;
-
 import board.master.model.games.GameStateHandlerFactory;
 import board.master.model.StateHandler;
 import board.master.model.agents.Agent;
@@ -106,6 +104,10 @@ public class GameService {
         }
         else {
             throw new IllegalArgumentException("Invalid game id: " + gameId);
+        }
+
+        if (game.getStateHandler().isTerminal()) {
+            throw new IllegalStateException("Game is over");
         }
         Agent agent = game.getAgent();
         Action action = agent.getAction(game.getStateHandler());
