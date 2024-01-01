@@ -198,6 +198,22 @@ public class TicTacToeTest {
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 1));
             assertEquals(true, ticTacToe.isTerminal());
         }
+
+        @Test
+        @DisplayName("Test if TicTacToe is terminal")
+        void testIsTerminal4() {
+            // | x | - | x |
+            // | o | o | o |
+            // | - | x | - |
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 1));
+
+            assertEquals(true, ticTacToe.isTerminal());
+        }
     }
 
     @Nested
