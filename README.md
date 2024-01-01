@@ -26,8 +26,9 @@
     - [1. Clone the repository](#1-clone-the-repository)
     - [2. Navigate to the Project Directory:](#2-navigate-to-the-project-directory)
     - [Frontend](#frontend)
+      - [**Start node package manager:**](#start-node-package-manager)
     - [Backend](#backend)
-  - [Start backend](#start-backend)
+      - [**Start backend:**](#start-backend)
   - [Tests](#tests)
     - [Frontend](#frontend-1)
     - [Backend](#backend-1)
@@ -116,10 +117,12 @@ Install node package manager
 npm install
 ```
 
-Start node package manager
+#### **Start node package manager:**
 ```cmd
 npm start
 ```
+After starting the node package manager, the frontend should be available at http://localhost:3000/ and should pop up in your default browser.
+
 ### Backend
 Build the backend:
 Inside the project directory `backend`, use Gradle to build the project:
@@ -129,7 +132,8 @@ gradlew build
 This command compiles the project and downloads all necessary dependencies.
 
 
-## Start backend
+#### **Start backend:**
+
 To run the project, run the following command in the root directory of the project:
 ```cmd
 gradlew bootRun
