@@ -50,14 +50,14 @@ BoardMaster is a full-stack application designed for players to enjoy various bo
 #### TicTacToe-menu:
 
 <div style="display: flex;" align="center">
-  <img src="docs/images/BoardMaster_TicTacToe_BotType.png" alt="BoardMaster" style="width: 45%; margin-right: 5px; height: auto; ">
+  <img src="docs/images/BoardMaster_TicTacToe_BotType.png" alt="BoardMaster" style="width: 50%; margin-right: 5px; height: auto; ">
   <img src="docs/images/BoardMaster_TicTacToe_menu.png" alt="BoardMaster" style="width: 50%; height: auto; ">
 </div>
 
 #### TicTacToe game:
 <div style="display: flex;" align="center">
-  <img src="docs/images/BoardMaster_TicTacToe_BotType.png" alt="BoardMaster" style="width: 45%; margin-right: 5px; height: auto; ">
-  <img src="docs/images/BoardMaster_TicTacToe_menu.png" alt="BoardMaster" style="width: 50%; height: auto; ">
+  <img src="docs/images/BoardMaster_TicTacToe_PlayerStart.png" alt="BoardMaster" style="width: 50%; margin-right: 5px; height: auto; ">
+  <img src="docs/images/BoardMaster_TicTacToe_BotStart.png" alt="BoardMaster" style="width: 50%; height: auto; ">
 </div>
 
 ### Minimax Algorithm
