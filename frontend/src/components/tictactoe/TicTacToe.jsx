@@ -9,11 +9,11 @@ import './TicTacToe.css';
 function TicTacToe() {
   const [gameData, setGameData] = useState(null);
   const [shallLoad, setShallLoad] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [botType, setBotType] = useState("");
   const [availableBots, setAvailableBots] = useState([]);
   const [playerStarts, setPlayerStarts] = useState(true);
   const [gameStarted, setGameStarted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     getAgents();
@@ -21,16 +21,8 @@ function TicTacToe() {
   }, []);
 
   useEffect(() => {
-    console.log(gameData);
-  }, [gameData]);
-
-  useEffect(() => {
     setBotType(availableBots[0]);
   } , [availableBots]);
-
-  useEffect(() => { 
-    console.log(botType);
-  }, [botType]);
 
   useEffect(() => {
     if (gameStarted && gameData && !playerStarts) {
@@ -39,6 +31,20 @@ function TicTacToe() {
   }, [gameStarted]);
 
 
+  const getAgents = async () => {
+    try {
+      console.log("Getting Agent");
+      const response = await axios.get(apiRoutes.getAgents);
+
+      // Update state with response data
+      setAvailableBots(response.data);
+      console.log("Agent:", response.data);
+    } catch (error) {
+      setErrorMessage(error.message);
+      console.error("Error getting agent:", error);
+    }
+
+  }
 
   const startGame = async () => {
     try {
@@ -62,21 +68,6 @@ function TicTacToe() {
       setErrorMessage(error.message);
       console.error("Error starting game:", error);
     }
-  }
-
-  const getAgents = async () => {
-    try {
-      console.log("Getting Agent");
-      const response = await axios.get(apiRoutes.getAgents);
-
-      // Update state with response data
-      setAvailableBots(response.data);
-      console.log("Agent:", response.data);
-    } catch (error) {
-      setErrorMessage(error.message);
-      console.error("Error getting agent:", error);
-    }
-
   }
 
   const makeMove = async (x, y) => {
