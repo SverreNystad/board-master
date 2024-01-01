@@ -80,7 +80,7 @@
 .toBePlaced {
     opacity: 0; /* Set initial opacity to 0 to make the text invisible */
     transition: opacity 0.3s ease; /* Add a smooth transition for opacity */
-    color: green;
+    color: #50BDDE;
     font-size: larger;
 }
 
