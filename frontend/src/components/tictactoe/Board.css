@@ -11,30 +11,12 @@
 }
 
 .Board button {
-    width: 100%;
-    height: 100%;
-    font-size: 24px;
-    font-weight: bold;
-    background-color: #fff;
-    border: none;
     cursor: pointer;
-}
-
-.Board button:hover {
-    background-color: #f2f2f2;
-}
-
-.Board .winner {
-    background-color: #c2e0c6;
-}
-
-.Board .draw {
-    background-color: #f5f5f5;
 }
 
 .boardContainer {
     position: 'relative';
-  }
+}
   
 .loadingOverlay {
     position: 'absolute';
@@ -61,6 +43,8 @@
     flex-direction: 'column';
     justify-content: 'center';
     align-items: 'center';
+    /* background-color: #C7D9E3; */
+
 }
 
 .rowGrid {
