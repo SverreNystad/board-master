@@ -50,6 +50,7 @@ function TicTacToe() {
     try {
       // Reset state
       setGameStarted(false);
+      setErrorMessage(null);
 
       console.log("Starting Game");
       // Mock request data
@@ -72,6 +73,7 @@ function TicTacToe() {
 
   const makeMove = async (x, y) => {
     console.log("Making Move" + x + y);
+    setErrorMessage(null);
 
     let requestBoard = {
       gameId: gameData.gameId,
@@ -89,15 +91,17 @@ function TicTacToe() {
       setErrorMessage(error.message);
       console.error("Error making move:", error);
     }
-
   }
 
   const botMove = async () => {
     console.log("Bot Move");
+    setErrorMessage(null);
     setShallLoad(true);
+
     let requestBody = {
       gameId: gameData.gameId,
     }
+
     try {
       const response = await axios.post(apiRoutes.botMove, requestBody);
 
