@@ -82,6 +82,10 @@ public class GameController {
             System.out.println("Bot move request: id:" + gameId + " error:" + e.getMessage());
             return ResponseEntity.badRequest().build();
         }
+        catch (IllegalStateException e) {
+            System.out.println("Bot move request: id:" + gameId + " error:" + e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
         catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
