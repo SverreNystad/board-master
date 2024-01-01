@@ -37,8 +37,8 @@ public class GameControllerSmokeTest {
 
     @BeforeEach
     public void setup() throws Exception {
-        badRequestJson = "{\"playerColor\":\"illegal\", \"botType\":\"illegal\", \"gameType\":\"illegal\"}";
-        legalGameStartJson = "{\"playerColor\":\"white\", \"botType\":\"Random\", \"gameType\":\"tic-tac-toe\"}";
+        badRequestJson = "{\"botType\":\"illegal\", \"gameType\":\"illegal\"}";
+        legalGameStartJson = "{\"botType\":\"Random\", \"gameType\":\"tic-tac-toe\"}";
         
         // Start a game to be used in tests
         MvcResult result = mockMvc.perform(post(startGameEndpoint)

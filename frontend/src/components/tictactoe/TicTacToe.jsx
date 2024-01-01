@@ -55,9 +55,8 @@ function TicTacToe() {
       console.log("Starting Game");
       // Mock request data
       let requestData = {
-        playerColor: "white", // or "black"
         botType: botType,
-        gameType: "tic-tac-toe" // or "chess", based on your game logic
+        gameType: "tic-tac-toe"
       };
       const response = await axios.post(apiRoutes.startGame, requestData);
 

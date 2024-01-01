@@ -33,8 +33,7 @@ public class GameServiceTest {
         // Make a game to be used in tests
         String gameType = "tic-tac-toe";
         String botType = "random";
-        String playerColor = "white";
-        GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+        GameStartRequest request = new GameStartRequest(botType, gameType);
         GameResponse response = gameService.startGame(request);
         gameIdOfGameInService = response.getGameId();
 
@@ -49,9 +48,8 @@ public class GameServiceTest {
         void testStartGameChess() {
             String gameType = "chess";
             String botType = "random";
-            String playerColor = "white";
             Board expectedBoard = Chess.CreateInitialBoard();
-            GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+            GameStartRequest request = new GameStartRequest(botType, gameType);
             GameResponse response = gameService.startGame(request);
             assertEquals(expectedBoard, response.getBoard());
         }
@@ -61,10 +59,9 @@ public class GameServiceTest {
         void testStartGameTicTacToe() {
             String gameType = "tic-tac-toe";
             String botType = "random";
-            String playerColor = "white";
             Board expectedBoard = (new TicTacToe()).getBoard();
 
-            GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+            GameStartRequest request = new GameStartRequest(botType, gameType);
             GameResponse response = gameService.startGame(request);
             assertEquals(expectedBoard, response.getBoard());
         }
@@ -74,8 +71,7 @@ public class GameServiceTest {
         void testStartGameInvalidGameType() {
             String gameType = "invalid";
             String botType = "random";
-            String playerColor = "white";
-            GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+            GameStartRequest request = new GameStartRequest(botType, gameType);
             
             assertThrows(IllegalArgumentException.class, () -> {
                 gameService.startGame(request);
@@ -87,8 +83,7 @@ public class GameServiceTest {
         void testStartGameInvalidBotType() {
             String gameType = "chess";
             String botType = "invalid";
-            String playerColor = "white";
-            GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+            GameStartRequest request = new GameStartRequest(botType, gameType);
             
             assertThrows(IllegalArgumentException.class, () -> {
                 gameService.startGame(request);
@@ -100,8 +95,7 @@ public class GameServiceTest {
         void testStartGameUniqueGameId() {
             String gameType = "chess";
             String botType = "random";
-            String playerColor = "white";
-            GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+            GameStartRequest request = new GameStartRequest(botType, gameType);
 
             GameResponse response1 = gameService.startGame(request);
             GameResponse response2 = gameService.startGame(request);
@@ -130,10 +124,9 @@ public class GameServiceTest {
         void testPlayerMoveTicTacToe() {
             String gameType = "tic-tac-toe";
             String botType = "random";
-            String playerColor = "white";
             Board expectedBoard = (new TicTacToe()).getBoard();
 
-            GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+            GameStartRequest request = new GameStartRequest(botType, gameType);
             GameResponse response = gameService.startGame(request);
             assertEquals(expectedBoard, response.getBoard());
         }

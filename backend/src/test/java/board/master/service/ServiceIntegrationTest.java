@@ -26,8 +26,7 @@ public class ServiceIntegrationTest {
         // Make a game to be used in tests
         String gameType = "tic-tac-toe";
         String botType = "minimax";
-        String playerColor = "white";
-        GameStartRequest request = new GameStartRequest(playerColor, botType, gameType);
+        GameStartRequest request = new GameStartRequest(botType, gameType);
         GameResponse response = gameService.startGame(request);
         gameIdOfGameInService = response.getGameId();
 
