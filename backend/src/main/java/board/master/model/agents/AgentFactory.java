@@ -56,6 +56,7 @@ public class AgentFactory {
         HashMap<String, Agent> agents = new HashMap<>();
         agents.put("MINIMAX", new Minimax());
         agents.put("RANDOM", new RandomStrategy());
+        agents.put("ALPHABETA-MINIMAX", new AlphaBetaPruningMinimax());
         return agents;
     }
 }
