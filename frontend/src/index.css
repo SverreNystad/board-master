@@ -13,3 +13,14 @@ code {
     monospace;
 }
 
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #274A63, #051F32);
+  color: #C7D9E3;
+   /* do not repeat the background color but stretch it out */
+  background-repeat: no-repeat;
+  background-size: cover; 
+  min-height: 97.87vh;
+}
