@@ -1,14 +1,26 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #274A63, #051F32);
+    color: #C7D9E3;
+}
+
+h1 {
+    color: #C7D9E3;
+}
+
 .main-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; 
+    height: 100vh;
+    padding: 20px; 
   }
   
 
   button {
-    background-color: rgb(194, 182, 182); /* Green */
+    background-color: #50BDDE;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -25,13 +37,21 @@
 }
 
 button:hover {
-    background-color: #45a049;
-    color: white;
+    background-color: #C7D9E3;
+    color: #122836;
     box-shadow: 0 12px #666;
     transform: translateY(-5px);
+    
 }
 
 button:active {
     box-shadow: 0 5px #666;
     transform: translateY(2px);
+    color: #122836;
+}
+
+.images {
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto;
 }
