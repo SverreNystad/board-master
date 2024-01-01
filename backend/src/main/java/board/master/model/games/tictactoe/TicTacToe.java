@@ -159,7 +159,7 @@ public class TicTacToe implements StateHandler {
             if (board.getPosition(0, i).equals(board.getPosition(1, i)) 
             && board.getPosition(1, i).equals(board.getPosition(2, i)) 
             && isNotEmpty) {
-                return board.getPosition(i, 0);
+                return board.getPosition(0, i);
             }
         }
 
