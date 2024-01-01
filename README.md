@@ -15,8 +15,11 @@
 
 - [board-master](#board-master)
   - [Introduction](#introduction)
+    - [What is BoardMaster?](#what-is-boardmaster)
+      - [Main-menu:](#main-menu)
+      - [TicTacToe-menu:](#tictactoe-menu)
+      - [TicTacToe game:](#tictactoe-game)
     - [Minimax Algorithm](#minimax-algorithm)
-    - [Planned Features](#planned-features)
   - [Setup](#setup)
     - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -39,27 +42,27 @@
 ### What is BoardMaster?
 BoardMaster is a full-stack application designed for players to enjoy various board games against a range of bots, such as RandomMoveAgent, MiniMaxAgent, and others. It offers an immersive gaming experience, combining classic board game fun with modern AI technology.
 
-<img src="docs/images/BoardMaster.png" width="50%" alt="BoardMaster" style="display: block; margin-left: auto; margin-right: auto;">
-
 #### Main-menu:
-<img src="docs/images/BoardMaster_mainMenu.png" width="50%" alt="BoardMaster" style="display: block; margin-left: auto; margin-right: auto;">
+<div align="center"> 
+  <img src="docs/images/BoardMaster_mainMenu.png" width="50%" alt="BoardMaster" style="display: block; margin-left: auto; margin-right: auto;">
+</div>
 
 #### TicTacToe-menu:
-<div style="display: flex;">
-<img src="docs/images/BoardMaster_TicTacToe_BotType.png" alt="BoardMaster" style="width: 45%; margin-right: 5px; height: auto; ">
-<img src="docs/images/BoardMaster_TicTacToe_menu.png" alt="BoardMaster" style="width: 50%; height: auto; ">
+
+<div style="display: flex;" align="center">
+  <img src="docs/images/BoardMaster_TicTacToe_BotType.png" alt="BoardMaster" style="width: 45%; margin-right: 5px; height: auto; ">
+  <img src="docs/images/BoardMaster_TicTacToe_menu.png" alt="BoardMaster" style="width: 50%; height: auto; ">
 </div>
 
 #### TicTacToe game:
-<div style="display: flex;">
-<img src="docs/images/BoardMaster_TicTacToe_BotType.png" alt="BoardMaster" style="width: 45%; margin-right: 5px; height: auto; ">
-<img src="docs/images/BoardMaster_TicTacToe_menu.png" alt="BoardMaster" style="width: 50%; height: auto; ">
+<div style="display: flex;" align="center">
+  <img src="docs/images/BoardMaster_TicTacToe_BotType.png" alt="BoardMaster" style="width: 45%; margin-right: 5px; height: auto; ">
+  <img src="docs/images/BoardMaster_TicTacToe_menu.png" alt="BoardMaster" style="width: 50%; height: auto; ">
 </div>
 
 ### Minimax Algorithm
 The games this algorithm works great for are what game theorists call deterministic , two-player turn-taking, perfect information, zero-sum games. These games are "fully observable", meaning that you can see everything that is going on in the game. They are also "deterministic", meaning that there is no element of chance involved in the game. There is no dice rolling or card drawing. The game is "zero-sum", meaning that one player's gain is the other player's loss. In other words, if you add up all the gains and losses for each player, they will sum to zero. Finally, the game is "turn-taking", meaning that the players alternate making moves, and "perfect information", meaning that no information is hidden from either player. Chess, checkers, tic-tac-toe, Go, and Othello are all examples of deterministic, two-player, turn-taking, perfect information, zero-sum games. However games that has too many possible moves, such as chess, will take too long to compute and will not be feasible to use this algorithm on.
 
-### Planned Features
 
 ## Setup
 To setup the project, one needs to have all the prerequisites installed. Clone the repository, install the dependencies and build the project. This is described in more detail below.
