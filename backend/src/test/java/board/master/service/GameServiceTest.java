@@ -185,7 +185,5 @@ public class GameServiceTest {
                 gameService.botMove(gameId);
             });
         }
-
-
     }
 }

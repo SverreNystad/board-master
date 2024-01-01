@@ -2,28 +2,21 @@ package board.master.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import board.master.model.Action;
 import board.master.model.communication.GameResponse;
 import board.master.model.communication.GameStartRequest;
 import board.master.model.communication.MoveRequest;
 import board.master.model.games.Board;
-import board.master.model.games.Move;
 
 public class ServiceIntegrationTest {
     
     private GameService gameService;
     
     private String gameIdOfGameInService;
-    private Board boardOfGameInService;
-
-    private final String nonUsedGameId = "nonUsedGameId";
 
 
     @BeforeEach
@@ -82,7 +75,5 @@ public class ServiceIntegrationTest {
             String actual = board.getPosition(1, 2);
             assertEquals(expected, actual);
         }
-
-
     }
 }
