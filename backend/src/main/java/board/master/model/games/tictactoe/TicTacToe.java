@@ -151,14 +151,18 @@ public class TicTacToe implements StateHandler {
         //check for win in rows and columns
         for (int i = 0; i < 3; i++) {
             Boolean isNotEmpty = !board.getPosition(i, i).equals("");
-            if (board.getPosition(i, 0).equals(board.getPosition(i, 1)) 
-            && board.getPosition(i, 1).equals(board.getPosition(i, 2)) && isNotEmpty) {
+            
+            Boolean sameSignCol = board.getPosition(i, 0).equals(board.getPosition(i, 1)) 
+            && board.getPosition(i, 1).equals(board.getPosition(i, 2));
+            
+            Boolean sameSignRow = board.getPosition(0, i).equals(board.getPosition(1, i)) 
+            && board.getPosition(1, i).equals(board.getPosition(2, i));
+            
+            if (sameSignCol && isNotEmpty) {
                 return board.getPosition(i, 0);
             }
 
-            if (board.getPosition(0, i).equals(board.getPosition(1, i)) 
-            && board.getPosition(1, i).equals(board.getPosition(2, i)) 
-            && isNotEmpty) {
+            if (sameSignRow && isNotEmpty) {
                 return board.getPosition(0, i);
             }
         }
