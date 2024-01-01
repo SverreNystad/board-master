@@ -3,6 +3,7 @@ plugins {
 	jacoco
 	id("org.springframework.boot") version "3.2.1"
 	id("io.spring.dependency-management") version "1.1.4"
+	id("com.github.roroche.plantuml") version "1.0.2"
 }
 
 group = "com.example"
@@ -36,4 +37,9 @@ tasks.jacocoTestReport {
         csv.required.set(false)
         html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
     }
+}
+
+classDiagram { // (1)
+    packageName = "board.master" // (2)
+    outputFile = project.file("../docs/backend.plantuml") // (3)
 }
