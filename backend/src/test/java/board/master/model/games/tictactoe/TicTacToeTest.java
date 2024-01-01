@@ -174,7 +174,7 @@ public class TicTacToeTest {
 
         @Test
         @DisplayName("Test if TicTacToe is terminal when diagonal is of the same value")
-        void testIsTerminal2() {
+        void testIsTerminalOnDiagonalWin() {
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 0));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 1));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 1));
@@ -186,7 +186,7 @@ public class TicTacToeTest {
 
         @Test
         @DisplayName("Test if TicTacToe is terminal when full")
-        void testIsTerminal3() {
+        void testIsTerminalFullBoard() {
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 0));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 1));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 1));
@@ -200,8 +200,8 @@ public class TicTacToeTest {
         }
 
         @Test
-        @DisplayName("Test if TicTacToe is terminal")
-        void testIsTerminal4() {
+        @DisplayName("Test if TicTacToe is terminal on the second row")
+        void testIsTerminalIOnRowWin() {
             // | x | - | x |
             // | o | o | o |
             // | - | x | - |
