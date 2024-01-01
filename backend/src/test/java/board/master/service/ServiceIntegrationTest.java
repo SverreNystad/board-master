@@ -75,5 +75,27 @@ public class ServiceIntegrationTest {
             String actual = board.getPosition(1, 2);
             assertEquals(expected, actual);
         }
+
+        @Test
+        @DisplayName("Test minimax tries to win")
+        void testMinimaxTriesToWin2() {
+            // X should block
+            // x - x |    | x - x 
+            // o o - | -> | o o o 
+            // - x - |    | - x - 
+
+            String expected = "O";
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 0, 0)); // X
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 1, 1)); // O
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 1, 2)); // X
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 0, 1)); // O
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 2, 0)); // X
+
+            // Minimax should try to win
+            GameResponse gameResponse = gameService.botMove(gameIdOfGameInService); // O
+            Board board = gameResponse.getBoard();
+            String actual = board.getPosition(2, 1);
+            assertEquals(expected, actual);
+        }
     }
 }
