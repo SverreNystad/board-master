@@ -37,7 +37,7 @@ function Board({ grid, onClickCallback, shallLoad, placeSign }) {
 const cellStyle = {
   width: '50px',
   height: '50px',
-  border: '1px solid black',
+  border: '2px solid #C7D9E3',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
