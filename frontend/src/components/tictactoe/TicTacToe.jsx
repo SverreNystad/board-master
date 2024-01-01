@@ -124,28 +124,25 @@ function TicTacToe() {
       <h1>BoardMaster TicTacToe</h1>
       <div className='options'>
         <h2>Choose bot-type:</h2>
-        <div>
-          <select onChange={(e) => setBotType(e.target.value)}>
-            {availableBots.map((bot) => {
-              return <option value={bot}>{bot}</option>
-            })}
-          </select>
+        <select onChange={(e) => setBotType(e.target.value)}>
+          {availableBots.map((bot) => {
+            return <option value={bot}>{bot}</option>
+          })}
+        </select>
 
-          <form>
-          <h2>Choose who starts:</h2>
-            <input type="radio" id="player" name="start-player" value="player" 
-              onChange={() => setPlayerStarts(true)}
-              checked={playerStarts}
-            />
-            <label for="player">Player</label>
-
-            <input type="radio" id="bot" name="start-player" value="bot" 
-              onChange={() => setPlayerStarts(false)}
-              checked={!playerStarts}
-            />
-            <label for="bot">Bot</label>
-          </form>
-        </div>
+        <h2>Choose who starts:</h2>
+        <form>
+          <input type="radio" id="player" name="start-player" value="player" 
+            onChange={() => setPlayerStarts(true)}
+            checked={playerStarts}
+          />
+          <label for="player">Player</label>
+          <input type="radio" id="bot" name="start-player" value="bot" 
+            onChange={() => setPlayerStarts(false)}
+            checked={!playerStarts}
+          />
+          <label for="bot">Bot</label>
+        </form>
       </div>
       {!!!gameData && <button onClick={startGame}>Start Game</button>}
       
