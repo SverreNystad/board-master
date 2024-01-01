@@ -12,6 +12,8 @@ function TicTacToe() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [botType, setBotType] = useState("");
   const [availableBots, setAvailableBots] = useState([]);
+  const [playerStarts, setPlayerStarts] = useState(true);
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     getAgents();
@@ -30,10 +32,19 @@ function TicTacToe() {
     console.log(botType);
   }, [botType]);
 
+  useEffect(() => {
+    if (gameStarted && gameData && !playerStarts) {
+      botMove();
+    }
+  }, [gameStarted]);
+
 
 
   const startGame = async () => {
     try {
+      // Reset state
+      setGameStarted(false);
+
       console.log("Starting Game");
       // Mock request data
       let requestData = {
@@ -46,6 +57,7 @@ function TicTacToe() {
       // Update state with response data
       setGameData(response.data);
       console.log("Game Started:", response.data);
+      setGameStarted(true);
     } catch (error) {
       setErrorMessage(error.message);
       console.error("Error starting game:", error);
@@ -115,13 +127,30 @@ function TicTacToe() {
   return (
     <div className="TicTacToe">
       <h1>BoardMaster TicTacToe</h1>
-      <h2>Choose bot-type:</h2>
-      <div>
-        <select onChange={(e) => setBotType(e.target.value)}>
-          {availableBots.map((bot) => {
-            return <option value={bot}>{bot}</option>
-          })}
-        </select>
+      <div className='options'>
+        <h2>Choose bot-type:</h2>
+        <div>
+          <select onChange={(e) => setBotType(e.target.value)}>
+            {availableBots.map((bot) => {
+              return <option value={bot}>{bot}</option>
+            })}
+          </select>
+
+          <form>
+          <h2>Choose who starts:</h2>
+            <input type="radio" id="player" name="start-player" value="player" 
+              onChange={() => setPlayerStarts(true)}
+              checked={playerStarts}
+            />
+            <label for="player">Player</label>
+
+            <input type="radio" id="bot" name="start-player" value="bot" 
+              onChange={() => setPlayerStarts(false)}
+              checked={!playerStarts}
+            />
+            <label for="bot">Bot</label>
+          </form>
+        </div>
       </div>
       {!!!gameData && <button onClick={startGame}>Start Game</button>}
       
