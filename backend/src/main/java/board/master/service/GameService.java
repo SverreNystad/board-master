@@ -3,6 +3,8 @@ package board.master.service;
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 
+import javax.swing.plaf.nimbus.State;
+
 import board.master.model.games.GameStateHandlerFactory;
 import board.master.model.StateHandler;
 import board.master.model.agents.Agent;
@@ -41,7 +43,7 @@ public class GameService {
         Game game = new Game(generateGameId(), agent, stateHandler);
         games.put(game.getGameId(), game);
         
-        return new GameResponse(game.getGameId(), game.getStateHandler().isTerminal(), game.getBoard());
+        return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler()), game.getBoard());
     }
 
     private void validateAgentAndGameType(String agentType, String gameType) throws IllegalArgumentException {
@@ -66,6 +68,7 @@ public class GameService {
     public GameResponse playerMove(MoveRequest request) throws IllegalArgumentException {
         // Check validity of game id
         Game game = null;
+
         if (games.containsKey(request.getGameId())) {
             game = games.get(request.getGameId());
         }
@@ -84,7 +87,7 @@ public class GameService {
             throw new IllegalArgumentException("Invalid move" + action.toString());
         }
 
-        return new GameResponse(game.getGameId(), game.getStateHandler().isTerminal(), game.getBoard());
+        return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler()), game.getBoard());
 
     }
 
@@ -111,7 +114,26 @@ public class GameService {
         StateHandler transformedGame = game.getStateHandler().result(action);
         game.setStateHandler(transformedGame);
 
-        return new GameResponse(game.getGameId(), game.getStateHandler().isTerminal(), game.getBoard());
+        return new GameResponse(game.getGameId(), getBoardStatus(transformedGame), game.getBoard());
+    }
+
+    private String getBoardStatus(StateHandler stateHandler) {
+        if(stateHandler.isTerminal()) {
+            if (stateHandler.utility(stateHandler.toMove()) == 1) {
+                return "Player won";
+            }
+            else if (stateHandler.utility(stateHandler.toMove()) == -1) {
+                return "Bot won";
+            }
+            else if (stateHandler.utility(stateHandler.toMove()) == 0) {
+                return "Draw";
+            }
+        }
+        else {
+            return "Game in progress";
+        }
+
+        return games.toString();
     }
 
     /**
