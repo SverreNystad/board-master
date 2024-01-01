@@ -160,7 +160,7 @@ function TicTacToe() {
           <p>Game ID: {gameData.gameId}</p>
           <p>Status: {gameData.status}</p>
           <div className='board-container'>
-            <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad}/> 
+            <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad} placeSign={(playerStarts) ? "X" : "O"}/> 
           </div>
         </div>
       )}

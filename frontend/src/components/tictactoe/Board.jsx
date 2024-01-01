@@ -1,7 +1,7 @@
 import React from 'react';
 import './Board.css';
 
-function Board({ grid, onClickCallback, shallLoad }) {
+function Board({ grid, onClickCallback, shallLoad, placeSign }) {
   const handleClick = (rowIndex, columnIndex) => () => {
     // When the shallLoad prop is true, do not allow the user to click
     if (shallLoad) return;
@@ -21,7 +21,7 @@ function Board({ grid, onClickCallback, shallLoad }) {
             {row.map((cell, columnIndex) => (
               <div className='cell' key={columnIndex} style={cellStyle} onClick={handleClick(rowIndex, columnIndex)}>
                 <div>
-                  {!!!cell && <b className='toBePlaced'>X</b>}
+                  {!!!cell && <b className='toBePlaced'>{placeSign}</b>}
                 <b className='toBeKept'>{cell}</b>
                 </div>
               </div>
