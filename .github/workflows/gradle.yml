@@ -40,3 +40,6 @@ jobs:
 
     - name: Test with Gradle
       run: cd backend && ./gradlew test --info
+    
+    - name: Generate uml diagram of backend
+      run: cd backend && ./gradlew buildClassDiagram
