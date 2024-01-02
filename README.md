@@ -166,7 +166,7 @@ gradlew buildClassDiagram
 This will create a `class-diagram` in the `docs` directory of the project. Open the `backend.plantuml` file in [Plant Uml editor](https://www.planttext.com/) to view the documentation.
 ![Alt text](docs/images/backend.png)
 
-![Alt text](http://www.plantuml.com/plantuml/proxy?src=https://raw.github.com/SverreNystad/board-master/blob/main/docs/backend.plantuml)
+![Alt text](http://www.plantuml.com/plantuml/proxy?src=https://raw.github.com/SverreNystad/board-master/blob/main/docs/backend.iuml)
 
 
 ## Contributors
