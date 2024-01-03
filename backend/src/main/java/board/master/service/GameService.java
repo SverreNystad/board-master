@@ -122,10 +122,10 @@ public class GameService {
     private String getBoardStatus(StateHandler stateHandler) {
         if(stateHandler.isTerminal()) {
             if (stateHandler.utility(stateHandler.toMove()) == 1) {
-                return "Player won";
+                return "First Player Won";
             }
             else if (stateHandler.utility(stateHandler.toMove()) == -1) {
-                return "Bot won";
+                return "Second Player Won";
             }
             else if (stateHandler.utility(stateHandler.toMove()) == 0) {
                 return "Draw";
