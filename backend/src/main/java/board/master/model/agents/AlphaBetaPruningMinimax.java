@@ -26,14 +26,17 @@ public class AlphaBetaPruningMinimax implements Agent {
 
         float currentBestValue = Float.NEGATIVE_INFINITY;
         Action currentBestAction = null;
+        
+        float alpha = Float.NEGATIVE_INFINITY;
+        float beta = Float.POSITIVE_INFINITY;
 
         for (Action action : state.getActions()) {
-            float value = evaluateState(state.result(action), false);
+            float value = evaluateState(state.result(action), alpha, beta, false);
             if (currentBestValue < value) {
                 currentBestValue = value;
                 currentBestAction = action;
-                
             }
+            alpha = Math.max(alpha, currentBestValue);
         }
         return currentBestAction;
     }
@@ -49,7 +52,7 @@ public class AlphaBetaPruningMinimax implements Agent {
      * @param isMaximizingPlayer True if the current move is by the maximizing player, false otherwise.
      * @return The evaluated score of the game state.
      */
-    private float evaluateState(StateHandler state, float lower_bound, float upper_bound, Boolean isMaximizingPlayer) {
+    private float evaluateState(StateHandler state, float alpha, float beta, Boolean isMaximizingPlayer) {
 
         if (state.isTerminal()) {
             return state.utility(agentPlayerId);
@@ -58,14 +61,23 @@ public class AlphaBetaPruningMinimax implements Agent {
         if (isMaximizingPlayer) {
                 value = Float.NEGATIVE_INFINITY;
                 for (Action action : state.getActions()) {
-                    value = Math.max(value, evaluateState(state.result(action), !isMaximizingPlayer));
+                    value = Math.max(value, evaluateState(state.result(action), alpha, beta, !isMaximizingPlayer));
+                    // Update alpha
+                    alpha = Math.max(alpha, value);
+                    if (alpha >= beta){
+                        break;
+                    }
                 }
                 return value;
         }
         else {
                 value = Float.POSITIVE_INFINITY;
                 for (Action action : state.getActions()) {
-                    value = Math.min(value, evaluateState(state.result(action), !isMaximizingPlayer));
+                    value = Math.min(value, evaluateState(state.result(action), alpha, beta, !isMaximizingPlayer));
+                    beta = Math.min(beta, value);
+                    if (alpha >= beta) {
+                        break;
+                    }
                 }
                 return value;
         }
