@@ -2,9 +2,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, live-documentation-readme]
   pull_request:
-    branches: [ main ]
+    branches: [ main, live-documentation-readme]
 
 permissions:
   contents: read
@@ -40,3 +40,6 @@ jobs:
 
     - name: Test with Gradle
       run: cd backend && ./gradlew test --info
+    
+    - name: Generate uml diagram of backend
+      run: cd backend && ./gradlew buildClassDiagram

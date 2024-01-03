@@ -33,6 +33,7 @@
     - [Frontend](#frontend-1)
     - [Backend](#backend-1)
   - [Code Coverage](#code-coverage)
+  - [Documentation](#documentation)
   - [Contributors](#contributors)
   - [License](#license)
 
@@ -155,6 +156,15 @@ To generate a code coverage report, use the following Gradle command in `backend
 ```cmd
 gradlew test jacocoTestReport
 ```
+
+## Documentation
+To generate the documentation, use the following Gradle command in `backend` directory of the project:
+
+```cmd
+gradlew buildClassDiagram
+```
+This will create a `class-diagram` in the `docs` directory of the project. Open the `backend.plantuml` file in [Plant Uml editor](https://www.planttext.com/) to view the documentation.
+![Alt text](docs/images/backend.png)
 
 ## Contributors
 <table align="center">
