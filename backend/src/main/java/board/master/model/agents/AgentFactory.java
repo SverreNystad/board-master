@@ -58,6 +58,7 @@ public class AgentFactory {
         agents.put("RANDOM", new RandomStrategy());
         agents.put("ALPHABETA-MINIMAX", new AlphaBetaPruningMinimax());
         agents.put("ITERATIVE-DEEPENING-ALPHABETA-MINIMAX", new IterativeDeepeningAlphaBetaPruningMinimax());
+        agents.put("MONTE-CARLO-TREE-SEARCH", new MonteCarloTreeSearch());
         return agents;
     }
 }
