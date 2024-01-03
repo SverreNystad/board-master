@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { apiRoutes } from '../../routes/routeDefinitions';
+import { getAgents, startGame, makeMove, botMove } from '../../services/gameService'; // Adjust the import path as necessary
 import Board from '../../components/game/Board';
 import Error from '../../components/game/Error';
 import './TicTacToe.css';
-
 
 function TicTacToe() {
   const [gameData, setGameData] = useState(null);
@@ -15,143 +13,100 @@ function TicTacToe() {
   const [gameStarted, setGameStarted] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  
   useEffect(() => {
-    getAgents();
-    console.log(availableBots);
+    const fetchAgents = async () => {
+      const agents = await getAgents(setErrorMessage);
+      if (agents) setAvailableBots(agents);
+    };
+    fetchAgents();
   }, []);
 
   useEffect(() => {
-    setBotType(availableBots[0]);
-  } , [availableBots]);
+    if (availableBots.length > 0) {
+      setBotType(availableBots[0]);
+    }
+  }, [availableBots]);
 
   useEffect(() => {
-    if (gameStarted && gameData && !playerStarts) {
-      botMove();
-    }
-  }, [gameStarted]);
+    const executeBotMove = async () => {
+      if (gameStarted && gameData && !playerStarts) {
+        await botMove(gameData.gameId, setErrorMessage, setShallLoad);
+      }
+    };
+    executeBotMove();
+  }, [gameStarted, gameData, playerStarts]);
 
+  const handleStartGame = async () => {
+    setGameStarted(false);
+    setErrorMessage(null);
 
-  const getAgents = async () => {
-    try {
-      console.log("Getting Agent");
-      const response = await axios.get(apiRoutes.getAgents);
-
-      // Update state with response data
-      setAvailableBots(response.data);
-      console.log("Agent:", response.data);
-    } catch (error) {
-      setErrorMessage(error.message);
-      console.error("Error getting agent:", error);
-    }
-
-  }
-
-  const startGame = async () => {
-    try {
-      // Reset state
-      setGameStarted(false);
-      setErrorMessage(null);
-
-      console.log("Starting Game");
-      // Mock request data
-      let requestData = {
-        botType: botType,
-        gameType: "tic-tac-toe"
-      };
-      const response = await axios.post(apiRoutes.startGame, requestData);
-
-      // Update state with response data
-      setGameData(response.data);
-      console.log("Game Started:", response.data);
+    const game = await startGame(botType, "tic-tac-toe", setErrorMessage);
+    if (game) {
+      setGameData(game);
       setGameStarted(true);
-    } catch (error) {
-      setErrorMessage(error.message);
-      console.error("Error starting game:", error);
     }
-  }
+  };
 
-  const makeMove = async (x, y) => {
-    console.log("Making Move" + x + y);
+  const handleMakeMove = async (x, y) => {
     setErrorMessage(null);
 
-    let requestBoard = {
-      gameId: gameData.gameId,
-      x: x,
-      y: y
-    } 
-
-    try {
-      const response = await axios.post(apiRoutes.makeMove, requestBoard);
-      // Update state with response data
-      setGameData(response.data);
-      console.log("Move Made:", response.data);
-      botMove();
-    } catch (error) {
-      setErrorMessage(error.message);
-      console.error("Error making move:", error);
+    const newGameData = await makeMove(gameData.gameId, x, y, setErrorMessage);
+    if (newGameData) {
+      setGameData(newGameData);
+      if (!playerStarts) {
+        await botMove(newGameData.gameId, setErrorMessage, setShallLoad);
+      }
     }
-  }
-
-  const botMove = async () => {
-    console.log("Bot Move");
-    setErrorMessage(null);
-    setShallLoad(true);
-
-    let requestBody = {
-      gameId: gameData.gameId,
-    }
-
-    try {
-      const response = await axios.post(apiRoutes.botMove, requestBody);
-
-      // Update state with response data
-      setGameData(response.data);
-      console.log("Bot Move:", response.data);
-    } catch (error) {
-      setErrorMessage(error.message);
-      console.error("Error making bot move:", error);
-
-    } finally {
-      setShallLoad(false);
-    }
-  }
-
-
+  };
 
   return (
     <div className="TicTacToe">
       <h1>BoardMaster TicTacToe</h1>
       <div className='options'>
         <h2>Choose bot-type:</h2>
-        <select onChange={(e) => setBotType(e.target.value)}>
-          {availableBots.map((bot) => {
-            return <option value={bot}>{bot}</option>
-          })}
+        <select onChange={(e) => setBotType(e.target.value)} value={botType}>
+          {availableBots.map((bot, index) => (
+            <option key={index} value={bot}>{bot}</option>
+          ))}
         </select>
 
         <h2>Choose who starts:</h2>
         <form>
-          <input type="radio" id="player" name="start-player" value="player" 
+          <input 
+            type="radio" 
+            id="player" 
+            name="start-player" 
+            value="player" 
             onChange={() => setPlayerStarts(true)}
             checked={playerStarts}
           />
-          <label for="player">Player</label>
-          <input type="radio" id="bot" name="start-player" value="bot" 
+          <label htmlFor="player">Player</label>
+          <input 
+            type="radio" 
+            id="bot" 
+            name="start-player" 
+            value="bot" 
             onChange={() => setPlayerStarts(false)}
             checked={!playerStarts}
           />
-          <label for="bot">Bot</label>
+          <label htmlFor="bot">Bot</label>
         </form>
       </div>
-      {!!!gameData && <button onClick={startGame}>Start Game</button>}
+      {!gameData && <button onClick={handleStartGame}>Start Game</button>}
       
       {gameData && (
         <div>
-          <button onClick={startGame}>Restart Game</button>
+          <button onClick={handleStartGame}>Restart Game</button>
           <p>Game ID: {gameData.gameId}</p>
           <p>Status: {gameData.status}</p>
           <div className='board-container'>
-            <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad} placeSign={(playerStarts) ? "X" : "O"}/> 
+            <Board 
+              grid={gameData.board.grid} 
+              onClickCallback={handleMakeMove} 
+              shallLoad={shallLoad} 
+              placeSign={playerStarts ? "X" : "O"}
+            /> 
           </div>
         </div>
       )}
