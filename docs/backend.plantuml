@@ -1,0 +1,161 @@
+@startuml
+
+abstract class "Action"
+
+interface "Agent" {
+  getAction(StateHandler) : Action
+}
+
+class "AgentController"
+
+class "AgentFactory"
+
+class "AlphaBetaPruningMinimax" {
+  agentPlayerId : int
+  getAction(StateHandler) : Action
+}
+
+class "Application"
+
+class "Board" {
+  grid : List<List<String>>
+  rows : int
+  columns : int
+  getPosition(int, int) : String
+  setPosition(int, int, String)
+}
+
+class "Chess" {
+  board : Board
+  result(Action) : StateHandler
+  toMove() : int
+  utility(int) : int
+}
+
+enum "Color" {
+  WHITE
+  BLACK
+}
+
+class "Game" {
+  gameId : String
+  agent : Agent
+  stateHandler : StateHandler
+}
+
+class "GameController" {
+  gameService : GameService
+  botMove(GameId) : ResponseEntity<GameResponse>
+  playerMove(MoveRequest) : ResponseEntity<GameResponse>
+  startGame(GameStartRequest) : ResponseEntity<GameResponse>
+}
+
+class "GameId" {
+  gameId : String
+}
+
+class "GameResponse" {
+  gameId : String
+  status : String
+  board : Board
+}
+
+class "GameService" {
+  games : HashMap<String, Game>
+  botMove(String) : GameResponse
+  playerMove(MoveRequest) : GameResponse
+  startGame(GameStartRequest) : GameResponse
+}
+
+class "GameStartRequest" {
+  botType : String
+  gameType : String
+}
+
+class "GameStateHandlerFactory"
+
+class "Minimax" {
+  agentPlayerId : int
+  getAction(StateHandler) : Action
+}
+
+class "Move" {
+  x : String
+  y : String
+}
+
+class "MoveRequest" {
+  gameId : String
+  move : Move
+}
+
+abstract class "Piece" {
+  color : Color
+  row : int
+  column : int
+  isValidMove(int, int) : boolean
+  move(int, int)
+}
+
+class "RandomStrategy" {
+  getAction(StateHandler) : Action
+}
+
+interface "StateHandler" {
+  result(Action) : StateHandler
+  toMove() : int
+  utility(int) : int
+}
+
+class "TicTacToe" {
+  board : Board
+  getPosition(int, int) : String
+  result(Action) : StateHandler
+  toMove() : int
+  utility(int) : int
+}
+
+class "WebConfig" {
+  allowedOrigins : String[]
+  allowedMethods : String[]
+  allowedHeaders : String
+  allowCredentials : boolean
+  maxAge : long
+  addCorsMappings(CorsRegistry)
+}
+
+"Action" <|-- "Move"
+"Agent" --> "Action" : use
+"Agent" <|-- "AlphaBetaPruningMinimax"
+"Agent" <|-- "Minimax"
+"Agent" <|-- "RandomStrategy"
+"Agent" --> "StateHandler" : use as state
+"AlphaBetaPruningMinimax" --> "Action" : use
+"AlphaBetaPruningMinimax" --> "StateHandler" : use as state
+"Chess" --> "Action" : use as action
+"Chess" --> "Board" : board
+"Game" --> "Agent" : agent
+"GameController" --> "GameId" : use as gameId
+"GameController" --> "GameResponse" : use
+"GameController" --> "GameService" : gameService
+"GameController" --> "GameStartRequest" : use as request
+"GameController" --> "MoveRequest" : use as request
+"GameResponse" --> "Board" : board
+"GameService" --> "Game" : games
+"GameService" --> "GameResponse" : use
+"GameService" --> "GameStartRequest" : use as request
+"GameService" --> "MoveRequest" : use as request
+"Game" --> "StateHandler" : stateHandler
+"Minimax" --> "Action" : use
+"Minimax" --> "StateHandler" : use as state
+"MoveRequest" --> "Move" : move
+"Piece" --> "Color" : color
+"RandomStrategy" --> "Action" : use
+"RandomStrategy" --> "StateHandler" : use as state
+"StateHandler" --> "Action" : use as action
+"StateHandler" <-> "Chess"
+"StateHandler" <-> "TicTacToe"
+"TicTacToe" --> "Action" : use as action
+"TicTacToe" --> "Board" : board
+
+@enduml
