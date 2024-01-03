@@ -13,7 +13,7 @@ import board.master.model.StateHandler;
 public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
     
     private int agentPlayerId;
-    private final int maxDepth = 1;
+    private final int maxDepth = 6;
     /**
      * Determines the best action to take in the given game state.
      * This method iteratively deepens the search depth and uses alpha-beta pruning
@@ -49,7 +49,7 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
 
     private float evaluateState(StateHandler state, float alpha, float beta, int depth, Boolean isMaximizingPlayer) {
 
-        if (state.isTerminal()) {
+        if (state.isTerminal() || depth == 0) {
             return state.utility(agentPlayerId);
         }
         float value;
