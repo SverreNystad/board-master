@@ -5,10 +5,10 @@ import { Route, Routes } from 'react-router-dom';
 import { routes } from './routeDefinitions';
 
 // Import your page components
-import Chess from '../components/chess/Chess';
-import TicTacToe from '../components/tictactoe/TicTacToe';
-import MainMenu from '../components/mainmenu/MainMenu';
-import SomeNotFoundComponent from '../components/somenotfoundcomponent/SomeNotFoundComponent';
+import Chess from '../pages/chess/Chess';
+import TicTacToe from '../pages/tictactoe/TicTacToe';
+import MainMenu from '../pages/mainmenu/MainMenu';
+import SomeNotFoundComponent from '../pages/somenotfoundcomponent/SomeNotFoundComponent';
 
 
 const AppRoutes  = () => {

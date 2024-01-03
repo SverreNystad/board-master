@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { apiRoutes } from '../../routes/routeDefinitions';
-import Board from './Board';
-import Error from './Error';
+import Board from '../../components/game/Board';
+import Error from '../../components/game/Error';
 import './TicTacToe.css';
 
 
