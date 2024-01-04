@@ -24,31 +24,39 @@ public class Pawn extends Piece {
 
     public List<Action> getValidMoves(Board board) {
         List<Action> actions = new ArrayList<Action>();
-        if(this.color == Color.BLACK) {
-                if (board.getPosition(this.row + 1, this.column).equals("")) {
-                    actions.add((Action) new Move(this.row + 1, this.column));
-                }
-                for (int i = 0; i < 3; i+= 2) {
-                    if (board.getPosition(this.row + 1, this.column - 1 + i).equals(Piece.Color.WHITE)) {
-                        actions.add((Action) new Move(this.row + 1, this.column - 1 + i));
-                    }
-                }
-        } else {
-            if (board.getPosition(this.row - 1, this.column).equals("")) {
-                    actions.add((Action) new Move(this.row - 1, this.column));
-            }
-            for (int i = 0; i < 3; i+= 2) {
-                if (board.getPosition(this.row - 1, this.column - 1 + i).equals(Piece.Color.BLACK)) {
-                    actions.add((Action) new Move(this.row - 1, this.column - 1 + i));
+
+        int forwardDirection = (this.color == Color.WHITE) ? -1 : 1;
+
+        if ((this.color == Color.BLACK && this.row == 7) || (this.color == Color.WHITE && this.row == 0)) {
+            return actions;
+        }
+
+        if (board.getPosition(this.row + forwardDirection, this.column).equals("")) {
+            actions.add((Action) new Move(this.row + forwardDirection, this.column));
+        }
+
+        int[] possibleColumns = {this.column - 1, this.column + 1};
+
+        for (int column : possibleColumns) {
+            if (column >= 0 || column <= 7) {
+                if (board.getPosition(this.row + forwardDirection, column).equals(oppositeColor(this.color))) {
+                    actions.add((Action) new Move(this.row + forwardDirection, column));
                 }
             }
         }
         return actions;
     }
 
+    private Color oppositeColor(Color color) {
+        if (color == Color.WHITE) {
+            return Color.BLACK;
+        }
+        return Color.WHITE;
+    }
+
 
     public String getSymbol() {
-        return "R";
+        return "P";
     }
 
     public Color getColor() {
