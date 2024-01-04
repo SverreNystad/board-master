@@ -20,7 +20,12 @@ public class Chess implements StateHandler {
 
 
     public Chess(Board board) {
-        // TODO
+        Board newBoard = new Board(board.getRows(), board.getColumns());
+        for (int x = 0; x < board.getRows(); x++) {
+            for (int y = 0; y < board.getColumns(); y++) {
+                newBoard.setPosition(x, y, board.getPosition(x, y));
+            }
+        }
         this.board = board;
     }
     
