@@ -1,5 +1,7 @@
 package board.master.model.games.chess.Pieces;
 
+import board.master.model.games.Board;
+
 public abstract class Piece {
     
     public enum Color {
@@ -15,10 +17,10 @@ public abstract class Piece {
         this.column = column;
     }
 
-    public abstract boolean isValidMove(int row, int column);
+    public abstract boolean isValidMove(int row, int column, Board board);
 
-    public void move(int row, int column) throws IllegalArgumentException {
-        if (!isValidMove(row, column)) {
+    public void move(int row, int column, Board board) throws IllegalArgumentException {
+        if (!isValidMove(row, column, board)) {
             throw new IllegalArgumentException("Invalid move");
         }
         this.row = row;
@@ -26,4 +28,6 @@ public abstract class Piece {
     }
 
     public abstract String getSymbol();
+
+    public abstract Color getColor();
 }
