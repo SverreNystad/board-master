@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import board.master.model.games.Board;
@@ -20,9 +21,10 @@ public class ChessTest {
     }
 
     @Test
+    @DisplayName("Test Chess constructor")
     void testCreateInitialBoard() {
         Board emptyBoard = new Board(8, 8);
-        assertEquals(emptyBoard, board);
+        assertEquals(emptyBoard, chess.getBoard());
     }
 
     @Test
