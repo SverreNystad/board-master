@@ -1,4 +1,4 @@
-package board.master.model.games.chess;
+package board.master.model.games.chess.Pieces;
 
 public abstract class Piece {
     
