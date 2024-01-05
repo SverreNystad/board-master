@@ -15,9 +15,13 @@ public class Pawn extends Piece {
     }
 
     public boolean isValidMove(int newRow, int newColumn, Board board) {
-        Move newMove = new Move(newRow, newColumn);
-        if (getValidMoves(board).contains(newMove)) {
-            return true;
+        for (Action action : getValidMoves(board)) {
+            Move move = (Move) action;
+            System.out.println(move.getX() + " " + move.getY());
+            if (Integer.parseInt(move.getX()) == newRow 
+                && Integer.parseInt(move.getY()) == newColumn) {
+                return true;
+            }
         }
         return false;
     }
