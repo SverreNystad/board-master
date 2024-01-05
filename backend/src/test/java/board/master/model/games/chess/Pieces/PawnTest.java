@@ -2,6 +2,7 @@ package board.master.model.games.chess.Pieces;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -90,9 +91,25 @@ public class PawnTest {
         assertEquals(validMoves, pawn.getValidMoves(board).size());
     }
 
+    @Test
+    @DisplayName("Test Pawn isValidMove when white piece is diagonal to it")
+    void testGetValidMoves5() {
+        int x = 5;
+        int y = 0;
+        Pawn oppositePawn = new Pawn(Color.WHITE, x, y);
+        board.setPosition(x, y, oppositePawn.getSymbol());
+        int validMoves = 1;
+        List<Action> list = pawn.getValidMoves(board);
+        assertEquals(validMoves, pawn.getValidMoves(board).size());
+    }
+
 
     @Test
+    @DisplayName("Test Pawn isValidMove")
     void testIsValidMove() {
-
+        int x = 5;
+        int y = 1;
+        
+        assertTrue(pawn.isValidMove(x, y, board));
     }
 }
