@@ -22,23 +22,7 @@ public class AlphaBetaPruningMinimax implements Agent {
      */
     @Override
     public Action getAction(StateHandler state) {
-        this.agentPlayerId = state.toMove();
-
-        float currentBestValue = Float.NEGATIVE_INFINITY;
-        Action currentBestAction = null;
-        
-        float alpha = Float.NEGATIVE_INFINITY;
-        float beta = Float.POSITIVE_INFINITY;
-
-        for (Action action : state.getActions()) {
-            float value = evaluateState(state.result(action), alpha, beta, false);
-            if (currentBestValue < value) {
-                currentBestValue = value;
-                currentBestAction = action;
-            }
-            alpha = Math.max(alpha, currentBestValue);
-        }
-        return currentBestAction;
+       return null;
     }
 
     /**
@@ -53,33 +37,7 @@ public class AlphaBetaPruningMinimax implements Agent {
      * @return The evaluated score of the game state.
      */
     private float evaluateState(StateHandler state, float alpha, float beta, Boolean isMaximizingPlayer) {
-
-        if (state.isTerminal()) {
-            return state.utility(agentPlayerId);
-        }
-        float value;
-        if (isMaximizingPlayer) {
-                value = Float.NEGATIVE_INFINITY;
-                for (Action action : state.getActions()) {
-                    value = Math.max(value, evaluateState(state.result(action), alpha, beta, !isMaximizingPlayer));
-                    // Update alpha
-                    alpha = Math.max(alpha, value);
-                    if (alpha >= beta){
-                        break;
-                    }
-                }
-                return value;
-        }
-        else {
-                value = Float.POSITIVE_INFINITY;
-                for (Action action : state.getActions()) {
-                    value = Math.min(value, evaluateState(state.result(action), alpha, beta, !isMaximizingPlayer));
-                    beta = Math.min(beta, value);
-                    if (alpha >= beta) {
-                        break;
-                    }
-                }
-                return value;
+        return null;
         }
     }
     
