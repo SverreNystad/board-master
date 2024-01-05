@@ -38,28 +38,34 @@ public class Pawn extends Piece {
         int[] possibleColumns = {this.column - 1, this.column + 1};
 
         for (int column : possibleColumns) {
-            if (column >= 0 || column <= 7) {
-                if (board.getPosition(this.row + forwardDirection, column).equals(oppositeColor(this.color))) {
-                    actions.add((Action) new Move(this.row + forwardDirection, column));
+            if (column >= 0 || column <= 7 ) {
+                String position = board.getPosition(this.row + forwardDirection, column);
+                
+                if (!position.equals("")) {
+                    if (position.length() > 1 && position.charAt(1) == oppositeColor(this.color)) {
+                        actions.add((Action) new Move(this.row + forwardDirection, column));
+                    }
                 }
             }
         }
         return actions;
     }
 
-    private Color oppositeColor(Color color) {
+    private char oppositeColor(Color color) {
         if (color == Color.WHITE) {
-            return Color.BLACK;
+            return 'B';
         }
-        return Color.WHITE;
+        return 'W';
     }
 
 
     public String getSymbol() {
-        return "P";
+        String color = (this.color == Color.WHITE) ? "W" : "B";
+        return "P" + color;
     }
 
     public Color getColor() {
         return this.color;
     }
+
 }
