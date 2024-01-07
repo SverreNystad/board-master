@@ -6,6 +6,7 @@ import java.util.List;
 import board.master.model.Action;
 import board.master.model.games.Board;
 import board.master.model.games.Move;
+import board.master.model.games.chess.Color;
 
 public class Rook extends Piece {
     

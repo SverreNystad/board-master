@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import board.master.model.games.Board;
-import board.master.model.games.chess.Pieces.Piece.Color;
+import board.master.model.games.chess.Color;
 
 public class RookTest {
     private Rook rook;
@@ -45,7 +45,7 @@ public class RookTest {
     }
 
     @Test
-    @DisplayName("Test Pawn getValidMoves with an opposite colored piecs")
+    @DisplayName("Test Pawn getValidMoves with an opposite colored pieces")
     void testGetValidMovesWithEnemyPiece() {
         int x = 6;
         int y = 3;
