@@ -30,7 +30,11 @@ public class PawnTest {
     @DisplayName("Test Pawn constructor")
     void testGetColor() {
         Color color = Color.WHITE;
+        int row = 6;
+        int column = 1;
         assertEquals(color, pawn.getColor());
+        assertEquals(row, pawn.getRow());
+        assertEquals(column, pawn.getColumn());
     }
 
     @Test
