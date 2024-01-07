@@ -25,56 +25,10 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
      */
     @Override
     public Action getAction(StateHandler state) {
-        this.agentPlayerId = state.toMove();
-
-        float currentBestValue = Float.NEGATIVE_INFINITY;
-        Action currentBestAction = null;
-        
-        for (int depth = 1; depth <= maxDepth; depth++) {
-            currentBestValue = Float.NEGATIVE_INFINITY;
-            float alpha = Float.NEGATIVE_INFINITY;
-            float beta = Float.POSITIVE_INFINITY;
-
-            for (Action action : state.getActions()) {
-                float value = evaluateState(state.result(action), alpha, beta, depth, true);
-                if (currentBestValue < value) {
-                    currentBestValue = value;
-                    currentBestAction = action;
-                }
-                alpha = Math.max(alpha, currentBestValue);
-            }
-        }
-        return currentBestAction;
+        return null;
     }
 
     private float evaluateState(StateHandler state, float alpha, float beta, int depth, Boolean isMaximizingPlayer) {
-
-        if (state.isTerminal() || depth == 0) {
-            return state.utility(agentPlayerId);
-        }
-        float value;
-        if (isMaximizingPlayer) {
-                value = Float.NEGATIVE_INFINITY;
-                for (Action action : state.getActions()) {
-                    value = Math.max(value, evaluateState(state.result(action), alpha, beta, depth-1, !isMaximizingPlayer));
-                    // Update alpha
-                    alpha = Math.max(alpha, value);
-                    if (alpha >= beta){
-                        break;
-                    }
-                }
-                return value;
-        }
-        else {
-                value = Float.POSITIVE_INFINITY;
-                for (Action action : state.getActions()) {
-                    value = Math.min(value, evaluateState(state.result(action), alpha, beta, depth-1, !isMaximizingPlayer));
-                    beta = Math.min(beta, value);
-                    if (alpha >= beta) {
-                        break;
-                    }
-                }
-                return value;
-        }
+        return 0;
     }
 }
