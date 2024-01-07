@@ -22,7 +22,22 @@ public class AlphaBetaPruningMinimax implements Agent {
      */
     @Override
     public Action getAction(StateHandler state) {
-       return null;
+        this.agentPlayerId = state.toMove();
+
+        float currentBestMaximizer = Float.NEGATIVE_INFINITY;
+        float currentBestMinimizer = Float.POSITIVE_INFINITY;
+        Action currentBestAction = null;
+
+        for (Action action : state.getActions()) {
+            float value = evaluateState(state.result(action), currentBestMaximizer, currentBestMinimizer, false);
+            if (currentBestMaximizer < value) {
+                currentBestMaximizer = value;
+                currentBestAction = action;
+                
+            }
+        }
+
+        return currentBestAction;
     }
 
     /**
@@ -37,7 +52,25 @@ public class AlphaBetaPruningMinimax implements Agent {
      * @return The evaluated score of the game state.
      */
     private float evaluateState(StateHandler state, float alpha, float beta, Boolean isMaximizingPlayer) {
-        return null;
+        if (state.isTerminal()) {
+            return state.utility(agentPlayerId);
+        }
+
+        float value;
+        if (isMaximizingPlayer) {
+                value = alpha;
+                for (Action action : state.getActions()) {
+                    value = Math.max(value, evaluateState(state.result(action), value, beta, !isMaximizingPlayer));
+                }
+                return value;
+        }
+        else {
+                value = beta;
+                for (Action action : state.getActions()) {
+                    value = Math.min(value, evaluateState(state.result(action), alpha, value, !isMaximizingPlayer));
+                }
+                return value;
+        }
     }
     
 }
