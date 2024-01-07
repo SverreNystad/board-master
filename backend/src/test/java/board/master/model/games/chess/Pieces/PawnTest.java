@@ -1,7 +1,9 @@
 package board.master.model.games.chess.Pieces;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +42,7 @@ public class PawnTest {
 
     @Test
     @DisplayName("Test Pawn isValidMove without other pieces")
-    void testGetValidMoves() {
+    void testGetValidMoveWithoutOtherPieces() {
         String x = "5";
         String y = "1";
         Move move = (Move) pawn.getValidMoves(board).get(0);
@@ -50,15 +52,15 @@ public class PawnTest {
 
     @Test
     @DisplayName("Test Pawn isValidMove when standing at the far end of board")
-    void testGetValidMoves1() {
+    void testGetValidMoveWhenAtTheEndOfBoard() {
         Pawn wronglyPlacedPawn = new Pawn(Color.WHITE, 0, 1);
         int validMoves = 0;
         assertEquals(validMoves, wronglyPlacedPawn.getValidMoves(board).size());
     }
 
     @Test
-    @DisplayName("Test Pawn isValidMove when in front of black piece")
-    void testGetValidMoves2() {
+    @DisplayName("Test Pawn isValidMove when in front of opposite colored piece")
+    void testGetValidMoveWhenInFrontOfOppositePiece() {
         int x = 5;
         int y = 1;
         Pawn oppositePawn = new Pawn(Color.BLACK, x, y);
@@ -68,8 +70,8 @@ public class PawnTest {
     }
 
     @Test
-    @DisplayName("Test Pawn isValidMove when in front of white piece")
-    void testGetValidMoves3() {
+    @DisplayName("Test Pawn isValidMove when in front of friendly piece")
+    void testGetValidMoveWhenInFrontOfFriendlyPiece() {
         int x = 5;
         int y = 1;
         Pawn oppositePawn = new Pawn(Color.WHITE, x, y);
@@ -80,8 +82,8 @@ public class PawnTest {
     }
 
     @Test
-    @DisplayName("Test Pawn isValidMove when black piece is diagonal to it")
-    void testGetValidMoves4() {
+    @DisplayName("Test Pawn isValidMove when opposite colored piece is diagonal to it")
+    void testGetValidMoveWhenOppositePieceIsDiagonal() {
         int x = 5;
         int y = 0;
         Pawn oppositePawn = new Pawn(Color.BLACK, x, y);
@@ -92,8 +94,8 @@ public class PawnTest {
     }
 
     @Test
-    @DisplayName("Test Pawn isValidMove when white piece is diagonal to it")
-    void testGetValidMoves5() {
+    @DisplayName("Test Pawn isValidMove when friendly piece is diagonal to it")
+    void testGetValidMoveWhenFriendlyPieceIsDiagonal() {
         int x = 5;
         int y = 0;
         Pawn oppositePawn = new Pawn(Color.WHITE, x, y);
@@ -105,11 +107,38 @@ public class PawnTest {
 
 
     @Test
-    @DisplayName("Test Pawn isValidMove")
-    void testIsValidMove() {
+    @DisplayName("Test Pawn isValidMove when true")
+    void testIsValidMoveWhenTrue() {
         int x = 5;
         int y = 1;
         
         assertTrue(pawn.isValidMove(x, y, board));
+    }
+
+    @Test
+    @DisplayName("Test Pawn isValidMove when false")
+    void testIsValidMoveWhenFalse() {
+        int x = 3;
+        int y = 1;
+        
+        assertFalse(pawn.isValidMove(x, y, board));
+    }
+
+    @Test
+    @DisplayName("Test Pawn move when valid move")
+    void testMoveValidMove() {
+        int x = 5;
+        int y = 1;
+        pawn.move(x, y, board);
+        assertEquals(x, pawn.getRow());
+        assertEquals(y, pawn.getColumn());
+    }
+
+    @Test
+    @DisplayName("Test Pawn move when invalid move")
+    void testMoveInvalidMove() {
+        int x = 3;
+        int y = 1;
+        assertThrows(IllegalArgumentException.class, () -> pawn.move(x, y, board));
     }
 }
