@@ -38,20 +38,31 @@ public class RookTest {
     }
 
     @Test
-    @DisplayName("Test Pawn isValidMove without other pieces")
+    @DisplayName("Test Pawn getValidMoves without other pieces")
     void testGetValidMovesNoOtherPieces() {
         int numberOfMoves = 14;
         assertEquals(numberOfMoves, rook.getValidMoves(board).size());
     }
 
     @Test
-    @DisplayName("Test Pawn isValidMove an opposite colored pieces")
+    @DisplayName("Test Pawn getValidMoves with an opposite colored piecs")
     void testGetValidMovesWithEnemyPiece() {
         int x = 6;
         int y = 3;
         Rook enemyRook = new Rook(Color.BLACK, x, y);
         board.setPosition(x, y, enemyRook.getSymbol());
         int numberOfMoves = 10;
+        assertEquals(numberOfMoves, rook.getValidMoves(board).size());
+    }
+
+    @Test
+    @DisplayName("Test Pawn getValidMoves a same colored piece")
+    void testGetValidMovesWithFriendlyPiece() {
+        int x = 6;
+        int y = 3;
+        Rook friendlyRook = new Rook(Color.WHITE, x, y);
+        board.setPosition(x, y, friendlyRook.getSymbol());
+        int numberOfMoves = 9;
         assertEquals(numberOfMoves, rook.getValidMoves(board).size());
     }
 
