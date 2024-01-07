@@ -61,6 +61,9 @@ public class AlphaBetaPruningMinimax implements Agent {
                 value = alpha;
                 for (Action action : state.getActions()) {
                     value = Math.max(value, evaluateState(state.result(action), value, beta, !isMaximizingPlayer));
+                    if (value >= beta) {
+                        break;
+                    }
                 }
                 return value;
         }
@@ -68,6 +71,9 @@ public class AlphaBetaPruningMinimax implements Agent {
                 value = beta;
                 for (Action action : state.getActions()) {
                     value = Math.min(value, evaluateState(state.result(action), alpha, value, !isMaximizingPlayer));
+                    if (alpha >= value) {
+                        break;
+                    }
                 }
                 return value;
         }
