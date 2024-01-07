@@ -17,9 +17,8 @@ public class Pawn extends Piece {
     public boolean isValidMove(int newRow, int newColumn, Board board) {
         for (Action action : getValidMoves(board)) {
             Move move = (Move) action;
-            System.out.println(move.getX() + " " + move.getY());
-            if (Integer.parseInt(move.getX()) == newRow 
-                && Integer.parseInt(move.getY()) == newColumn) {
+            if (move.getX().equals(String.valueOf(newRow))
+                && move.getY().equals(String.valueOf(newColumn))) {
                 return true;
             }
         }
@@ -55,6 +54,14 @@ public class Pawn extends Piece {
         return actions;
     }
 
+    public void move(int row, int column, Board board) throws IllegalArgumentException {
+        if (!isValidMove(row, column, board)) {
+            throw new IllegalArgumentException("Invalid move");
+        }
+        this.row = row;
+        this.column = column;
+    }
+
     private char oppositeColor(Color color) {
         if (color == Color.WHITE) {
             return 'B';
@@ -70,6 +77,14 @@ public class Pawn extends Piece {
 
     public Color getColor() {
         return this.color;
+    }
+
+    public int getRow() {
+        return this.row;
+    }
+
+    public int getColumn() {
+        return this.column;
     }
 
 }
