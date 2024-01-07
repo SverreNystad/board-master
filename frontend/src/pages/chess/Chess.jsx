@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from '../../routes/routeDefinitions.jsx';
 import { getAgents, startGame, makeMove, botMove } from '../../services/gameService';
-
+import Board from '../../components/game/Board';
+import Error from '../../components/game/Error';
 function Chess() {
 
   const [gameData, setGameData] = useState(null);
@@ -83,6 +84,17 @@ function Chess() {
           </form>
         </div>
         {!!!gameData && <button onClick={handleStartGame}>Start Game</button>}
+        {gameData && (
+        <div>
+          <button onClick={startGame}>Restart Game</button>
+          <p>Game ID: {gameData.gameId}</p>
+          <p>Status: {gameData.status}</p>
+          <div className='board-container'>
+            <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad} placeSign={(playerStarts) ? "X" : "O"}/> 
+          </div>
+        </div>
+      )}
+      <Error error={errorMessage} />
     </div>
   );
 }
