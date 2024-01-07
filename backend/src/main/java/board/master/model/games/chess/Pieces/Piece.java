@@ -4,15 +4,13 @@ import java.util.List;
 
 import board.master.model.Action;
 import board.master.model.games.Board;
+import board.master.model.games.chess.Color;
 
 public abstract class Piece {
-    
-    public enum Color {
-        WHITE, BLACK
-    }
     public Color color;
     public int row;
     public int column;
+    protected String symbol;
 
     public Piece(Color color, int row, int column) {
         this.color = color;
@@ -31,8 +29,8 @@ public abstract class Piece {
         this.row = row;
         this.column = column;
     }
-    private char oppositeColor(Color color) {
-        if (color == Color.WHITE) {
+    protected char oppositeColor() {
+        if (this.color == Color.WHITE) {
             return 'B';
         }
         return 'W';
@@ -40,9 +38,15 @@ public abstract class Piece {
 
     public abstract String getSymbol();
 
-    public abstract Color getColor();
+    public Color getColor() {
+        return this.color;
+    }
+    
+    public int getRow() {
+        return this.row;
+    }
 
-    public abstract int getRow();
-
-    public abstract int getColumn();
+    public int getColumn() {
+        return this.column;
+    }
 }
