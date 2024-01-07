@@ -51,6 +51,7 @@ function Chess() {
     console.log("Starting Game");
     startGame(gameType, botType).then((response) => {
       setGameData(response.data);
+      console.log("Game started:", response.data);
       setGameStarted(true);
     }).catch((error) => {
       setErrorMessage(error.message);
