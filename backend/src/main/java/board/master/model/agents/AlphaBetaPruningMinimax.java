@@ -38,7 +38,6 @@ public class AlphaBetaPruningMinimax implements Agent {
      */
     private float evaluateState(StateHandler state, float alpha, float beta, Boolean isMaximizingPlayer) {
         return null;
-        }
     }
     
 }
