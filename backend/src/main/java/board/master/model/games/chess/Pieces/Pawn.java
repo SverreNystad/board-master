@@ -2,6 +2,7 @@ package board.master.model.games.chess.Pieces;
 
 import board.master.model.games.Board;
 import board.master.model.games.Move;
+import board.master.model.games.chess.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class Pawn extends Piece {
 
     public Pawn(Color color, int row, int column) {
         super(color, row, column);
+        super.symbol = "P";
     }
 
     public boolean isValidMove(int newRow, int newColumn, Board board) {
@@ -45,7 +47,7 @@ public class Pawn extends Piece {
                 String position = board.getPosition(this.row + forwardDirection, column);
                 
                 if (!position.equals("")) {
-                    if (position.length() > 1 && position.charAt(1) == oppositeColor(this.color)) {
+                    if (position.length() > 1 && position.charAt(1) == oppositeColor()) {
                         actions.add((Action) new Move(this.row + forwardDirection, column));
                     }
                 }
@@ -54,37 +56,8 @@ public class Pawn extends Piece {
         return actions;
     }
 
-    public void move(int row, int column, Board board) throws IllegalArgumentException {
-        if (!isValidMove(row, column, board)) {
-            throw new IllegalArgumentException("Invalid move");
-        }
-        this.row = row;
-        this.column = column;
-    }
-
-    private char oppositeColor(Color color) {
-        if (color == Color.WHITE) {
-            return 'B';
-        }
-        return 'W';
-    }
-
-
     public String getSymbol() {
         String color = (this.color == Color.WHITE) ? "W" : "B";
-        return "P" + color;
+        return this.symbol + color;
     }
-
-    public Color getColor() {
-        return this.color;
-    }
-
-    public int getRow() {
-        return this.row;
-    }
-
-    public int getColumn() {
-        return this.column;
-    }
-
 }
