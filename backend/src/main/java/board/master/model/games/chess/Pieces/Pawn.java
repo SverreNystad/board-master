@@ -16,17 +16,6 @@ public class Pawn extends Piece {
         super.symbol = "P";
     }
 
-    public boolean isValidMove(int newRow, int newColumn, Board board) {
-        for (Action action : getValidMoves(board)) {
-            Move move = (Move) action;
-            if (move.getX().equals(String.valueOf(newRow))
-                && move.getY().equals(String.valueOf(newColumn))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public List<Action> getValidMoves(Board board) {
         List<Action> actions = new ArrayList<Action>();
 
@@ -56,8 +45,4 @@ public class Pawn extends Piece {
         return actions;
     }
 
-    public String getSymbol() {
-        String color = (this.color == Color.WHITE) ? "W" : "B";
-        return this.symbol + color;
-    }
 }
