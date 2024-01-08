@@ -1,0 +1,12 @@
+public class Bishop extends Piece {
+
+    public Bishop(Color color, int row, int column) {
+        super(color, row, column);
+        super.symbol = "B";
+    }
+
+    public abstract List<Action> getValidMoves(Board board) {
+        return null;
+    }
+
+}
