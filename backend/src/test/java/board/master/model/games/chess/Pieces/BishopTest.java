@@ -1,6 +1,9 @@
 package board.master.model.games.chess.Pieces;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +23,7 @@ public class BishopTest {
     }
 
     @Test
-    @DisplayName("Test Pawn constructor")
+    @DisplayName("Test Bishop constructor")
     void testConstructor() {
         Color color = Color.WHITE;
         int row = 6;
@@ -31,21 +34,21 @@ public class BishopTest {
     }
 
     @Test
-    @DisplayName("Test Pawn Symbol")
+    @DisplayName("Test Bishop Symbol")
     void testGetSymbol() {
         String symbol = "BW";
         assertEquals(symbol, bishop.getSymbol());
     }
 
     @Test
-    @DisplayName("Test Pawn getValidMoves without other pieces")
+    @DisplayName("Test Bishop getValidMoves without other pieces")
     void testGetValidMovesNoOtherPieces() {
         int numberOfMoves = 9;
         assertEquals(numberOfMoves, bishop.getValidMoves(board).size());
     }
 
     @Test
-    @DisplayName("Test Pawn getValidMoves with an opposite colored pieces")
+    @DisplayName("Test Bishop getValidMoves with an opposite colored pieces")
     void testGetValidMovesWithEnemyPiece() {
         int x = 4;
         int y = 3;
@@ -56,7 +59,7 @@ public class BishopTest {
     }
 
     @Test
-    @DisplayName("Test Pawn getValidMoves a same colored piece")
+    @DisplayName("Test Bishop getValidMoves a same colored piece")
     void testGetValidMovesWithFriendlyPiece() {
         int x = 4;
         int y = 3;
@@ -67,12 +70,40 @@ public class BishopTest {
     }
 
     @Test
-    void testIsValidMove() {
-
+    @DisplayName("Test Bishop isValidMove invalid move")
+    void testIsValidMoveFalse() {
+        int x = 5;
+        int y = 0;
+        Rook friendlyRook = new Rook(Color.WHITE, x, y);
+        board.setPosition(x, y, friendlyRook.getSymbol());
+        assertFalse(bishop.isValidMove(x, y, board));
     }
 
     @Test
-    void testMove() {
+    @DisplayName("Test Bishop isValidMove invalid move")
+    void testIsValidMoveTrue() {
+        int x = 5;
+        int y = 0;
+        Rook friendlyRook = new Rook(Color.BLACK, x, y);
+        board.setPosition(x, y, friendlyRook.getSymbol());
+        assertTrue(bishop.isValidMove(x, y, board));
+    }
 
+    @Test
+    @DisplayName("Test Bishop move when valid move")
+    void testMoveValidMove() {
+        int x = 4;
+        int y = 3;
+        bishop.move(x, y, board);
+        assertEquals(x, bishop.getRow());
+        assertEquals(y, bishop.getColumn());
+    }
+
+    @Test
+    @DisplayName("Test Bishop move when invalid move")
+    void testMoveInvalidMove() {
+        int x = 5;
+        int y = 1;
+        assertThrows(IllegalArgumentException.class, () -> bishop.move(x, y, board));
     }
 }
