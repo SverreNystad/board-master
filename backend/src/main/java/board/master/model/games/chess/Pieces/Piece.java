@@ -4,6 +4,7 @@ import java.util.List;
 
 import board.master.model.Action;
 import board.master.model.games.Board;
+import board.master.model.games.Move;
 import board.master.model.games.chess.Color;
 
 public abstract class Piece {
@@ -18,7 +19,16 @@ public abstract class Piece {
         this.column = column;
     }
 
-    public abstract boolean isValidMove(int row, int column, Board board);
+    public boolean isValidMove(int row, int column, Board board) {
+        for (Action action : getValidMoves(board)) {
+            Move move = (Move) action;
+            if (move.getX().equals(String.valueOf(row))
+                && move.getY().equals(String.valueOf(column))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public abstract List<Action> getValidMoves(Board board);
 
@@ -36,12 +46,15 @@ public abstract class Piece {
         return 'W';
     }
 
-    public abstract String getSymbol();
+    public String getSymbol() {
+        String color = (this.color == Color.WHITE) ? "W" : "B";
+        return this.symbol + color;
+    }
 
     public Color getColor() {
         return this.color;
     }
-    
+
     public int getRow() {
         return this.row;
     }
