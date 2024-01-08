@@ -1,6 +1,9 @@
 package board.master.model.games.chess.Pieces;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +23,7 @@ public class RookTest {
     }
 
     @Test
-    @DisplayName("Test Pawn constructor")
+    @DisplayName("Test Rook constructor")
     void testConstructor() {
         Color color = Color.WHITE;
         int row = 6;
@@ -31,21 +34,21 @@ public class RookTest {
     }
 
     @Test
-    @DisplayName("Test Pawn Symbol")
+    @DisplayName("Test Rook Symbol")
     void testGetSymbol() {
         String symbol = "RW";
         assertEquals(symbol, rook.getSymbol());
     }
 
     @Test
-    @DisplayName("Test Pawn getValidMoves without other pieces")
+    @DisplayName("Test Rook getValidMoves without other pieces")
     void testGetValidMovesNoOtherPieces() {
         int numberOfMoves = 14;
         assertEquals(numberOfMoves, rook.getValidMoves(board).size());
     }
 
     @Test
-    @DisplayName("Test Pawn getValidMoves with an opposite colored pieces")
+    @DisplayName("Test Rook getValidMoves with an opposite colored pieces")
     void testGetValidMovesWithEnemyPiece() {
         int x = 6;
         int y = 3;
@@ -56,7 +59,7 @@ public class RookTest {
     }
 
     @Test
-    @DisplayName("Test Pawn getValidMoves a same colored piece")
+    @DisplayName("Test Rook getValidMoves a same colored piece")
     void testGetValidMovesWithFriendlyPiece() {
         int x = 6;
         int y = 3;
@@ -67,12 +70,40 @@ public class RookTest {
     }
 
     @Test
-    void testIsValidMove() {
-
+    @DisplayName("Test Rook isValidMove invalid move")
+    void testIsValidMoveFalse() {
+        int x = 6;
+        int y = 3;
+        Rook friendlyRook = new Rook(Color.WHITE, x, y);
+        board.setPosition(x, y, friendlyRook.getSymbol());
+        assertFalse(rook.isValidMove(6, 3, board));
     }
 
     @Test
-    void testMove() {
+    @DisplayName("Test Rook isValidMove invalid move")
+    void testIsValidMoveTrue() {
+        int x = 6;
+        int y = 3;
+        Rook friendlyRook = new Rook(Color.BLACK, x, y);
+        board.setPosition(x, y, friendlyRook.getSymbol());
+        assertTrue(rook.isValidMove(6, 3, board));
+    }
 
+    @Test
+    @DisplayName("Test Rook move when valid move")
+    void testMoveValidMove() {
+        int x = 4;
+        int y = 1;
+        rook.move(x, y, board);
+        assertEquals(x, rook.getRow());
+        assertEquals(y, rook.getColumn());
+    }
+
+    @Test
+    @DisplayName("Test Rook move when invalid move")
+    void testMoveInvalidMove() {
+        int x = 5;
+        int y = 0;
+        assertThrows(IllegalArgumentException.class, () -> rook.move(x, y, board));
     }
 }
