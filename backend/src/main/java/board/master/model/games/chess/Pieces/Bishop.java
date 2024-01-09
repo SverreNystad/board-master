@@ -5,16 +5,28 @@ import java.util.List;
 
 import board.master.model.Action;
 import board.master.model.games.Board;
-import board.master.model.games.Move;
 import board.master.model.games.chess.Color;
 
+/**
+ * A class representing the chess piece Bishop.
+ * This class extends the abstract class Piece
+ */
 public class Bishop extends Piece {
 
+    /**
+     * Creates a new Bishop
+     * @param color     the color of the Bishop
+     * @param row       the row of the Bishop
+     * @param column    the column of the Bishop
+     */
     public Bishop(Color color, int row, int column) {
         super(color, row, column);
         super.symbol = "B";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Action> getValidMoves(Board board) {
         List<Action> actions = new ArrayList<Action>();
 

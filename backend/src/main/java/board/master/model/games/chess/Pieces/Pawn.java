@@ -9,13 +9,26 @@ import java.util.List;
 
 import board.master.model.Action;
 
+/**
+ * A class representing the chess piece Pawn.
+ * This class extends the abstract class Piece
+ */
 public class Pawn extends Piece {
 
+    /**
+     * Creates a new Pawn
+     * @param color     the color of the Pawn
+     * @param row       the row of the Pawn
+     * @param column    the column of the Pawn
+     */
     public Pawn(Color color, int row, int column) {
         super(color, row, column);
         super.symbol = "P";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Action> getValidMoves(Board board) {
         List<Action> actions = new ArrayList<Action>();
 
