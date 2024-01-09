@@ -12,14 +12,23 @@ public class Knight extends Piece {
     
     public Knight(Color color, int row, int column) {
         super(color, row, column);
-        super.symbol = "P";
+        super.symbol = "H";
     }
 
     public List<Action> getValidMoves(Board board) {
         List<Action> actions = new ArrayList<Action>();
 
-        
+        checkMove(board, this.row - 2, this.column - 1, actions);
+        checkMove(board, this.row - 2, this.column + 1, actions);
 
+        checkMove(board, this.row - 1, this.column - 2, actions);
+        checkMove(board, this.row - 1, this.column + 2, actions);
+
+        checkMove(board, this.row + 1, this.column - 2, actions);
+        checkMove(board, this.row + 1, this.column + 2, actions);
+
+        checkMove(board, this.row + 2, this.column - 1, actions);
+        checkMove(board, this.row + 2, this.column + 1, actions);
 
         return actions;
     }
