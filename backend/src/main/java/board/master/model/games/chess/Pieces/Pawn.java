@@ -25,24 +25,17 @@ public class Pawn extends Piece {
             return actions;
         }
 
-        if (board.getPosition(this.row + forwardDirection, this.column).equals("")) {
+        if (checkMove(board, this.row + forwardDirection, this.column, new ArrayList<Action>())) {
             actions.add((Action) new Move(this.row + forwardDirection, this.column));
         }
 
         int[] possibleColumns = {this.column - 1, this.column + 1};
 
-        for (int column : possibleColumns) {
-            if (column >= 0 || column <= 7 ) {
-                String position = board.getPosition(this.row + forwardDirection, column);
-                
-                if (!position.equals("")) {
-                    if (position.length() > 1 && position.charAt(1) == oppositeColor()) {
-                        actions.add((Action) new Move(this.row + forwardDirection, column));
-                    }
-                }
+        for (int newColumn : possibleColumns) {
+            if (!checkMove(board, this.row + forwardDirection, newColumn, new ArrayList<Action>())) {
+                checkMove(board, this.row + forwardDirection, newColumn, actions);
             }
         }
         return actions;
     }
-
 }
