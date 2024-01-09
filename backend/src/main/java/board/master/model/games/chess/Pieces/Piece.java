@@ -30,6 +30,10 @@ public abstract class Piece {
         return false;
     }
 
+    private boolean isValidPosition(int row, int col) {
+        return row >= 0 && row <= 7 && col >= 0 && col <= 7;
+    }
+
     public abstract List<Action> getValidMoves(Board board);
 
     public void move(int row, int column, Board board) throws IllegalArgumentException {
@@ -39,6 +43,36 @@ public abstract class Piece {
         this.row = row;
         this.column = column;
     }
+
+    /**
+     * Checks for valid moves in a given direction
+     * @param board     the board with the current game state
+     * @param row       the row of the piece
+     * @param col       the column of the piece
+     * @param actions   the list of valid moves
+     */
+    public boolean checkMove(Board board, int row, int col, List<Action> actions) {
+        if (isValidPosition(row, col)) {
+            String position = board.getPosition(row, col);
+            
+            if (position.equals("")) {
+                actions.add((Action) new Move(row, col));
+                return true;
+            } else if (position.charAt(1) == oppositeColor()) {
+                actions.add((Action) new Move(row, col));
+                return false;
+            }
+            else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns the opposite color of the piece
+     * @return A char representing the opposite color
+     */
     protected char oppositeColor() {
         if (this.color == Color.WHITE) {
             return 'B';
