@@ -21,15 +21,7 @@ public class Bishop extends Piece {
         //test for diagonal moves up and left
         int up = this.row - 1;
         int left = this.column - 1;
-        while (up >= 0 && left >= 0) {
-            if (board.getPosition(up, left).equals("")) {
-                actions.add((Action) new Move(up, left));
-            } else if (board.getPosition(up, left).charAt(1) == oppositeColor()) {
-                actions.add((Action) new Move(up, left));
-                break;
-            } else {
-                break;
-            }
+        while (checkMove(board, up, left, actions)) {
             up--;
             left--;
         }
@@ -37,15 +29,7 @@ public class Bishop extends Piece {
         //test for diagonal moves up and right
         up = this.row - 1;
         int right = this.column + 1;
-        while (up >= 0 && right <= 7) {
-            if (board.getPosition(up, right).equals("")) {
-                actions.add((Action) new Move(up, right));
-            } else if (board.getPosition(up, right).charAt(1) == oppositeColor()) {
-                actions.add((Action) new Move(up, right));
-                break;
-            } else {
-                break;
-            }
+        while (checkMove(board, up, right, actions)) {
             up--;
             right++;
         }
@@ -53,15 +37,7 @@ public class Bishop extends Piece {
         //test for diagonal moves down and left
         int down = this.row + 1;
         left = this.column - 1;
-        while (down <= 7 && left >= 0) {
-            if (board.getPosition(down, left).equals("")) {
-                actions.add((Action) new Move(down, left));
-            } else if (board.getPosition(down, left).charAt(1) == oppositeColor()) {
-                actions.add((Action) new Move(down, left));
-                break;
-            } else {
-                break;
-            }
+        while (checkMove(board, down, left, actions)) {
             down++;
             left--;
         }
@@ -69,20 +45,11 @@ public class Bishop extends Piece {
         //test for diagonal moves down and right
         down = this.row + 1;
         right = this.column + 1;
-        while (down <= 7 && right <= 7) {
-            if (board.getPosition(down, right).equals("")) {
-                actions.add((Action) new Move(down, right));
-            } else if (board.getPosition(down, right).charAt(1) == oppositeColor()) {
-                actions.add((Action) new Move(down, right));
-                break;
-            } else {
-                break;
-            }
+        while (checkMove(board, down, right, actions)) {
             down++;
             right++;
         }
 
         return actions;
     }
-
 }

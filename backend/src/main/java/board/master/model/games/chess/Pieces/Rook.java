@@ -20,57 +20,25 @@ public class Rook extends Piece {
 
         //test for horizontal moves left
         int left = this.column - 1;
-        while (left >= 0) {
-            if (board.getPosition(this.row, left).equals("")) {
-                actions.add((Action) new Move(this.row, left));
-            } else if (board.getPosition(this.row, left).charAt(1) == oppositeColor()) {
-                actions.add((Action) new Move(this.row, left));
-                break;
-            } else {
-                break;
-            }
+        while (checkMove(board, this.row, left, actions)) {
             left--;
         }
 
         //test for horizontal moves right
         int right = this.column + 1;
-        while (right <= 7) {
-            if (board.getPosition(this.row, right).equals("")) {
-                actions.add((Action) new Move(this.row, right));
-            } else if (board.getPosition(this.row, right).charAt(1) == oppositeColor()) {
-                actions.add((Action) new Move(this.row, right));
-                break;
-            } else {
-                break;
-            }
+        while (checkMove(board, this.row, right, actions)) {
             right++;
         }
 
         //test for vertical moves up
         int up = this.row - 1;
-        while (up >= 0) {
-            if (board.getPosition(up, this.column).equals("")) {
-                actions.add((Action) new Move(up, this.column));
-            } else if (board.getPosition(up, this.column).charAt(1) == oppositeColor()) {
-                actions.add((Action) new Move(up, this.column));
-                break;
-            } else {
-                break;
-            }
+        while (checkMove(board, up, this.column, actions)) {
             up--;
         }
 
         //test for vertical moves down
         int down = this.row + 1;
-        while (down <= 7) {
-            if (board.getPosition(down, this.column).equals("")) {
-                actions.add((Action) new Move(down, this.column));
-            } else if (board.getPosition(down, this.column).charAt(1) == oppositeColor()) {
-                actions.add((Action) new Move(down, this.column));
-                break;
-            } else {
-                break;
-            }
+        while (checkMove(board, down, this.column, actions)) {
             down++;
         }
         return actions;
