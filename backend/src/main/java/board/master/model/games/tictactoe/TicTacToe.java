@@ -1,8 +1,9 @@
 package board.master.model.games.tictactoe;
 
 import java.util.List;
-
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import board.master.model.Action;
 import board.master.model.StateHandler;
@@ -115,7 +116,7 @@ public class TicTacToe implements StateHandler {
     /**
      * {@inheritDoc}
      */
-    @Override
+    // @Override
     public int utility(int player) {
         //String checkWin = checkWin();
         switch (checkWin()) {
@@ -127,6 +128,20 @@ public class TicTacToe implements StateHandler {
                 return 0;
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    // @Override
+    // public int utility(int player) {
+    //     Map<String, Integer> analysis = analyzeBoard();
+    //     if (analysis.containsKey("X")) {
+    //         return (player == 1) ? analysis.get("X") : -analysis.get("X");
+    //     }
+    //     else {
+    //         return (player == -1) ? analysis.get("O") : -analysis.get("O");
+    //     }
+    // }
 
     public String getPosition(int x, int y) {
         return board.getPosition(x, y);
@@ -150,7 +165,7 @@ public class TicTacToe implements StateHandler {
         String checkWin = "";
         //check for win in rows and columns
         for (int i = 0; i < 3; i++) {
-            Boolean isNotEmpty = !board.getPosition(i, i).equals("");
+            Boolean isNotEmpty = !board.getPosition(i, i).isEmpty();
             
             Boolean sameSignCol = board.getPosition(i, 0).equals(board.getPosition(i, 1)) 
             && board.getPosition(i, 1).equals(board.getPosition(i, 2));
@@ -167,7 +182,7 @@ public class TicTacToe implements StateHandler {
             }
         }
 
-        Boolean isNotEmpty = !board.getPosition(1, 1).equals("");
+        Boolean isNotEmpty = !board.getPosition(1, 1).isEmpty();
 
         //check for win in diagonals
         if (board.getPosition(0, 0).equals(board.getPosition(1, 1)) 
@@ -182,5 +197,86 @@ public class TicTacToe implements StateHandler {
             return board.getPosition(1, 1);
         }
         return checkWin;
+    }
+
+    private Map<String, Integer> analyzeBoard() {
+        HashMap<String, Integer> analysis = new HashMap<String, Integer>();
+
+        String checkWin = checkWin();
+
+        if (!checkWin.isEmpty()) {
+            analysis.put(checkWin, 100);
+            return analysis;
+            
+        }
+
+        int count = 0;
+        int xCount = 0;
+        int oCount = 0;
+
+        for (int i = 0; i < 3; i++) {
+            Boolean isNotEmpty = !board.getPosition(i, i).isEmpty();
+            
+            Boolean sameSignCol = board.getPosition(i, 0).equals(board.getPosition(i, 1)) 
+            || board.getPosition(i, 1).equals(board.getPosition(i, 2));
+            
+            Boolean sameSignRow = board.getPosition(0, i).equals(board.getPosition(1, i)) 
+            || board.getPosition(1, i).equals(board.getPosition(2, i));
+            
+            if (sameSignCol && isNotEmpty) {
+                count += board.getPosition(i, 0).equals("X") ? 10 : -10;
+                // if (board.getPosition(i, 1).equals("X")) {
+                //     xCount += 10;
+                // }
+                // else {
+                //     oCount += 10;
+                    
+                // }
+            }
+
+            if (sameSignRow && isNotEmpty) {
+                count += board.getPosition(i, 0).equals("X") ? 10 : -10;
+                // if (board.getPosition(i, 1).equals("X")) {
+                //     xCount += 10;
+                // }
+                // else {
+                //     oCount += 10;
+                // }
+            }
+        }
+
+        Boolean isNotEmpty = !board.getPosition(1, 1).isEmpty();
+
+        if (board.getPosition(0, 0).equals(board.getPosition(1, 1)) 
+        || board.getPosition(1, 1).equals(board.getPosition(2, 2)) 
+        && isNotEmpty) {
+            count += board.getPosition(1, 1).equals("X") ? 15 : -15;
+            // if (board.getPosition(1, 1).equals("X")) {
+            //     xCount += 10;
+            // }
+            // else {
+            //     oCount += 10;
+            // }
+        }
+
+        if(board.getPosition(0, 2).equals(board.getPosition(1, 1))
+        || board.getPosition(1, 1).equals(board.getPosition(2, 0))
+        && isNotEmpty) {
+            count += board.getPosition(1, 1).equals("X") ? 15 : -15;
+            // if (board.getPosition(1, 1).equals("X")) {
+            //     xCount += 15;
+            // }
+            // else {
+            //     oCount += 15;
+            // }
+        }
+
+        if (count > 0) {
+            analysis.put("X", count);
+        }
+        else {
+            analysis.put("O", -count);
+        }
+        return analysis;
     }
 }
