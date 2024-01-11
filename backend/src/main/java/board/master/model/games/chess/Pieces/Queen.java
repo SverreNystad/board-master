@@ -17,15 +17,12 @@ public class Queen extends Piece {
     public List<Action> getValidMoves(Board board) {
         List<Action> actions = new ArrayList<Action>();
 
-        //not right implementation
-        int[] possibleRows = {1, 1, 1, 0, -1, -1, -1, 0};
-        int[] possibleColumns = {-1, 0, 1, 1, 1, 0, -1, -1};
+        Rook rook = new Rook(this.color, this.row, this.column);
+        actions.addAll(rook.getValidMoves(board));
 
-        for (int i = 0; i < possibleRows.length; i++) {
-            checkMove(board, this.row + possibleRows[i], this.column + possibleColumns[i], actions);
-        }
+        Bishop bishop = new Bishop(this.color, this.row, this.column);
+        actions.addAll(bishop.getValidMoves(board));
 
-        return actions;
-    }
-    
+    return actions;
+    }    
 }
