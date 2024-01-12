@@ -34,4 +34,12 @@ public class King extends Piece {
 
         return actions;
     }
+
+    /**
+     * Creates a copy of the King
+     * @return a copy of the King
+     */
+    public Piece copy() {
+        return new King(this.color, this.row, this.column);
+    }
 }
