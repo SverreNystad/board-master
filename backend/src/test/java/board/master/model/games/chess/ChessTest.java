@@ -66,8 +66,15 @@ public class ChessTest {
 
     }
 
-    @Test
-    void testResult() {
+    @Nested
+    class TestMoves {
+        @Test
+        void testResultOfLegalMove() {
+            Action action = chess.getActions().get(0);
+            StateHandler transformed_chess = chess.result(action);
+            assertNotEquals(transformed_chess, chess);
+    
+        }
 
     }
 
