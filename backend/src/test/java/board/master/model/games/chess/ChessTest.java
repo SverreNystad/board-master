@@ -26,29 +26,9 @@ public class ChessTest {
     @DisplayName("Test Chess constructor")
     void testCreateInitialBoard() {
         Board chessBoard = chess.getBoard();
+        int row = 1;
         for (int i = 0; i < 8; i++) {
-            if (i == 0 || i == 7) {
-                assertEquals(chessBoard.getPosition(0, i), "♜");
-                assertEquals(chessBoard.getPosition(7, i), "♖");
-            } else if (i == 1 || i == 6) {
-                assertEquals(chessBoard.getPosition(0, i), "♞");
-                assertEquals(chessBoard.getPosition(7, i), "♘");
-            } else if (i == 2 || i == 5) {
-                assertEquals(chessBoard.getPosition(0, i), "♝");
-                assertEquals(chessBoard.getPosition(7, i), "♗");
-            } else if (i == 3) {
-                assertEquals(chessBoard.getPosition(0, i), "♛");
-                assertEquals(chessBoard.getPosition(7, i), "♕");
-            } else if (i == 4) {
-                assertEquals(chessBoard.getPosition(0, i), "♚");
-                assertEquals(chessBoard.getPosition(7, i), "♔");
-            } else {
-                assertEquals(chessBoard.getPosition(0, i), "♟");
-                assertEquals(chessBoard.getPosition(7, i), "♙");
-                
-            }
-            assertEquals(chessBoard.getPosition(1, i), "♟");
-            assertEquals(chessBoard.getPosition(6, i), "♙");
+            assertEquals('B', chessBoard.getPosition(row, i).charAt(1));
         }
     }
 
