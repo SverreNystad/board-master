@@ -83,15 +83,16 @@ public class Chess implements StateHandler {
         this.pieces.put(blackKing.getSymbol(), blackKing);
     }
 
-    public Chess(Board board) {
+    private Chess(Board board, int toMove, Map<String, Piece> pieces) {
         Board newBoard = new Board(board.getRows(), board.getColumns());
         for (int x = 0; x < board.getRows(); x++) {
             for (int y = 0; y < board.getColumns(); y++) {
                 newBoard.setPosition(x, y, board.getPosition(x, y));
             }
         }
-        this.board = board;
-        this.toMove = 1;
+        this.board = newBoard;
+        this.toMove = toMove;
+        this.pieces = pieces;
     }
     
     /**
@@ -118,20 +119,27 @@ public class Chess implements StateHandler {
      * Assumes that the action is valid and that Action is a Move.
      */
     public StateHandler result(Action action) {
+        // Make a copy of the board
+        Chess newState = new Chess(this.board, this.toMove, this.pieces);
+
+
         // Find piece to move
         Move move = (Move) action;
         String currentPos = move.getX();
-        Piece toMovePiece = getPiece(currentPos);
+        Piece toMovePiece = newState.getPiece(currentPos);
         
         // Change its position 
         String newPos = move.getY();
         int toX = Character.getNumericValue(newPos.charAt(0));
         int toY = Character.getNumericValue(newPos.charAt(1));
+        if (newState.getPiece(newPos) != null) {
+            newState.pieces.remove(newState.getPiece(newPos).getSymbol());
+        }
         toMovePiece.move(toX, toY, this.board);
 
         // Change turn
-        this.toMove *= -1;
-        return null;
+        newState.toMove *= -1;
+        return newState;
     }
 
     private Piece getPiece(String position) {
@@ -142,7 +150,7 @@ public class Chess implements StateHandler {
         int x = Character.getNumericValue(position.charAt(0));
         int y = Character.getNumericValue(position.charAt(1));
         String pieceSymbol = this.board.getPosition(x, y);
-        return this.pieces.get(pieceSymbol);
+        return this.pieces.getOrDefault(pieceSymbol, null);
     }
 
     /**
