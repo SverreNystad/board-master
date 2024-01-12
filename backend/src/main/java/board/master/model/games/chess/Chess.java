@@ -2,24 +2,29 @@ package board.master.model.games.chess;
 
 import board.master.model.StateHandler;
 import board.master.model.games.Board;
+import board.master.model.games.chess.Pieces.Piece;
 import board.master.model.Action;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 public class Chess implements StateHandler {
     
     private Board board;
     private int toMove;
+    private Map<String, Piece> pieces;
 
-    public static Board CreateInitialBoard() {
-        return new Board(8,8);
-    }
-
+    
     public Chess() {
-        this.board = CreateInitialBoard();
         this.toMove = 1;
+        this.board = CreateInitialBoard();
+        // TODO: Add chess pieces to board
     }
-
+    
+    private static Board CreateInitialBoard() {
+        return new Board(8,8);
+        // Todo add symbols to board
+    }
 
     public Chess(Board board) {
         Board newBoard = new Board(board.getRows(), board.getColumns());
@@ -44,7 +49,9 @@ public class Chess implements StateHandler {
      * {@inheritDoc}
      */
     public List<Action> getActions() {
-        // TODO
+        for (Piece piece : this.pieces.values()) {
+            piece.getValidMoves(board);
+        }
         return new ArrayList<Action>();
     }
 
