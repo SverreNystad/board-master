@@ -2,6 +2,7 @@ package board.master.model.games.chess;
 
 import board.master.model.StateHandler;
 import board.master.model.games.Board;
+import board.master.model.games.Move;
 import board.master.model.games.chess.Pieces.Bishop;
 import board.master.model.games.chess.Pieces.King;
 import board.master.model.games.chess.Pieces.Knight;
@@ -112,10 +113,34 @@ public class Chess implements StateHandler {
 
     /**
      * {@inheritDoc}
+     * Assumes that the action is valid and that Action is a Move.
      */
     public StateHandler result(Action action) {
-        // TODO
+        // Find piece to move
+        Move move = (Move) action;
+        String currentPos = move.getX();
+        Piece toMovePiece = getPiece(currentPos);
+        
+        // Change its position 
+        String newPos = move.getY();
+        int toX = Character.getNumericValue(newPos.charAt(0));
+        int toY = Character.getNumericValue(newPos.charAt(1));
+        toMovePiece.move(toX, toY, this.board);
+
+        // Change turn
+        this.toMove *= -1;
         return null;
+    }
+
+    private Piece getPiece(String position) {
+        // Position is of from "xy" where x is the row and y is the column
+        if (position.length() != 2) {
+            throw new IllegalArgumentException("Position must be of length 2");
+        }
+        int x = Character.getNumericValue(position.charAt(0));
+        int y = Character.getNumericValue(position.charAt(1));
+        String pieceSymbol = this.board.getPosition(x, y);
+        return this.pieces.get(pieceSymbol);
     }
 
     /**
