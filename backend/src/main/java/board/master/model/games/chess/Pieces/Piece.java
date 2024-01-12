@@ -91,19 +91,26 @@ public abstract class Piece {
      * @param col       the column of the piece
      * @param actions   the list of valid moves
      */
-    public boolean checkMove(Board board, int row, int col, List<Action> actions) {
+    public void checkMove(Board board, int row, int col, List<Action> actions) {
+        if (isValidPosition(row, col)) {
+            String position = board.getPosition(row, col);
+            
+            if (checkEmptySpace(board, row, col)) {
+                actions.add((Action) new Move(row, col));
+            } else if (position.charAt(1) == oppositeColor()) {
+                actions.add((Action) new Move(row, col));
+            }
+            else {
+            }
+        }
+    }
+
+    public boolean checkEmptySpace(Board board, int row, int col) {
         if (isValidPosition(row, col)) {
             String position = board.getPosition(row, col);
             
             if (position.equals("")) {
-                actions.add((Action) new Move(row, col));
                 return true;
-            } else if (position.charAt(1) == oppositeColor()) {
-                actions.add((Action) new Move(row, col));
-                return false;
-            }
-            else {
-                return false;
             }
         }
         return false;
