@@ -15,6 +15,7 @@ public abstract class Piece {
     public int row;
     public int column;
     protected String symbol;
+    private static final int colorIndex = 1;
 
     /**
      * Creates a new piece
@@ -91,16 +92,16 @@ public abstract class Piece {
      * @param col       the column of the piece
      * @param actions   the list of valid moves
      */
-    public void checkMove(Board board, int row, int col, List<Action> actions) {
+    protected void checkMove(Board board, int row, int col, List<Action> actions) {
         if (isValidPosition(row, col)) {
             String position = board.getPosition(row, col);
+            String currentPos = String.valueOf(this.row) + String.valueOf(this.column);
+            String newPos = String.valueOf(row) + String.valueOf(col);
             
             if (checkEmptySpace(board, row, col)) {
-                actions.add((Action) new Move(row, col));
-            } else if (position.charAt(1) == oppositeColor()) {
-                actions.add((Action) new Move(row, col));
-            }
-            else {
+                actions.add((Action) new Move(currentPos, newPos));
+            } else if (position.charAt(colorIndex) == oppositeColor()) {
+                actions.add((Action) new Move(currentPos, newPos));
             }
         }
     }
