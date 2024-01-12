@@ -92,6 +92,7 @@ public class Chess implements StateHandler {
         }
         this.board = newBoard;
         this.toMove = toMove;
+        this.pieces = new HashMap<String, Piece>();
         for (Piece piece : pieces.values()) {
             this.pieces.put(piece.getSymbol(), piece.copy());
         }
