@@ -3,11 +3,13 @@ package board.master.model.games.chess;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Nested;
 
+import board.master.model.Action;
+import board.master.model.StateHandler;
 import board.master.model.games.Board;
 
 public class ChessTest {
@@ -47,9 +49,25 @@ public class ChessTest {
 
     }
 
-    @Test
-    void testToMove() {
 
+    @Nested
+    class ToMoveTest  {
+        @Test
+        void testToMoveAtStart() {
+            assertEquals(chess.toMove(), 1);
+        }
+
+        @Test
+        @DisplayName("Test toMove after one move does not change original toMove but changes new boards toMove")
+        void testToMoveAfterOneMove() {
+            int firstMove = chess.toMove();
+            Action action = chess.getActions().get(0);
+            StateHandler transformed_chess = chess.result(action);
+            assertNotEquals(transformed_chess.toMove(), firstMove, "toMove should change after one move");
+            assertEquals(chess.toMove(), firstMove, "toMove should not change after one move");
+        }
+    
+        
     }
 
     @Test
