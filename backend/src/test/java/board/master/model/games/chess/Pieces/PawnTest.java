@@ -2,17 +2,13 @@ package board.master.model.games.chess.Pieces;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import java.util.List;
 
-import board.master.model.Action;
 import board.master.model.games.Board;
 import board.master.model.games.Move;
 import board.master.model.games.chess.Color;
@@ -81,7 +77,6 @@ public class PawnTest {
         Pawn oppositePawn = new Pawn(Color.WHITE, x, y);
         board.setPosition(x, y, oppositePawn.getSymbol());
         int validMoves = 0;
-        List<Action> list = pawn.getValidMoves(board);
         assertEquals(validMoves, pawn.getValidMoves(board).size());
     }
 
@@ -92,8 +87,7 @@ public class PawnTest {
         int y = 0;
         Pawn oppositePawn = new Pawn(Color.BLACK, x, y);
         board.setPosition(x, y, oppositePawn.getSymbol());
-        int validMoves = 2;
-        List<Action> list = pawn.getValidMoves(board);
+        int validMoves = 3;
         assertEquals(validMoves, pawn.getValidMoves(board).size());
     }
 
@@ -104,8 +98,7 @@ public class PawnTest {
         int y = 0;
         Pawn oppositePawn = new Pawn(Color.WHITE, x, y);
         board.setPosition(x, y, oppositePawn.getSymbol());
-        int validMoves = 1;
-        List<Action> list = pawn.getValidMoves(board);
+        int validMoves = 2;
         assertEquals(validMoves, pawn.getValidMoves(board).size());
     }
 
