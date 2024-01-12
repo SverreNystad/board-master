@@ -52,11 +52,23 @@ public class ChessTest {
         }
     }
 
+    
     @Test
     void testGetActionsAtStartOfGame() {
         assertEquals(20, chess.getActions().size(), "There should be 20 possible moves at the start of the game");
-
     }
+
+    @Test
+    void testNoMovesForTerminalState() {
+        StateHandler game = new Chess();
+        while (game.isTerminal() == false) {
+            Action action = game.getActions().get(0);
+            game = game.result(action);
+        }
+        assertEquals(0, game.getActions().size(), "There should be no possible moves at the end of the game");
+    }
+
+
 
     @Test
     void testGetBoard() {
