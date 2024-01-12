@@ -63,12 +63,25 @@ public abstract class Piece {
      */
     public abstract List<Action> getValidMoves(Board board);
 
+    /**
+     * Moves the piece to a new position
+     * Removes the piece from the old position and adds it to the new position
+     * @param row
+     * @param column
+     * @param board
+     * @throws IllegalArgumentException
+     */
     public void move(int row, int column, Board board) throws IllegalArgumentException {
         if (!isValidMove(row, column, board)) {
             throw new IllegalArgumentException("Invalid move");
         }
+        // Delete old position
+        board.setPosition(this.row, this.column, "");
+        // Set new position
         this.row = row;
         this.column = column;
+        board.setPosition(row, column, getSymbol());
+        
     }
 
     /**
