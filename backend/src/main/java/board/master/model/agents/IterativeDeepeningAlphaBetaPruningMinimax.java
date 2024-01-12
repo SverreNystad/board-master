@@ -1,6 +1,10 @@
 package board.master.model.agents;
 
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.Comparator;
 
 import board.master.model.Action;
 import board.master.model.StateHandler;
@@ -42,8 +46,14 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
 
         int depth = 1;
 
+        List<Action> priorityActions = state.getActions();
+        priorityActions.stream()
+                .sorted(Comparator.comparingInt(action -> state.result(action).utility(agentPlayerId)))
+                .collect(Collectors.toList());
+
         while (!isTimeUp()) {
-            for (Action action : state.getActions()) {
+            //Find the best move ordering
+            for (Action action : priorityActions) {
                 float value = evaluateState(state.result(action), currentBestMaximizer, currentBestMinimizer, depth, false);
                 if (currentBestMaximizer < value) {
                     currentBestMaximizer = value;
@@ -61,27 +71,33 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
             return state.utility(agentPlayerId);
         }
 
+        List<Action> priorityActions = state.getActions();
+        priorityActions.stream()
+                .sorted(Comparator.comparingInt(action -> state.result(action).utility(agentPlayerId)))
+                .collect(Collectors.toList());
+
         float value;
         if (isMaximizingPlayer) {
-                value = alpha;
-                for (Action action : state.getActions()) {
-                    value = Math.max(value, evaluateState(state.result(action), value, beta, depth--, !isMaximizingPlayer));
-                    if (value >= beta) {
-                        break;
-                    }
+            value = alpha;
+            for (Action action : priorityActions) {
+                value = Math.max(value, evaluateState(state.result(action), value, beta, depth--, !isMaximizingPlayer));
+                if (value >= beta) {
+                    break;
                 }
-                
-                return value;
+            }
+            
+            return value;
         }
         else {
-                value = beta;
-                for (Action action : state.getActions()) {
-                    value = Math.min(value, evaluateState(state.result(action), alpha, value, depth--, !isMaximizingPlayer));
-                    if (alpha >= value) {
-                        break;
-                    }
+            Collections.reverse(priorityActions);
+            value = beta;
+            for (Action action : priorityActions) {
+                value = Math.min(value, evaluateState(state.result(action), alpha, value, depth--, !isMaximizingPlayer));
+                if (alpha >= value) {
+                    break;
                 }
-                return value;
+            }
+            return value;
         }
     }
 
