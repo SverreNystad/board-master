@@ -31,18 +31,30 @@ public class Pawn extends Piece {
      */
     public List<Action> getValidMoves(Board board) {
         List<Action> actions = new ArrayList<Action>();
+        //start rows of pawns
+        int whitePawnRow = 6;
+        int blackPawnRow = 1;
+
+        //end rows of pawns
+        int whitePawnMaxRow = 0;
+        int blackPawnMaxRow = 7;
+
 
         int forwardDirection = (this.color == Color.WHITE) ? -1 : 1;
 
-        if ((this.color == Color.BLACK && this.row == 7) || (this.color == Color.WHITE && this.row == 0)) {
+        // If the pawn is at the end of the board, it cannot move
+        if ((this.color == Color.BLACK && this.row == blackPawnMaxRow) 
+            || (this.color == Color.WHITE && this.row == whitePawnMaxRow)) {
             return actions;
         }
 
+        // If the pawn is not at the end of the board, it can move forward one space
         if (checkEmptySpace(board, this.row + forwardDirection, this.column)) {
             actions.add((Action) new Move(this.row + forwardDirection, this.column));
 
-            if ((this.color == Color.BLACK && this.row == 1) 
-                || (this.color == Color.WHITE && this.row == 6)) {
+             // If the pawn is at the start of the board, it can move one or two spaces
+            if ((this.color == Color.BLACK && this.row == blackPawnRow) 
+                || (this.color == Color.WHITE && this.row == whitePawnRow)) {
                 if (checkEmptySpace(board, this.row + 2*forwardDirection, this.column)) {
                     actions.add((Action) new Move(this.row + 2*forwardDirection, this.column));
                 }
