@@ -116,7 +116,7 @@ public class GameService {
         StateHandler transformedGame = game.getStateHandler().result(action);
         game.setStateHandler(transformedGame);
 
-        return new GameResponse(game.getGameId(), getBoardStatus(transformedGame), game.getBoard());
+        return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler()), game.getBoard());
     }
 
     private String getBoardStatus(StateHandler stateHandler) {
@@ -131,11 +131,8 @@ public class GameService {
                 return "Draw";
             }
         }
-        else {
-            return "Game in progress";
-        }
-
-        return games.toString();
+        
+        return "Game in progress";
     }
 
     /**
