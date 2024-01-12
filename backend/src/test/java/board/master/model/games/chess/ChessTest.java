@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Nested;
 import board.master.model.Action;
 import board.master.model.StateHandler;
 import board.master.model.games.Board;
+import board.master.model.games.Move;
 
 public class ChessTest {
     private Chess chess;
@@ -52,7 +53,8 @@ public class ChessTest {
     }
 
     @Test
-    void testGetActions() {
+    void testGetActionsAtStartOfGame() {
+        assertEquals(20, chess.getActions().size(), "There should be 20 possible moves at the start of the game");
 
     }
 
@@ -73,7 +75,11 @@ public class ChessTest {
             Action action = chess.getActions().get(0);
             StateHandler transformed_chess = chess.result(action);
             assertNotEquals(transformed_chess, chess);
-    
+        }
+
+        @Test
+        void testResultChangesPiecePosition() {
+
         }
 
     }
