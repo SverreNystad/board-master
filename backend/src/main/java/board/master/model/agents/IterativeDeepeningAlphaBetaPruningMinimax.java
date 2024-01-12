@@ -40,20 +40,49 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
         float currentBestMinimizer = Float.POSITIVE_INFINITY;
         Action currentBestAction = null;
 
-        for (Action action : state.getActions()) {
-            float value = evaluateState(state.result(action), currentBestMaximizer, currentBestMinimizer, 1, false);
-            if (currentBestMaximizer < value) {
-                currentBestMaximizer = value;
-                currentBestAction = action;
-                
+        int depth = 1;
+
+        while (!isTimeUp()) {
+            for (Action action : state.getActions()) {
+                float value = evaluateState(state.result(action), currentBestMaximizer, currentBestMinimizer, depth, false);
+                if (currentBestMaximizer < value) {
+                    currentBestMaximizer = value;
+                    currentBestAction = action;
+                }
             }
+            depth++;
         }
 
         return currentBestAction;
     }
 
     private float evaluateState(StateHandler state, float alpha, float beta, int depth, Boolean isMaximizingPlayer) {
-        return 0;
+        if (state.isTerminal() || depth == 0 || isTimeUp()) {
+            return state.utility(agentPlayerId);
+        }
+
+        float value;
+        if (isMaximizingPlayer) {
+                value = alpha;
+                for (Action action : state.getActions()) {
+                    value = Math.max(value, evaluateState(state.result(action), value, beta, depth--, !isMaximizingPlayer));
+                    if (value >= beta) {
+                        break;
+                    }
+                }
+                
+                return value;
+        }
+        else {
+                value = beta;
+                for (Action action : state.getActions()) {
+                    value = Math.min(value, evaluateState(state.result(action), alpha, value, depth--, !isMaximizingPlayer));
+                    if (alpha >= value) {
+                        break;
+                    }
+                }
+                return value;
+        }
     }
 
     private boolean isTimeUp() {
