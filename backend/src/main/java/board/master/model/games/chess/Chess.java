@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Chess implements StateHandler {
     
     private Board board;
+    private int toMove;
 
     public static Board CreateInitialBoard() {
         return new Board(8,8);
@@ -16,6 +17,7 @@ public class Chess implements StateHandler {
 
     public Chess() {
         this.board = CreateInitialBoard();
+        this.toMove = 1;
     }
 
 
@@ -27,14 +29,15 @@ public class Chess implements StateHandler {
             }
         }
         this.board = board;
+        this.toMove = 1;
     }
     
     /**
      * {@inheritDoc}
      */
     public int toMove() {
-        // TODO
-        return 0;
+        // Should be -1 for black, 1 for white
+        return this.toMove * -1;
     }
 
     /**
