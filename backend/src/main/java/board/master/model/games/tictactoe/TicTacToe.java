@@ -116,32 +116,32 @@ public class TicTacToe implements StateHandler {
     /**
      * {@inheritDoc}
      */
-    // @Override
-    public int utility(int player) {
-        //String checkWin = checkWin();
-        switch (checkWin()) {
-            case "X":
-                return (player == 1) ? 1 : -1;
-            case "O":
-                return (player == -1) ? 1 : -1;
-            default:
-                return 0;
-        }
-    }
+    // // @Override
+    // public int utility(int player) {
+    //     //String checkWin = checkWin();
+    //     switch (checkWin()) {
+    //         case "X":
+    //             return (player == 1) ? 1 : -1;
+    //         case "O":
+    //             return (player == -1) ? 1 : -1;
+    //         default:
+    //             return 0;
+    //     }
+    // }
 
     /**
      * {@inheritDoc}
      */
-    // @Override
-    // public int utility(int player) {
-    //     Map<String, Integer> analysis = analyzeBoard();
-    //     if (analysis.containsKey("X")) {
-    //         return (player == 1) ? analysis.get("X") : -analysis.get("X");
-    //     }
-    //     else {
-    //         return (player == -1) ? analysis.get("O") : -analysis.get("O");
-    //     }
-    // }
+    @Override
+    public int utility(int player) {
+        Map<String, Integer> analysis = analyzeBoard();
+        if (analysis.containsKey("X")) {
+            return (player == 1) ? analysis.get("X") : -analysis.get("X");
+        }
+        else {
+            return (player == -1) ? analysis.get("O") : -analysis.get("O");
+        }
+    }
 
     public String getPosition(int x, int y) {
         return board.getPosition(x, y);
@@ -211,8 +211,9 @@ public class TicTacToe implements StateHandler {
         }
 
         int count = 0;
-        int xCount = 0;
-        int oCount = 0;
+
+        // int xCount = 0;
+        // int oCount = 0;
 
         for (int i = 0; i < 3; i++) {
             Boolean isNotEmpty = !board.getPosition(i, i).isEmpty();
@@ -250,7 +251,7 @@ public class TicTacToe implements StateHandler {
         if (board.getPosition(0, 0).equals(board.getPosition(1, 1)) 
         || board.getPosition(1, 1).equals(board.getPosition(2, 2)) 
         && isNotEmpty) {
-            count += board.getPosition(1, 1).equals("X") ? 15 : -15;
+            count += board.getPosition(1, 1).equals("X") ? 10 : -10;
             // if (board.getPosition(1, 1).equals("X")) {
             //     xCount += 10;
             // }
@@ -262,7 +263,7 @@ public class TicTacToe implements StateHandler {
         if(board.getPosition(0, 2).equals(board.getPosition(1, 1))
         || board.getPosition(1, 1).equals(board.getPosition(2, 0))
         && isNotEmpty) {
-            count += board.getPosition(1, 1).equals("X") ? 15 : -15;
+            count += board.getPosition(1, 1).equals("X") ? 10 : -10;
             // if (board.getPosition(1, 1).equals("X")) {
             //     xCount += 15;
             // }
