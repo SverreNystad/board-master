@@ -1,5 +1,7 @@
 package board.master.model.agents;
 
+import java.util.Calendar;
+
 import board.master.model.Action;
 import board.master.model.StateHandler;
 
@@ -11,9 +13,16 @@ import board.master.model.StateHandler;
  * The agent selects the best move based on the current state of the game.
  */
 public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
-    
+
     private int agentPlayerId;
-    private final int maxDepth = 6;
+    private final long maxTime;
+    private long startTime;
+
+    public IterativeDeepeningAlphaBetaPruningMinimax(long maxTime) {
+        this.maxTime = maxTime;
+    }
+
+
     /**
      * Determines the best action to take in the given game state.
      * This method iteratively deepens the search depth and uses alpha-beta pruning
@@ -25,10 +34,35 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
      */
     @Override
     public Action getAction(StateHandler state) {
-        return null;
+        init(state);
+
+        float currentBestMaximizer = Float.NEGATIVE_INFINITY;
+        float currentBestMinimizer = Float.POSITIVE_INFINITY;
+        Action currentBestAction = null;
+
+        for (Action action : state.getActions()) {
+            float value = evaluateState(state.result(action), currentBestMaximizer, currentBestMinimizer, 1, false);
+            if (currentBestMaximizer < value) {
+                currentBestMaximizer = value;
+                currentBestAction = action;
+                
+            }
+        }
+
+        return currentBestAction;
     }
 
     private float evaluateState(StateHandler state, float alpha, float beta, int depth, Boolean isMaximizingPlayer) {
         return 0;
     }
+
+    private boolean isTimeUp() {
+        return Calendar.getInstance().getTimeInMillis() - startTime >= maxTime;
+    }
+
+    private void init(StateHandler state) {
+        this.agentPlayerId = state.toMove();
+        startTime = Calendar.getInstance().getTimeInMillis();
+    }
+
 }
