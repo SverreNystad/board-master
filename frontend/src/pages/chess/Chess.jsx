@@ -42,6 +42,10 @@ function Chess() {
     }
   }, [gameStarted]);
 
+  useEffect(() => {
+    console.log("Game data:", gameData);
+  }, [gameData]);
+
   // Handle game start
   const handleStartGame = () => {
     // Reset state
@@ -50,8 +54,14 @@ function Chess() {
 
     console.log("Starting Game");
     startGame(gameType, botType).then((response) => {
-      setGameData(response.data);
-      console.log("Game started:", response.data);
+      const data = {
+        gameId: response.gameId,
+        status: response.status,
+        board: response.board
+      }
+      
+      setGameData(data);
+      console.log("Game started:", response);
       setGameStarted(true);
     }).catch((error) => {
       setErrorMessage(error.message);
