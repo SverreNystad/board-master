@@ -47,14 +47,18 @@ public class IterativeDeepeningAlphaBetaPruningMinimaxTest {
     @Test
     @DisplayName("Test agent makes the best move")
     void testGetActionBestMove() {
-        stateHandler.result(new Move(0, 0));
-        stateHandler.result(new Move(0, 1));
-        stateHandler.result(new Move(1, 0));
-        stateHandler.result(new Move(1, 1));
+        stateHandler = stateHandler.result(new Move(0, 0)); //X
+        stateHandler = stateHandler.result(new Move(1, 0)); //O
+
+        stateHandler = stateHandler.result(new Move(0, 1)); //X
+        stateHandler = stateHandler.result(new Move(2, 1)); //O
+
+        stateHandler = stateHandler.result(new Move(1, 1)); //X
+        stateHandler = stateHandler.result(new Move(1, 2)); //O
         
-        Action action = agent.getAction(stateHandler);
-        assertEquals(1, action.getMove().getX());
-        assertEquals(1, action.getMove().getY());
+        Move action = (Move) agent.getAction(stateHandler);
+        assertEquals(1, action.getX());
+        assertEquals(1, action.getY());
     }
 
 
