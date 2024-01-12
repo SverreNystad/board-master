@@ -24,5 +24,13 @@ public class Queen extends Piece {
         actions.addAll(bishop.getValidMoves(board));
 
     return actions;
-    }    
+    }  
+    
+    /**
+     * Creates a copy of the Queen
+     * @return a copy of the Queen
+     */
+    public Piece copy() {
+        return new Queen(this.color, this.row, this.column);
+    }
 }

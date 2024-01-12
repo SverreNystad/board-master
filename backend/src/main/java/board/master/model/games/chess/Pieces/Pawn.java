@@ -71,4 +71,13 @@ public class Pawn extends Piece {
 
         return actions;
     }
+
+    /**
+     * Creates a copy of the Pawn
+     * @return a copy of the Pawn
+     */
+    public Piece copy() {
+        return new Pawn(this.color, this.row, this.column);
+    }
+
 }

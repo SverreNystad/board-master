@@ -60,4 +60,12 @@ public class Rook extends Piece {
 
         return actions;
     }  
+
+    /**
+     * Creates a copy of the Rook
+     * @return a copy of the Rook
+     */
+    public Piece copy() {
+        return new Rook(this.color, this.row, this.column);
+    }
 }

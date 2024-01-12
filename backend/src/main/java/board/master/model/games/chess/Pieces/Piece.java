@@ -160,4 +160,6 @@ public abstract class Piece {
     public int getColumn() {
         return this.column;
     }
+
+    public abstract Piece copy();
 }

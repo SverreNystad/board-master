@@ -46,5 +46,11 @@ public class Knight extends Piece {
         return actions;
     }
 
-
+    /**
+     * Creates a copy of the Knight
+     * @return a copy of the Knight
+     */
+    public Piece copy() {
+        return new Knight(this.color, this.row, this.column);
+    }
 }

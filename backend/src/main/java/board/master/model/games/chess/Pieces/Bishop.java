@@ -68,4 +68,12 @@ public class Bishop extends Piece {
 
         return actions;
     }
+
+    /**
+     * Creates a copy of the Bishop
+     * @return a copy of the Bishop
+     */
+    public Piece copy() {
+        return new Bishop(this.color, this.row, this.column);
+    }
 }
