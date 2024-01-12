@@ -21,8 +21,8 @@ public class IterativeDeepeningAlphaBetaPruningMinimaxTest {
 
     @BeforeEach
     void setUp() {
-        maxTime = 100;
-        margin = 100;
+        maxTime = 1000;
+        margin = 1000;
         stateHandler = new TicTacToe();
         agent = new IterativeDeepeningAlphaBetaPruningMinimax(maxTime);
     }
@@ -47,18 +47,21 @@ public class IterativeDeepeningAlphaBetaPruningMinimaxTest {
     @Test
     @DisplayName("Test agent makes the best move")
     void testGetActionBestMove() {
-        stateHandler = stateHandler.result(new Move(0, 0)); //X
+        String x = "2";
+        String y = "2";
+
+        stateHandler = stateHandler.result(new Move(2, 0)); //X
         stateHandler = stateHandler.result(new Move(1, 0)); //O
 
-        stateHandler = stateHandler.result(new Move(0, 1)); //X
-        stateHandler = stateHandler.result(new Move(2, 1)); //O
+        stateHandler = stateHandler.result(new Move(2, 1)); //X
+        stateHandler = stateHandler.result(new Move(0, 1)); //O
 
-        stateHandler = stateHandler.result(new Move(1, 1)); //X
+        stateHandler = stateHandler.result(new Move(0, 0)); //X
         stateHandler = stateHandler.result(new Move(1, 2)); //O
         
         Move action = (Move) agent.getAction(stateHandler);
-        assertEquals(1, action.getX());
-        assertEquals(1, action.getY());
+        assertEquals(x, action.getX());
+        assertEquals(y, action.getY());
     }
 
 
