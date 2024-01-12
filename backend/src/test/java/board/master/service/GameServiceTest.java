@@ -48,7 +48,7 @@ public class GameServiceTest {
         void testStartGameChess() {
             String gameType = "chess";
             String botType = "random";
-            Board expectedBoard = Chess.CreateInitialBoard();
+            Board expectedBoard = new Chess().getBoard();
             GameStartRequest request = new GameStartRequest(botType, gameType);
             GameResponse response = gameService.startGame(request);
             assertEquals(expectedBoard, response.getBoard());
