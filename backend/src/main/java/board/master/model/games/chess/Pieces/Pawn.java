@@ -38,17 +38,31 @@ public class Pawn extends Piece {
             return actions;
         }
 
-        if (checkMove(board, this.row + forwardDirection, this.column, new ArrayList<Action>())) {
+        if (checkEmptySpace(board, this.row + forwardDirection, this.column)) {
             actions.add((Action) new Move(this.row + forwardDirection, this.column));
         }
 
         int[] possibleColumns = {this.column - 1, this.column + 1};
 
         for (int newColumn : possibleColumns) {
-            if (!checkMove(board, this.row + forwardDirection, newColumn, new ArrayList<Action>())) {
+            if (!checkEmptySpace(board, this.row + forwardDirection, newColumn)) {
                 checkMove(board, this.row + forwardDirection, newColumn, actions);
             }
         }
+
+        if (this.color == Color.BLACK && this.row == 1) {
+            if (checkEmptySpace(board, this.row + forwardDirection, this.column)
+                && checkEmptySpace(board, this.row + 1, this.column)) {
+                actions.add((Action) new Move(this.row + 2, this.column));
+            }
+        } else if (this.color == Color.WHITE && this.row == 6) {
+            if (checkEmptySpace(board, this.row - 2, this.column)
+                && checkEmptySpace(board, this.row - 1, this.column)) {
+                actions.add((Action) new Move(this.row - 2, this.column));
+            }
+            
+        }
+
         return actions;
     }
 }
