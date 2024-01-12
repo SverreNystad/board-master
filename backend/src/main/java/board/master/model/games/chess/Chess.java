@@ -109,7 +109,11 @@ public class Chess implements StateHandler {
     public List<Action> getActions() {
         List<Action> actions = new ArrayList<Action>();
         for (Piece piece : this.pieces.values()) {
-            piece.getValidMoves(this.board).forEach(action -> actions.add(action));
+            if (toMove() == 1 && piece.getColor() == Color.BLACK) {
+                piece.getValidMoves(this.board).forEach(action -> actions.add(action));
+            } else if (toMove() == -1 && piece.getColor() == Color.WHITE) {
+                piece.getValidMoves(this.board).forEach(action -> actions.add(action));
+            }    
         }
         return actions;
     }
