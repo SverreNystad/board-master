@@ -31,36 +31,40 @@ public class Bishop extends Piece {
         List<Action> actions = new ArrayList<Action>();
 
         //test for diagonal moves up and left
-        int up = this.row - 1;
-        int left = this.column - 1;
-        while (checkMove(board, up, left, actions)) {
+        int up = this.row;
+        int left = this.column;
+        do {
             up--;
             left--;
-        }
+            checkMove(board, up, left, actions);
+        } while (checkEmptySpace(board, up, left));
 
         //test for diagonal moves up and right
-        up = this.row - 1;
-        int right = this.column + 1;
-        while (checkMove(board, up, right, actions)) {
+        up = this.row;
+        int right = this.column;
+        do {
             up--;
             right++;
-        }
+            checkMove(board, up, right, actions);
+        } while (checkEmptySpace(board, up, right));
 
         //test for diagonal moves down and left
-        int down = this.row + 1;
-        left = this.column - 1;
-        while (checkMove(board, down, left, actions)) {
+        int down = this.row;
+        left = this.column;
+        do {
             down++;
             left--;
-        }
+            checkMove(board, down, left, actions);
+        } while (checkEmptySpace(board, down, left));
 
         //test for diagonal moves down and right
-        down = this.row + 1;
-        right = this.column + 1;
-        while (checkMove(board, down, right, actions)) {
+        down = this.row ;
+        right = this.column;
+        do {
             down++;
             right++;
-        }
+            checkMove(board, down, right, actions);
+        } while (checkEmptySpace(board, down, right));
 
         return actions;
     }
