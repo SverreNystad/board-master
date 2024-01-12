@@ -3,11 +3,11 @@ package board.master.model.games.chess;
 import board.master.model.StateHandler;
 import board.master.model.games.Board;
 import board.master.model.games.Move;
+import board.master.model.games.chess.Pieces.Piece;
 import board.master.model.games.chess.Pieces.Bishop;
 import board.master.model.games.chess.Pieces.King;
 import board.master.model.games.chess.Pieces.Knight;
 import board.master.model.games.chess.Pieces.Pawn;
-import board.master.model.games.chess.Pieces.Piece;
 import board.master.model.games.chess.Pieces.Queen;
 import board.master.model.games.chess.Pieces.Rook;
 import board.master.model.Action;
@@ -92,7 +92,9 @@ public class Chess implements StateHandler {
         }
         this.board = newBoard;
         this.toMove = toMove;
-        this.pieces = pieces;
+        for (Piece piece : pieces.values()) {
+            this.pieces.put(piece.getSymbol(), piece.copy());
+        }
     }
     
     /**
