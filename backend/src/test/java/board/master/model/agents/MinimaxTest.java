@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import board.master.model.Action;
 import board.master.model.StateHandler;
+import board.master.model.games.Move;
 import board.master.model.games.tictactoe.TicTacToe;
 
 public class MinimaxTest {
@@ -42,5 +43,25 @@ public class MinimaxTest {
         Action action = agent.getAction(stateHandler);
         // Check that the board is not mutated
         assertEquals(expectedSpaces, stateHandler.getActions().size());
+    }
+
+    @Test
+    @DisplayName("Test agent makes the best move")
+    void testGetActionBestMove() {
+        String x = "0";
+        String y = "2";
+
+        stateHandler = stateHandler.result(new Move(2, 0)); //X
+        stateHandler = stateHandler.result(new Move(1, 0)); //O
+
+        stateHandler = stateHandler.result(new Move(1, 1)); //X
+        stateHandler = stateHandler.result(new Move(0, 1)); //O
+
+        stateHandler = stateHandler.result(new Move(1, 2)); //X
+        stateHandler = stateHandler.result(new Move(2, 2)); //O
+        
+        Move action = (Move) agent.getAction(stateHandler);
+        assertEquals(x, action.getX());
+        assertEquals(y, action.getY());
     }
 }
