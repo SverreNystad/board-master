@@ -70,6 +70,7 @@ public class Chess implements StateHandler {
             this.pieces.put(blackBishop.getSymbol() + i, blackBishop);
         }
 
+        // Queens and Kings
         Piece whiteQueen = new Queen(Color.WHITE, 7, 3);
         Piece blackQueen = new Queen(Color.BLACK, 0, 3);   
         this.pieces.put(whiteQueen.getSymbol(), whiteQueen);
@@ -97,17 +98,18 @@ public class Chess implements StateHandler {
      */
     public int toMove() {
         // Should be -1 for black, 1 for white
-        return this.toMove * -1;
+        return this.toMove;
     }
 
     /**
      * {@inheritDoc}
      */
     public List<Action> getActions() {
+        List<Action> actions = new ArrayList<Action>();
         for (Piece piece : this.pieces.values()) {
-            piece.getValidMoves(board);
+            piece.getValidMoves(this.board).forEach(action -> actions.add(action));
         }
-        return new ArrayList<Action>();
+        return actions;
     }
 
     /**
