@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+
 public class Chess implements StateHandler {
     
     private Board board;
@@ -85,17 +87,26 @@ public class Chess implements StateHandler {
 
     private Chess(Board board, int toMove, Map<String, Piece> pieces) {
         Board newBoard = new Board(board.getRows(), board.getColumns());
+
+        /*
         for (int x = 0; x < board.getRows(); x++) {
             for (int y = 0; y < board.getColumns(); y++) {
                 newBoard.setPosition(x, y, board.getPosition(x, y));
             }
-        }
+        }*/
+        
+        Map<String, Piece> newPieces = new HashMap<String, Piece>();
+        pieces.forEach((key, value) -> {
+            newPieces.put(key, value.copy());
+        } );
+
+        newPieces.forEach((key, value) -> {
+            newBoard.setPosition(value.row, value.column, key);
+        } );
+
+        this.pieces = newPieces;
         this.board = newBoard;
         this.toMove = toMove;
-        this.pieces = new HashMap<String, Piece>();
-        for (Piece piece : pieces.values()) {
-            this.pieces.put(piece.getSymbol(), piece.copy());
-        }
     }
     
     /**
@@ -157,6 +168,7 @@ public class Chess implements StateHandler {
         int x = Character.getNumericValue(position.charAt(0));
         int y = Character.getNumericValue(position.charAt(1));
         String pieceSymbol = this.board.getPosition(x, y);
+        Piece piece = this.pieces.get(pieceSymbol);
         return this.pieces.getOrDefault(pieceSymbol, null);
     }
 
@@ -164,7 +176,56 @@ public class Chess implements StateHandler {
      * {@inheritDoc}
      */
     public boolean isTerminal() {
-        // TODO
+        // Check for checkmate
+        Piece whiteKing = this.pieces.get("KW");
+        Piece blackKing = this.pieces.get("KB");
+
+        boolean whiteKingInCheck = isKingInCheck(whiteKing);
+        boolean blackKingInCheck = isKingInCheck(blackKing);
+
+        if (whiteKingInCheck) {
+           return isKingInCheckMate(whiteKing);
+            
+        } else if (blackKingInCheck) {
+            return isKingInCheckMate(blackKing);
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isKingInCheck(Piece king) {
+        String kingPosition = String.valueOf(king.getRow()) +
+                String.valueOf(king.getColumn());
+        
+        List<Action> actions = getActions();
+
+        for (Action action : actions) {
+            Move move = (Move) action;
+            String newPos = move.getY();
+
+            if (newPos.equals(kingPosition)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isKingInCheckMate(Piece king) {
+        // King is in check
+        List<Action> whiteActions = king.getValidMoves(this.board);
+        if (whiteActions.isEmpty()) {
+            return true;
+        }
+        for (Action action : whiteActions) {
+            Chess newState = (Chess) result(action);
+            Piece newKing  = newState.pieces.get(king.getSymbol());
+
+            //if there is a move that gets the king out of check, then it is not checkmate
+            if (!newState.isKingInCheck(newKing)) {
+                return false;
+            }
+        }
+        // White is in checkmate
         return true;
     }
 
