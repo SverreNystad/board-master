@@ -225,8 +225,43 @@ public class Chess implements StateHandler {
      * {@inheritDoc}
      */
     public int utility(int player) {
-        // TODO
-        return 0;
+        Map<Color, Integer> analysis = analyzeBoard();
+
+        if (analysis.containsKey(Color.WHITE)) {
+            return (player == 1) ? analysis.get(Color.WHITE) : -analysis.get(Color.WHITE);
+        }
+        else {
+            return (player == -1) ? analysis.get(Color.BLACK) : -analysis.get(Color.BLACK);
+        }
+    }
+
+    private Map<Color, Integer> analyzeBoard() {
+        Map<Color, Integer> analysis = new HashMap<Color, Integer>();
+
+        if (isTerminal()) {
+            if (isKingInCheck(this.pieces.get("KW"))) {
+                analysis.put(Color.BLACK, 1000);
+            } else {
+                analysis.put(Color.WHITE, 1000);
+            }
+        }
+
+        int value = 0;
+
+        for (Piece piece : this.pieces.values()) {
+            if (piece.getColor() == Color.WHITE) {
+                value += piece.getValue();
+            } else {
+                value -= piece.getValue();
+            }
+        }
+
+        if (value >= 0) {
+            analysis.put(Color.WHITE, value);
+        } else {
+            analysis.put(Color.BLACK, value);
+        }
+        return analysis;
     }
 
     /**
