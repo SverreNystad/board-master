@@ -39,8 +39,11 @@ public abstract class Piece {
     public boolean isValidMove(int row, int column, Board board) {
         for (Action action : getValidMoves(board)) {
             Move move = (Move) action;
-            if (move.getX().equals(String.valueOf(row))
-                && move.getY().equals(String.valueOf(column))) {
+            String newPos = move.getY();
+            String x = String.valueOf(newPos.charAt(0));
+            String y = String.valueOf(newPos.charAt(1));
+            if (x.equals(String.valueOf(row))
+                && y.equals(String.valueOf(column))) {
                 return true;
             }
         }
