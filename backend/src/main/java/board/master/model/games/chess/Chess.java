@@ -85,15 +85,8 @@ public class Chess implements StateHandler {
         this.pieces.put(blackKing.getSymbol(), blackKing);
     }
 
-    private Chess(Board board, int toMove, Map<String, Piece> pieces) {
+    protected Chess(Board board, int toMove, Map<String, Piece> pieces) {
         Board newBoard = new Board(board.getRows(), board.getColumns());
-
-        /*
-        for (int x = 0; x < board.getRows(); x++) {
-            for (int y = 0; y < board.getColumns(); y++) {
-                newBoard.setPosition(x, y, board.getPosition(x, y));
-            }
-        }*/
         
         Map<String, Piece> newPieces = new HashMap<String, Piece>();
         pieces.forEach((key, value) -> {
@@ -168,7 +161,6 @@ public class Chess implements StateHandler {
         int x = Character.getNumericValue(position.charAt(0));
         int y = Character.getNumericValue(position.charAt(1));
         String pieceSymbol = this.board.getPosition(x, y);
-        Piece piece = this.pieces.get(pieceSymbol);
         return this.pieces.getOrDefault(pieceSymbol, null);
     }
 
