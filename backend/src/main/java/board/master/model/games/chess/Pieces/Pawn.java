@@ -24,6 +24,7 @@ public class Pawn extends Piece {
     public Pawn(Color color, int row, int column) {
         super(color, row, column);
         super.symbol = "P";
+        super.value = 1;
     }
 
     /**

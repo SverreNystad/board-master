@@ -11,11 +11,12 @@ import board.master.model.games.chess.Color;
  * Abstract class for a chess piece
  */
 public abstract class Piece {
-    public Color color;
+    public final Color color;
     public int row;
     public int column;
     protected String symbol;
     private static final int colorIndex = 1;
+    protected int value;
 
     /**
      * Creates a new piece
@@ -162,6 +163,14 @@ public abstract class Piece {
      */
     public int getColumn() {
         return this.column;
+    }
+
+    /**
+     * Returns the value of the piece
+     * @return An int representing the value of the piece
+     */
+    public int getValue() {
+        return this.value;
     }
 
     public abstract Piece copy();

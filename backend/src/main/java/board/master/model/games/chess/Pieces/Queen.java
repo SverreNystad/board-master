@@ -12,6 +12,7 @@ public class Queen extends Piece {
     public Queen(Color color, int row, int column) {
         super(color, row, column);
         super.symbol = "Q";
+        super.value = 9;
     }
 
     public List<Action> getValidMoves(Board board) {

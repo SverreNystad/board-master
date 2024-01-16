@@ -22,6 +22,7 @@ public class Rook extends Piece {
     public Rook(Color color, int row, int column) {
         super(color, row, column);
         super.symbol = "R";
+        super.value = 5;
     }
 
     /**

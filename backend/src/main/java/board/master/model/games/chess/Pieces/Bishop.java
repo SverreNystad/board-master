@@ -22,6 +22,7 @@ public class Bishop extends Piece {
     public Bishop(Color color, int row, int column) {
         super(color, row, column);
         super.symbol = "B";
+        super.value = 3;
     }
 
     /**

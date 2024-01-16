@@ -13,6 +13,7 @@ public class King extends Piece {
     public King(Color color, int row, int column) {
         super(color, row, column);
         super.symbol = "K";
+        super.value = 100;
     }
 
     public List<Action> getValidMoves(Board board) {

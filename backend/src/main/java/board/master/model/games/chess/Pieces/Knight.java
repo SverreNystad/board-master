@@ -22,6 +22,7 @@ public class Knight extends Piece {
     public Knight(Color color, int row, int column) {
         super(color, row, column);
         super.symbol = "H";
+        super.value = 3;
     }
 
     /**
