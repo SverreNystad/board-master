@@ -22,16 +22,20 @@
     - [Minimax Algorithm](#minimax-algorithm)
   - [Setup](#setup)
     - [Prerequisites](#prerequisites)
+      - [Frontend:](#frontend)
+      - [Backend:](#backend)
+        - [Docker:](#docker)
+        - [Manual:](#manual)
   - [Installation](#installation)
     - [1. Clone the repository](#1-clone-the-repository)
     - [2. Navigate to the Project Directory:](#2-navigate-to-the-project-directory)
-    - [Frontend](#frontend)
+    - [Frontend](#frontend-1)
       - [**Start node package manager:**](#start-node-package-manager)
-    - [Backend](#backend)
+    - [Backend](#backend-1)
       - [**Start backend:**](#start-backend)
   - [Tests](#tests)
-    - [Frontend](#frontend-1)
-    - [Backend](#backend-1)
+    - [Frontend](#frontend-2)
+    - [Backend](#backend-2)
   - [Code Coverage](#code-coverage)
   - [Documentation](#documentation)
   - [Contributors](#contributors)
@@ -76,6 +80,21 @@ Before setting up BoardMaster, ensure that your system meets the following requi
 Ensure that git is installed on your machine. [Download Git](https://git-scm.com/downloads)
 
 </ul>
+
+#### Frontend:
+
+<ul>
+  <details> <summary><b> Node.js 16 or higher (Download from Node.js website) </b></summary>
+  BoardMaster requires Node.js to be installed. The project is tested with Node.js 16 and Node.js 20, but it should work fine with any version 16 or higher.
+</ul>
+
+#### Backend:
+For the backend, one can use docker or install the prerequisites manually.
+
+##### Docker:
+Need to have docker installed on your machine. [Download Docker](https://www.docker.com/products/docker-desktop)
+
+##### Manual:
 <ul>
   <details> <summary><b> Java JDK 17 or higher (Download from Oracle's website) </b></summary>
   BoardMaster requires Java JDK to be installed. The project is tested with JDK 17, but it should work fine with any version 17 or higher.
