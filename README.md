@@ -32,7 +32,10 @@
     - [Frontend](#frontend-1)
       - [**Start node package manager:**](#start-node-package-manager)
     - [Backend](#backend-1)
-      - [**Start backend:**](#start-backend)
+      - [Build the backend with docker:](#build-the-backend-with-docker)
+        - [**Start backend:**](#start-backend)
+      - [Build the backend manually:](#build-the-backend-manually)
+      - [**Start backend:**](#start-backend-1)
   - [Tests](#tests)
     - [Frontend](#frontend-2)
     - [Backend](#backend-2)
@@ -144,7 +147,18 @@ npm start
 After starting the node package manager, the frontend should be available at http://localhost:3000/ and should pop up in your default browser.
 
 ### Backend
-Build the backend:
+#### Build the backend with docker:
+```cmd
+docker compose build
+```
+
+##### **Start backend:**
+```cmd
+docker compose up
+```
+After starting the backend, the backend should be available at http://localhost:8080/
+
+#### Build the backend manually:
 Inside the project directory `backend`, use Gradle to build the project:
 ```cmd
 gradlew build
