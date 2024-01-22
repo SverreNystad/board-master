@@ -44,6 +44,18 @@ public class ConnectFourTest {
             assertEquals(expected, actual);
         }
 
+        @Test
+        void testIsTerminalAfterLessThenPossibleWinningCombination() {
+            boolean expected = false;
+            int numberOfMoves = 3;
+            for (int i = 0; i < numberOfMoves; i++) {
+                connectFour.result(connectFour.getActions().get(0));
+                connectFour.result(connectFour.getActions().get(1));
+            }
+            boolean actual = connectFour.isTerminal();
+            assertEquals(expected, actual);
+        }
+
     }
 
     @Test
@@ -51,10 +63,35 @@ public class ConnectFourTest {
 
     }
 
-    @Test
-    void testToMove() {
+    @Nested
+    class TestToMove {
+
+        @Test
+        void testToMoveAtStart() {
+            int expected = 1;
+            int actual = connectFour.toMove();
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testToMoveAfterOneMove() {
+            int expected = -1;
+            connectFour.result(connectFour.getActions().get(0));
+            int actual = connectFour.toMove();
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testToMoveAfterTwoMoves() {
+            int expected = 1;
+            connectFour.result(connectFour.getActions().get(0));
+            connectFour.result(connectFour.getActions().get(0));
+            int actual = connectFour.toMove();
+            assertEquals(expected, actual);
+        }
 
     }
+
 
     @Test
     void testUtility() {
