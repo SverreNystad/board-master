@@ -23,7 +23,7 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
     private long startTime;
 
     public IterativeDeepeningAlphaBetaPruningMinimax(long maxTime) {
-        this.maxTime = maxTime;
+        this.maxTime = maxTime*1000;
     }
 
 
