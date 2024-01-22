@@ -64,7 +64,8 @@ public class TicTacToeTest {
         @Test
         @DisplayName("Test of utility when board is full")
         void testUtility2() {
-            int expected = 0;
+            int expectedX = 20;
+            int expectedO = -20;
 
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 0));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 1));
@@ -76,15 +77,15 @@ public class TicTacToeTest {
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 2));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 1));
 
-            assertEquals(expected, ticTacToe.utility(playerX));
-            assertEquals(expected, ticTacToe.utility(playerO));
+            assertEquals(expectedX, ticTacToe.utility(playerX));
+            assertEquals(expectedO, ticTacToe.utility(playerO));
         }
 
         @Test
         @DisplayName("Test of utility when X wins")
         void testUtility3() {
 
-            int expected = -1;
+            int expected = -1000;
             int x = 1;
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 0));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x-1, 0));
@@ -97,7 +98,7 @@ public class TicTacToeTest {
         @Test
         @DisplayName("Test of utility when O wins")
         void testUtility4() {
-            int expected = 1;
+            int expected = 1000;
             int x = 1;
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x-1, 0));
             ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 0));
