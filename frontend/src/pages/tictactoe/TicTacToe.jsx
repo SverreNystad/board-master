@@ -4,6 +4,7 @@ import { apiRoutes } from '../../routes/routeDefinitions';
 import Board from '../../components/game/Board';
 import Error from '../../components/game/Error';
 import './TicTacToe.css';
+const gameService = require('../../services/gameService');
 
 
 function TicTacToe() {
@@ -101,19 +102,18 @@ function TicTacToe() {
       gameId: gameData.gameId,
     }
 
-    try {
-      const response = await axios.post(apiRoutes.botMove, requestBody);
-
-      // Update state with response data
-      setGameData(response.data);
-      console.log("Bot Move:", response.data);
-    } catch (error) {
+    const response = gameService.botMove(requestBody)
+      .then(result => {
+        // Update state with response data
+        setGameData(result);
+        console.log('Bot move result:', result);
+    })
+    .catch(error => {
       setErrorMessage(error.message);
-      console.error("Error making bot move:", error);
+      console.error('Error while making bot move:', error);
+    });
 
-    } finally {
-      setShallLoad(false);
-    }
+    setShallLoad(false);
   }
 
 
