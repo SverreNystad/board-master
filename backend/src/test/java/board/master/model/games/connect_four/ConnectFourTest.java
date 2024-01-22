@@ -11,10 +11,13 @@ import org.junit.jupiter.api.Nested;
 public class ConnectFourTest {
 
     private ConnectFour connectFour;
+    private int coloumnHeight;
 
     @BeforeEach
     void setUp() {
         connectFour = new ConnectFour();
+        coloumnHeight = 7;
+
 
     }
 
@@ -38,8 +41,7 @@ public class ConnectFourTest {
 
         @Test
         void testGetAllActionsAfterColumnIsFull() {
-            int expected = 6;
-            int coloumnHeight = 7;
+            int expected = 5;
             for (int i = 0; i < coloumnHeight; i++) {
                 connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             }
@@ -49,10 +51,32 @@ public class ConnectFourTest {
 
     }
 
-    @Test
-    void testGetBoard() {
+    @Nested
+    class testGetBoard {
+
+        @Test
+        void testGetBoardAtStart() {
+            for (int x = 0; x < connectFour.getBoard().getRows(); x++) {
+                for (int y = 0; y < connectFour.getBoard().getColumns(); y++) {
+                    String expected = "";
+                    String actual = connectFour.getBoard().getPosition(x, y);
+                    assertEquals(expected, actual);
+                }
+            }
+        }
+
+        @Test
+        void testGetBoardAfterOneMove() {
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            String laidPiece = connectFour.getBoard().getPosition(0, 0);
+            assertEquals("X", laidPiece);
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            laidPiece = connectFour.getBoard().getPosition(0, 1);
+            assertEquals("O", laidPiece);
+        }
 
     }
+
 
     @Nested
     class testIsTerminal {
@@ -79,7 +103,19 @@ public class ConnectFourTest {
         @Test
         void testIsTerminalAfterGameIsWon() {
             boolean expected = true;
+            // Player 1 makes tower in column 0 and wins
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            boolean actual = connectFour.isTerminal();
+            assertEquals(expected, actual);
+            
 
         }
 
