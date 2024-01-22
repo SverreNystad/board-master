@@ -11,14 +11,12 @@ import org.junit.jupiter.api.Nested;
 public class ConnectFourTest {
 
     private ConnectFour connectFour;
-    private int coloumnHeight;
+    private int columnHeight;
 
     @BeforeEach
     void setUp() {
         connectFour = new ConnectFour();
-        coloumnHeight = 7;
-
-
+        columnHeight = 7;
     }
 
     @Nested
@@ -42,7 +40,7 @@ public class ConnectFourTest {
         @Test
         void testGetAllActionsAfterColumnIsFull() {
             int expected = 5;
-            for (int i = 0; i < coloumnHeight; i++) {
+            for (int i = 0; i < columnHeight; i++) {
                 connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             }
             int actual = connectFour.getActions().size();
