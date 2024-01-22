@@ -43,11 +43,11 @@ public class PawnTest {
     @Test
     @DisplayName("Test Pawn isValidMove without other pieces")
     void testGetValidMoveWithoutOtherPieces() {
-        String x = "5";
-        String y = "1";
+        String fromX = "61";
+        String toY = "51";
         Move move = (Move) pawn.getValidMoves(board).get(0);
-        assertEquals(x, move.getX());
-        assertEquals(y, move.getY());
+        assertEquals(fromX, move.getX());
+        assertEquals(toY, move.getY());
     }
 
     @Test
