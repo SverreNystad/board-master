@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 
@@ -22,7 +23,26 @@ public class ConnectFourTest {
 
         @Test
         void testGetAllActionsAtStart() {
-            int expected = 7;
+            int expected = 6;
+            int actual = connectFour.getActions().size();
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testGetAllActionsAfterOneMove() {
+            int expected = 6;
+            connectFour.result(connectFour.getActions().get(0));
+            int actual = connectFour.getActions().size();
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testGetAllActionsAfterColumnIsFull() {
+            int expected = 6;
+            int coloumnHeight = 7;
+            for (int i = 0; i < coloumnHeight; i++) {
+                connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            }
             int actual = connectFour.getActions().size();
             assertEquals(expected, actual);
         }
@@ -49,11 +69,18 @@ public class ConnectFourTest {
             boolean expected = false;
             int numberOfMoves = 3;
             for (int i = 0; i < numberOfMoves; i++) {
-                connectFour.result(connectFour.getActions().get(0));
-                connectFour.result(connectFour.getActions().get(1));
+                connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+                connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
             }
             boolean actual = connectFour.isTerminal();
             assertEquals(expected, actual);
+        }
+
+        @Test
+        void testIsTerminalAfterGameIsWon() {
+            boolean expected = true;
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+
         }
 
     }
