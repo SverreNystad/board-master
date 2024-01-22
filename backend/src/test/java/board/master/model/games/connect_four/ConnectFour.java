@@ -11,9 +11,13 @@ import board.master.model.games.Move;
 public class ConnectFour implements StateHandler {
 
     private int playerToMove;
+    private Board board;
+    private final int rowLength = 6;
+    private final int columnHeight = 7;
 
     public ConnectFour() {
         playerToMove = 1;
+        board = new Board(rowLength, columnHeight);
     }
 
     @Override
@@ -24,8 +28,10 @@ public class ConnectFour implements StateHandler {
     @Override
     public List<Action> getActions() {
         List<Action> actions = new ArrayList<Action>();
-        for (int i = 0; i < 7; i++) {
-            actions.add(new Move(i));
+        for (int x = 0; x < rowLength; x++) {
+            if (board.getPosition(x, columnHeight-1) == "") {
+                actions.add(new Move(x));
+            }
         }
         return actions;
     }
@@ -33,7 +39,7 @@ public class ConnectFour implements StateHandler {
     @Override
     public StateHandler result(Action action) {
         this.playerToMove *= -1;
-        return null;
+        return this;
     }
 
     @Override
