@@ -38,12 +38,90 @@ public class ConnectFour implements StateHandler {
 
     @Override
     public StateHandler result(Action action) {
+        Move move = (Move) action;
+        int x = Integer.valueOf(move.getX());
+        for (int y = 0; y < columnHeight; y++) {
+            if (board.getPosition(x, y) == "") {
+                String symbol = playerToMove == 1 ? "X" : "O";
+                board.setPosition(x, y, symbol);
+                break;
+            }
+        }
         this.playerToMove *= -1;
         return this;
     }
 
     @Override
     public boolean isTerminal() {
+        // Check for a win
+        if (checkForWin(1) || checkForWin(-1)) {
+            return true;
+        }
+        // Check for a draw
+        return getActions().isEmpty();
+    }
+
+    private boolean checkForWin(int player) {
+        // Check horizontal, vertical, and diagonal lines
+        return checkHorizontalWin(player) || checkVerticalWin(player) || checkDiagonalWin(player);
+    }
+
+    private boolean checkHorizontalWin(int player) {
+        String playerSymbol = Integer.toString(player);
+        for (int row = 0; row < rowLength; row++) {
+            for (int col = 0; col < columnHeight - 3; col++) {
+                if (board.getPosition(row, col).equals(playerSymbol)
+                        && board.getPosition(row, col + 1).equals(playerSymbol)
+                        && board.getPosition(row, col + 2).equals(playerSymbol)
+                        && board.getPosition(row, col + 3).equals(playerSymbol)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean checkVerticalWin(int player) {
+        String playerSymbol = Integer.toString(player);
+        for (int col = 0; col < columnHeight; col++) {
+            for (int row = 0; row < rowLength - 3; row++) {
+                if (board.getPosition(row, col).equals(playerSymbol)
+                        && board.getPosition(row + 1, col).equals(playerSymbol)
+                        && board.getPosition(row + 2, col).equals(playerSymbol)
+                        && board.getPosition(row + 3, col).equals(playerSymbol)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean checkDiagonalWin(int player) {
+        String playerSymbol = Integer.toString(player);
+        // Check diagonal (top-left to bottom-right)
+        for (int row = 0; row < rowLength - 3; row++) {
+            for (int col = 0; col < columnHeight - 3; col++) {
+                if (board.getPosition(row, col).equals(playerSymbol)
+                        && board.getPosition(row + 1, col + 1).equals(playerSymbol)
+                        && board.getPosition(row + 2, col + 2).equals(playerSymbol)
+                        && board.getPosition(row + 3, col + 3).equals(playerSymbol)) {
+                    return true;
+                }
+            }
+        }
+
+        // Check diagonal (bottom-left to top-right)
+        for (int row = 3; row < rowLength; row++) {
+            for (int col = 0; col < columnHeight - 3; col++) {
+                if (board.getPosition(row, col).equals(playerSymbol)
+                        && board.getPosition(row - 1, col + 1).equals(playerSymbol)
+                        && board.getPosition(row - 2, col + 2).equals(playerSymbol)
+                        && board.getPosition(row - 3, col + 3).equals(playerSymbol)) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
@@ -55,8 +133,7 @@ public class ConnectFour implements StateHandler {
 
     @Override
     public Board getBoard() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBoard'");
+        return board;
     }
     
 }
