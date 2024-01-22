@@ -77,7 +77,6 @@ public class ConnectFourTest {
 
     }
 
-
     @Nested
     class testIsTerminal {
 
@@ -120,7 +119,6 @@ public class ConnectFourTest {
         }
 
     }
-
     
     @Nested
     class TestResult {
@@ -173,10 +171,9 @@ public class ConnectFourTest {
         }
 
     }
-
-
-    @Test
-    void testUtility() {
+    
+    @Nested
+    class testUtility {
 
     }
 }
