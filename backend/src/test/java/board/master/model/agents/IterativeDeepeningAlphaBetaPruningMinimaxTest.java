@@ -21,8 +21,8 @@ public class IterativeDeepeningAlphaBetaPruningMinimaxTest {
 
     @BeforeEach
     void setUp() {
-        maxTime = 1000;
-        margin = 1000;
+        maxTime = 1;
+        margin = 1;
         stateHandler = new TicTacToe();
         agent = new IterativeDeepeningAlphaBetaPruningMinimax(maxTime);
     }
@@ -38,9 +38,9 @@ public class IterativeDeepeningAlphaBetaPruningMinimaxTest {
     @Test
     @DisplayName("Test agent gets an action within time limit")
     void testGetActionWithinTimeLimit() {
-        long startTime = Calendar.getInstance().getTimeInMillis();
+        long startTime = Calendar.getInstance().getTimeInMillis()/1000;
         Action action = agent.getAction(stateHandler);
-        long endTime = Calendar.getInstance().getTimeInMillis();
+        long endTime = Calendar.getInstance().getTimeInMillis()/1000;
         assert(endTime - startTime <= maxTime + margin);
     }
 
