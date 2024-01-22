@@ -38,7 +38,8 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
      */
     @Override
     public Action getAction(StateHandler state) {
-        init(state);
+        this.agentPlayerId = state.toMove();
+        startTime = Calendar.getInstance().getTimeInMillis();
 
         float currentBestMaximizer = Float.NEGATIVE_INFINITY;
         float currentBestMinimizer = Float.POSITIVE_INFINITY;
@@ -103,11 +104,6 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
 
     private boolean isTimeUp() {
         return Calendar.getInstance().getTimeInMillis() - startTime >= maxTime;
-    }
-
-    private void init(StateHandler state) {
-        this.agentPlayerId = state.toMove();
-        startTime = Calendar.getInstance().getTimeInMillis();
     }
 
 }
