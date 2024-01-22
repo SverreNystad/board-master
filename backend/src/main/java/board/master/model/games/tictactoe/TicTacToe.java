@@ -108,8 +108,8 @@ public class TicTacToe implements StateHandler {
         if (checkWin() != "") {
             return true;
         }
-        //if board is full 
-        return (getActions().size() == 0);
+        //Check for draw (no more empty spaces)
+        return getActions().isEmpty();
     }
 
     /**
