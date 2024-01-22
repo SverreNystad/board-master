@@ -20,6 +20,16 @@ public class ConnectFour implements StateHandler {
         board = new Board(rowLength, columnHeight);
     }
 
+    private ConnectFour(int playerToMove, Board board) {
+        this.playerToMove = playerToMove;
+        this.board = new Board(board.getRows(), board.getColumns());
+        for (int x = 0; x < board.getRows(); x++) {
+            for (int y = 0; y < board.getColumns(); y++) {
+                this.board.setPosition(x, y, board.getPosition(x, y));
+            }
+        }
+    }
+
     @Override
     public int toMove() {
         return playerToMove;
@@ -38,17 +48,19 @@ public class ConnectFour implements StateHandler {
 
     @Override
     public StateHandler result(Action action) {
+        // Create a StateHandler with the same board and the opposite player to move
+        ConnectFour result = new ConnectFour(-playerToMove, board);
+
         Move move = (Move) action;
         int x = Integer.valueOf(move.getX());
         for (int y = 0; y < columnHeight; y++) {
-            if (board.getPosition(x, y) == "") {
-                String symbol = playerToMove == 1 ? "X" : "O";
-                board.setPosition(x, y, symbol);
+            if (result.getBoard().getPosition(x, y) == "") {
+                String symbol = getPlayerSymbol(this.toMove());
+                result.getBoard().setPosition(x, y, symbol);
                 break;
             }
         }
-        this.playerToMove *= -1;
-        return this;
+        return result;
     }
 
     @Override
@@ -67,7 +79,7 @@ public class ConnectFour implements StateHandler {
     }
 
     private boolean checkHorizontalWin(int player) {
-        String playerSymbol = Integer.toString(player);
+        String playerSymbol = getPlayerSymbol(player);
         for (int row = 0; row < rowLength; row++) {
             for (int col = 0; col < columnHeight - 3; col++) {
                 if (board.getPosition(row, col).equals(playerSymbol)
@@ -136,4 +148,8 @@ public class ConnectFour implements StateHandler {
         return board;
     }
     
+    private String getPlayerSymbol(int player) {
+        return player == 1 ? "X" : "O";
+    }
+
 }
