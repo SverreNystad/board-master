@@ -17,6 +17,11 @@ class "AlphaBetaPruningMinimax" {
 
 class "Application"
 
+class "Bishop" {
+  copy() : Piece
+  getValidMoves(Board) : List<Action>
+}
+
 class "Board" {
   grid : List<List<String>>
   rows : int
@@ -27,6 +32,8 @@ class "Board" {
 
 class "Chess" {
   board : Board
+  toMove : int
+  pieces : Map<String, Piece>
   result(Action) : StateHandler
   toMove() : int
   utility(int) : int
@@ -35,6 +42,12 @@ class "Chess" {
 enum "Color" {
   WHITE
   BLACK
+}
+
+class "ConnectFour" {
+  result(Action) : StateHandler
+  toMove() : int
+  utility(int) : int
 }
 
 class "Game" {
@@ -74,6 +87,27 @@ class "GameStartRequest" {
 
 class "GameStateHandlerFactory"
 
+class "HealthCheckController" {
+  heartbeat() : ResponseEntity<String>
+}
+
+class "IterativeDeepeningAlphaBetaPruningMinimax" {
+  agentPlayerId : int
+  maxTime : long
+  startTime : long
+  getAction(StateHandler) : Action
+}
+
+class "King" {
+  copy() : Piece
+  getValidMoves(Board) : List<Action>
+}
+
+class "Knight" {
+  copy() : Piece
+  getValidMoves(Board) : List<Action>
+}
+
 class "Minimax" {
   agentPlayerId : int
   getAction(StateHandler) : Action
@@ -89,16 +123,36 @@ class "MoveRequest" {
   move : Move
 }
 
+class "Pawn" {
+  copy() : Piece
+  getValidMoves(Board) : List<Action>
+}
+
 abstract class "Piece" {
   color : Color
   row : int
   column : int
-  isValidMove(int, int) : boolean
-  move(int, int)
+  symbol : String
+  value : int
+  checkEmptySpace(Board, int, int) : boolean
+  copy() : Piece
+  getValidMoves(Board) : List<Action>
+  isValidMove(int, int, Board) : boolean
+  move(int, int, Board)
+}
+
+class "Queen" {
+  copy() : Piece
+  getValidMoves(Board) : List<Action>
 }
 
 class "RandomStrategy" {
   getAction(StateHandler) : Action
+}
+
+class "Rook" {
+  copy() : Piece
+  getValidMoves(Board) : List<Action>
 }
 
 interface "StateHandler" {
@@ -127,13 +181,18 @@ class "WebConfig" {
 "Action" <|-- "Move"
 "Agent" --> "Action" : use
 "Agent" <|-- "AlphaBetaPruningMinimax"
+"Agent" <|-- "IterativeDeepeningAlphaBetaPruningMinimax"
 "Agent" <|-- "Minimax"
 "Agent" <|-- "RandomStrategy"
 "Agent" --> "StateHandler" : use as state
 "AlphaBetaPruningMinimax" --> "Action" : use
 "AlphaBetaPruningMinimax" --> "StateHandler" : use as state
+"Bishop" --> "*" "Action" : use
+"Bishop" --> "Board" : use as board
 "Chess" --> "Action" : use as action
 "Chess" --> "Board" : board
+"Chess" --> "Piece" : pieces
+"ConnectFour" --> "Action" : use as action
 "Game" --> "Agent" : agent
 "GameController" --> "GameId" : use as gameId
 "GameController" --> "GameResponse" : use
@@ -146,14 +205,35 @@ class "WebConfig" {
 "GameService" --> "GameStartRequest" : use as request
 "GameService" --> "MoveRequest" : use as request
 "Game" --> "StateHandler" : stateHandler
+"IterativeDeepeningAlphaBetaPruningMinimax" --> "Action" : use
+"IterativeDeepeningAlphaBetaPruningMinimax" --> "StateHandler" : use as state
+"King" --> "*" "Action" : use
+"King" --> "Board" : use as board
+"Knight" --> "*" "Action" : use
+"Knight" --> "Board" : use as board
 "Minimax" --> "Action" : use
 "Minimax" --> "StateHandler" : use as state
 "MoveRequest" --> "Move" : move
+"Pawn" --> "*" "Action" : use
+"Pawn" --> "Board" : use as board
+"Piece" --> "*" "Action" : use
+"Piece" <-> "Bishop"
+"Piece" --> "Board" : use as board
 "Piece" --> "Color" : color
+"Piece" <-> "King"
+"Piece" <-> "Knight"
+"Piece" <-> "Pawn"
+"Piece" <-> "Queen"
+"Piece" <-> "Rook"
+"Queen" --> "*" "Action" : use
+"Queen" --> "Board" : use as board
 "RandomStrategy" --> "Action" : use
 "RandomStrategy" --> "StateHandler" : use as state
+"Rook" --> "*" "Action" : use
+"Rook" --> "Board" : use as board
 "StateHandler" --> "Action" : use as action
 "StateHandler" <-> "Chess"
+"StateHandler" <-> "ConnectFour"
 "StateHandler" <-> "TicTacToe"
 "TicTacToe" --> "Action" : use as action
 "TicTacToe" --> "Board" : board
