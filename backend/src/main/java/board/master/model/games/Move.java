@@ -7,6 +7,10 @@ public class Move extends Action {
     private final String x; // e.g., "e2"
     private final String y;   // e.g., "e4"
 
+    public Move(int x) {
+        this.x = Integer.toString(x);
+        this.y = null;
+    }
     
     public Move(String x, String y) {
         this.x = x;
