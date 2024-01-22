@@ -201,73 +201,12 @@ public class TicTacToe implements StateHandler {
         String checkWin = checkWin();
 
         if (!checkWin.isEmpty()) {
-            analysis.put(checkWin, 1000);
+            analysis.put(checkWin, 1);
             return analysis;
             
         }
 
         int count = 0;
-
-        // int xCount = 0;
-        // int oCount = 0;
-
-        for (int i = 0; i < 3; i++) {
-            Boolean isNotEmpty = !board.getPosition(i, i).isEmpty();
-            
-            Boolean sameSignCol = board.getPosition(i, 0).equals(board.getPosition(i, 1)) 
-            || board.getPosition(i, 1).equals(board.getPosition(i, 2));
-            
-            Boolean sameSignRow = board.getPosition(0, i).equals(board.getPosition(1, i)) 
-            || board.getPosition(1, i).equals(board.getPosition(2, i));
-            
-            if (sameSignCol && isNotEmpty) {
-                count += board.getPosition(i, 0).equals("X") ? 10 : -10;
-                // if (board.getPosition(i, 1).equals("X")) {
-                //     xCount += 10;
-                // }
-                // else {
-                //     oCount += 10;
-                    
-                // }
-            }
-
-            if (sameSignRow && isNotEmpty) {
-                count += board.getPosition(i, 0).equals("X") ? 10 : -10;
-                // if (board.getPosition(i, 1).equals("X")) {
-                //     xCount += 10;
-                // }
-                // else {
-                //     oCount += 10;
-                // }
-            }
-        }
-
-        Boolean isNotEmpty = !board.getPosition(1, 1).isEmpty();
-
-        if ((board.getPosition(0, 0).equals(board.getPosition(1, 1)) 
-        || board.getPosition(1, 1).equals(board.getPosition(2, 2))) 
-        && isNotEmpty) {
-            count += board.getPosition(1, 1).equals("X") ? 10 : -10;
-            // if (board.getPosition(1, 1).equals("X")) {
-            //     xCount += 10;
-            // }
-            // else {
-            //     oCount += 10;
-            // }
-        }
-
-        if ((board.getPosition(0, 2).equals(board.getPosition(1, 1))
-        || board.getPosition(1, 1).equals(board.getPosition(2, 0)))
-        && isNotEmpty) {
-            count += board.getPosition(1, 1).equals("X") ? 10 : -10;
-            // if (board.getPosition(1, 1).equals("X")) {
-            //     xCount += 15;
-            // }
-            // else {
-            //     oCount += 15;
-            // }
-        }
-
         if (count > 0) {
             analysis.put("X", count);
         }
