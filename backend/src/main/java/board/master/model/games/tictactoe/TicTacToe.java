@@ -106,11 +106,7 @@ public class TicTacToe implements StateHandler {
     @Override
     public boolean isTerminal() {
         //if board is full 
-        if (getActions().size() == 0) {
-            return true;
-        }
-  
-        return false;
+        return (getActions().size() == 0);
     }
 
     /**
