@@ -139,8 +139,23 @@ public class ConnectFour implements StateHandler {
 
     @Override
     public int utility(int player) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'utility'");
+        if (checkForWin(player)) {
+            return Integer.MAX_VALUE;
+        } else if (checkForWin(-player)) {
+            return Integer.MIN_VALUE;
+        }
+        // The game is not over yet use a heuristic
+        return heuristic(player);
+    }
+
+    /**
+     * Heuristic function for Connect Four
+     * 
+     * @param player
+     * @return The expected utility of the current state
+     */
+    private int heuristic(int player) {
+        return 0;
     }
 
     @Override
