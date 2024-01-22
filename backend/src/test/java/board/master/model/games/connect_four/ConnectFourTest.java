@@ -2,8 +2,10 @@ package board.master.model.games.connect_four;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import board.master.model.games.Board;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -119,11 +121,30 @@ public class ConnectFourTest {
 
     }
 
-    @Test
-    void testResult() {
+    
+    @Nested
+    class TestResult {
+
+        @Test
+        void testResultDoesNotMutateOriginal() {
+            ConnectFour originalStateHandler = connectFour;
+            int originalToMove = connectFour.toMove();
+            Board originalBoard = connectFour.getBoard();
+            ConnectFour transformedStateHandler = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            assertEquals(originalBoard, originalStateHandler.getBoard());
+            assertEquals(originalToMove, originalStateHandler.toMove());
+        }
+
+        @Test
+        void testResultsTransformationHasTransformed() {
+            ConnectFour originalStateHandler = connectFour;
+            ConnectFour transformedStateHandler = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            assertNotEquals(originalStateHandler, transformedStateHandler);
+            assertNotEquals(originalStateHandler.getBoard(), transformedStateHandler.getBoard());
+            
+        }
 
     }
-
     @Nested
     class TestToMove {
 
@@ -137,7 +158,7 @@ public class ConnectFourTest {
         @Test
         void testToMoveAfterOneMove() {
             int expected = -1;
-            connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             int actual = connectFour.toMove();
             assertEquals(expected, actual);
         }
