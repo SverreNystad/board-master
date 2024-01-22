@@ -205,7 +205,7 @@ public class TicTacToe implements StateHandler {
         String checkWin = checkWin();
 
         if (!checkWin.isEmpty()) {
-            analysis.put(checkWin, 100);
+            analysis.put(checkWin, 1000);
             return analysis;
             
         }
@@ -276,7 +276,7 @@ public class TicTacToe implements StateHandler {
             analysis.put("X", count);
         }
         else {
-            analysis.put("O", -count);
+            analysis.put("O", count);
         }
         return analysis;
     }
