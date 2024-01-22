@@ -248,8 +248,8 @@ public class TicTacToe implements StateHandler {
 
         Boolean isNotEmpty = !board.getPosition(1, 1).isEmpty();
 
-        if (board.getPosition(0, 0).equals(board.getPosition(1, 1)) 
-        || board.getPosition(1, 1).equals(board.getPosition(2, 2)) 
+        if ((board.getPosition(0, 0).equals(board.getPosition(1, 1)) 
+        || board.getPosition(1, 1).equals(board.getPosition(2, 2))) 
         && isNotEmpty) {
             count += board.getPosition(1, 1).equals("X") ? 10 : -10;
             // if (board.getPosition(1, 1).equals("X")) {
@@ -260,8 +260,8 @@ public class TicTacToe implements StateHandler {
             // }
         }
 
-        if(board.getPosition(0, 2).equals(board.getPosition(1, 1))
-        || board.getPosition(1, 1).equals(board.getPosition(2, 0))
+        if ((board.getPosition(0, 2).equals(board.getPosition(1, 1))
+        || board.getPosition(1, 1).equals(board.getPosition(2, 0)))
         && isNotEmpty) {
             count += board.getPosition(1, 1).equals("X") ? 10 : -10;
             // if (board.getPosition(1, 1).equals("X")) {
