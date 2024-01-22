@@ -115,10 +115,20 @@ public class Chess implements StateHandler {
      */
     public List<Action> getActions() {
         List<Action> actions = new ArrayList<Action>();
+        if (isTerminal()) {
+            return actions;
+        }
+        
+        actions = getAllActions();
+        return actions;
+    }
+
+    public List<Action> getAllActions() {
+        List<Action> actions = new ArrayList<Action>();
         for (Piece piece : this.pieces.values()) {
-            if (toMove() == 1 && piece.getColor() == Color.BLACK) {
+            if (toMove() == -1 && piece.getColor() == Color.BLACK) {
                 piece.getValidMoves(this.board).forEach(action -> actions.add(action));
-            } else if (toMove() == -1 && piece.getColor() == Color.WHITE) {
+            } else if (toMove() == 1 && piece.getColor() == Color.WHITE) {
                 piece.getValidMoves(this.board).forEach(action -> actions.add(action));
             }    
         }
@@ -133,7 +143,6 @@ public class Chess implements StateHandler {
         // Make a copy of the board
         Chess newState = new Chess(this.board, this.toMove, this.pieces);
 
-
         // Find piece to move
         Move move = (Move) action;
         String currentPos = move.getX();
@@ -146,7 +155,7 @@ public class Chess implements StateHandler {
         if (newState.getPiece(newPos) != null) {
             newState.pieces.remove(newState.getPiece(newPos).getSymbol());
         }
-        toMovePiece.move(toX, toY, this.board);
+        toMovePiece.move(toX, toY, newState.getBoard());
 
         // Change turn
         newState.toMove *= -1;
@@ -172,13 +181,10 @@ public class Chess implements StateHandler {
         Piece whiteKing = this.pieces.get("KW");
         Piece blackKing = this.pieces.get("KB");
 
-        boolean whiteKingInCheck = isKingInCheck(whiteKing);
-        boolean blackKingInCheck = isKingInCheck(blackKing);
-
-        if (whiteKingInCheck) {
+        if (isKingInCheck(whiteKing)) {
            return isKingInCheckMate(whiteKing);
             
-        } else if (blackKingInCheck) {
+        } else if (isKingInCheck(blackKing)) {
             return isKingInCheckMate(blackKing);
         } else {
             return false;
@@ -189,17 +195,23 @@ public class Chess implements StateHandler {
         String kingPosition = String.valueOf(king.getRow()) +
                 String.valueOf(king.getColumn());
         
-        List<Action> actions = getActions();
+        Chess newState = new Chess(this.board, this.toMove*-1, this.pieces);
+        
+        Iterator<Action> actions = newState.getAllActions().iterator();
 
-        for (Action action : actions) {
+        boolean isCheck = false;
+
+        while (!isCheck && actions.hasNext()) {
+            Action action = actions.next();
             Move move = (Move) action;
             String newPos = move.getY();
 
             if (newPos.equals(kingPosition)) {
-                return true;
+                isCheck = true;
             }
+            //actions.next();
         }
-        return false;
+        return isCheck;
     }
 
     private boolean isKingInCheckMate(Piece king) {
@@ -210,6 +222,7 @@ public class Chess implements StateHandler {
         }
         for (Action action : whiteActions) {
             Chess newState = (Chess) result(action);
+            newState.toMove *= -1;
             Piece newKing  = newState.pieces.get(king.getSymbol());
 
             //if there is a move that gets the king out of check, then it is not checkmate
