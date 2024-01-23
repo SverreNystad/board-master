@@ -41,7 +41,7 @@ public class GameService {
         Game game = new Game(generateGameId(), agent, stateHandler);
         games.put(game.getGameId(), game);
         
-        return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler()), game.getBoard());
+        return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler(), true), game.getBoard());
     }
 
     private void validateAgentAndGameType(String agentType, String gameType) throws IllegalArgumentException {
@@ -85,7 +85,7 @@ public class GameService {
             throw new IllegalArgumentException("Invalid move" + action.toString());
         }
 
-        return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler()), game.getBoard());
+        return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler(), true), game.getBoard());
 
     }
 
@@ -116,16 +116,17 @@ public class GameService {
         StateHandler transformedGame = game.getStateHandler().result(action);
         game.setStateHandler(transformedGame);
 
-        return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler()), game.getBoard());
+        return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler(), false), game.getBoard());
     }
 
-    private String getBoardStatus(StateHandler stateHandler) {
+    private String getBoardStatus(StateHandler stateHandler, boolean player) {
         if(stateHandler.isTerminal()) {
             if (stateHandler.utility(stateHandler.toMove()) == 1) {
-                return "Player won";
+                
+                return (player) ? "You won, utility 1" : "Bot won, utility 1";
             }
             else if (stateHandler.utility(stateHandler.toMove()) == -1) {
-                return "Bot won";
+                return (player) ? "You won, utility -1" : "Bot won, utility -1";
             }
             else if (stateHandler.utility(stateHandler.toMove()) == 0) {
                 return "Draw";
