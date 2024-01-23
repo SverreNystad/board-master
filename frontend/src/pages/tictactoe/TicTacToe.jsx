@@ -80,17 +80,18 @@ function TicTacToe() {
       x: x,
       y: y
     } 
-
-    try {
-      const response = await axios.post(apiRoutes.makeMove, requestBoard);
-      // Update state with response data
-      setGameData(response.data);
-      console.log("Move Made:", response.data);
-      botMove();
-    } catch (error) {
-      setErrorMessage(error.message);
-      console.error("Error making move:", error);
-    }
+    if (gameData.status === "Game in progress") {
+      try {
+        const response = await axios.post(apiRoutes.makeMove, requestBoard);
+        // Update state with response data
+        setGameData(response.data);
+        console.log("Move Made:", response.data);
+        botMove();
+      } catch (error) {
+        setErrorMessage(error.message);
+        console.error("Error making move:", error);
+      }
+  }
   }
 
   const botMove = async () => {
@@ -101,17 +102,18 @@ function TicTacToe() {
     let requestBody = {
       gameId: gameData.gameId,
     }
-
-    const response = gameService.botMove(requestBody)
-      .then(result => {
-        // Update state with response data
-        setGameData(result);
-        console.log('Bot move result:', result);
-    })
-    .catch(error => {
-      setErrorMessage(error.message);
-      console.error('Error while making bot move:', error);
-    });
+    if (gameData.status === "Game in progress") {
+      const response = gameService.botMove(requestBody)
+        .then(result => {
+          // Update state with response data
+          setGameData(result);
+          console.log('Bot move result:', result);
+      })
+      .catch(error => {
+        setErrorMessage(error.message);
+        console.error('Error while making bot move:', error);
+      });
+    }
 
     setShallLoad(false);
   }
@@ -155,7 +157,7 @@ function TicTacToe() {
           </div>
         </div>
       )}
-      <Error error={errorMessage} />
+      {/* <Error error={errorMessage} /> */}
     </div>
   );
 }
