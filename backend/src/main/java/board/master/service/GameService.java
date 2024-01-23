@@ -123,10 +123,10 @@ public class GameService {
         if(stateHandler.isTerminal()) {
             if (stateHandler.utility(stateHandler.toMove()) == 1) {
                 
-                return (player) ? "You won, utility 1" : "Bot won, utility 1";
+                return (player) ? "You won" : "Bot won";
             }
             else if (stateHandler.utility(stateHandler.toMove()) == -1) {
-                return (player) ? "You won, utility -1" : "Bot won, utility -1";
+                return (player) ? "You won" : "Bot won";
             }
             else if (stateHandler.utility(stateHandler.toMove()) == 0) {
                 return "Draw";
