@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import board.master.model.StateHandler;
 import board.master.model.games.chess.Chess;
+import board.master.model.games.connect_four.ConnectFour;
 import board.master.model.games.tictactoe.TicTacToe;
 
 /**
@@ -57,6 +58,7 @@ public class GameStateHandlerFactory {
         HashMap<String, StateHandler> handlers = new HashMap<>();
         handlers.put("CHESS", new Chess());
         handlers.put("TIC-TAC-TOE", new TicTacToe());
+        handlers.put("CONNECT-FOUR", new ConnectFour());
         return handlers;
     }
 }
