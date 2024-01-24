@@ -26,14 +26,14 @@ public class ConnectFourTest {
 
         @Test
         void testGetAllActionsAtStart() {
-            int expected = 6;
+            int expected = 7;
             int actual = connectFour.getActions().size();
             assertEquals(expected, actual);
         }
 
         @Test
         void testGetAllActionsAfterOneMove() {
-            int expected = 6;
+            int expected = 7;
             connectFour.result(connectFour.getActions().get(0));
             int actual = connectFour.getActions().size();
             assertEquals(expected, actual);
@@ -41,7 +41,7 @@ public class ConnectFourTest {
 
         @Test
         void testGetAllActionsAfterColumnIsFull() {
-            int expected = 5;
+            int expected = 6;
             for (int i = 0; i < columnHeight; i++) {
                 connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             }
@@ -174,6 +174,76 @@ public class ConnectFourTest {
     
     @Nested
     class testUtility {
+        @Test
+        void testUtilityAtStart() {
+            int expected = 0;
+            int actual = connectFour.utility(1);
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityAfterOneMove() {
+            int expected = 0;
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            int actual = connectFour.utility(1);
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityAfter3InAColumn() {
+            int baseNumber = 2;
+            int playerPiecesInARow = 3;
+            int botPiecesInARow = 2;
+
+            // The value for player - the value for bot
+            int expected = (int) Math.pow(baseNumber, playerPiecesInARow) 
+            - (int) Math.pow(baseNumber, botPiecesInARow);
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            int actual = connectFour.utility(1);
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityAfter3InARow() {
+            int baseNumber = 2;
+            int playerPiecesInARow = 3;
+            int botPiecesInARow = 2;
+
+            // The value for player - the value for bot
+            int expected = (int) Math.pow(baseNumber, playerPiecesInARow) 
+            - (int) Math.pow(baseNumber, botPiecesInARow);
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            
+            int actual = connectFour.utility(1);
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityAfter3Diagonally() {
+            int baseNumber = 2;
+            int playerPiecesInARow = 3;
+            int botPiecesInARow = 2;
+
+            // The value for player - the value for bot
+            int expected = (int) Math.pow(baseNumber, playerPiecesInARow) 
+            - (int) Math.pow(baseNumber, botPiecesInARow);
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+        }
 
     }
 }
