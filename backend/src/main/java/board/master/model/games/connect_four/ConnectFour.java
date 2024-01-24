@@ -12,8 +12,8 @@ public class ConnectFour implements StateHandler {
 
     private int playerToMove;
     private Board board;
-    private final int rowLength = 6;
-    private final int columnHeight = 7;
+    private final int rowLength = 7;
+    private final int columnHeight = 6;
 
     public ConnectFour() {
         playerToMove = 1;
@@ -155,6 +155,10 @@ public class ConnectFour implements StateHandler {
      * @return The expected utility of the current state
      */
     private int heuristic(int player) {
+        String playerSymbol = getPlayerSymbol(player);
+        int score = 0;
+        // Check horizontal
+
         return 0;
     }
 
