@@ -192,11 +192,11 @@ public class ConnectFourTest {
         @Test
         void testUtilityAfter3InAColumn() {
             int baseNumber = 2;
-            int playerPiecesInARow = 3;
-            int botPiecesInARow = 2;
+            int playerPiecesInAColumn = 2;
+            int botPiecesInARow = 1;
 
             // The value for player - the value for bot
-            int expected = (int) Math.pow(baseNumber, playerPiecesInARow) 
+            int expected = (int) Math.pow(baseNumber, playerPiecesInAColumn) 
             - (int) Math.pow(baseNumber, botPiecesInARow);
 
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
@@ -211,8 +211,8 @@ public class ConnectFourTest {
         @Test
         void testUtilityAfter3InARow() {
             int baseNumber = 2;
-            int playerPiecesInARow = 3;
-            int botPiecesInARow = 2;
+            int playerPiecesInARow = 2;
+            int botPiecesInARow = 1;
 
             // The value for player - the value for bot
             int expected = (int) Math.pow(baseNumber, playerPiecesInARow) 
@@ -231,18 +231,30 @@ public class ConnectFourTest {
         @Test
         void testUtilityAfter3Diagonally() {
             int baseNumber = 2;
-            int playerPiecesInARow = 3;
-            int botPiecesInARow = 2;
+            int playerPiecesInADiagonal = 2;
+            int botPiecesInARow = 1;
+
+            // Player has 2 diagonals with 3 and 2 pieces in a row respectively
+            int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal)
+            + (int) Math.pow(baseNumber, playerPiecesInADiagonal - 1);
+
+            // Bot has 2 diagonal with 2 pieces in a row
+            int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow)*2;
 
             // The value for player - the value for bot
-            int expected = (int) Math.pow(baseNumber, playerPiecesInARow) 
-            - (int) Math.pow(baseNumber, botPiecesInARow);
+            int expected = playerDiagonalValue - botDiagonalValue;
 
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+
+            int actual = connectFour.utility(1);
+
+            assertEquals(expected, actual);
         }
 
     }
