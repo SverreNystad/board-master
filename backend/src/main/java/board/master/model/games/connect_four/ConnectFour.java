@@ -187,6 +187,7 @@ public class ConnectFour implements StateHandler {
                 score += processPosition(row, col, player);
             }
             score += calculateScore(player);
+            this.piecesInARow = 0;
             this.preSymbol = "";
 
         }
@@ -209,6 +210,7 @@ public class ConnectFour implements StateHandler {
                 score += processPosition(row, col, player);
             }
             score += calculateScore(player);
+            this.piecesInARow = 0;
             this.preSymbol = "";
         }
         return score;
@@ -251,6 +253,7 @@ public class ConnectFour implements StateHandler {
                     y++;
                 }
                 score += calculateScore(player);
+                this.piecesInARow = 0;
                 this.preSymbol = "";
                 
             }
@@ -271,6 +274,7 @@ public class ConnectFour implements StateHandler {
                         y++;
                     }
                     score += calculateScore(player);
+                    this.piecesInARow = 0;
                     this.preSymbol = "";
                 }
             } else  {
@@ -282,6 +286,7 @@ public class ConnectFour implements StateHandler {
                     y++;
                 }
                 score += calculateScore(player);
+                this.piecesInARow = 0;
                 this.preSymbol = "";
                 
             }
