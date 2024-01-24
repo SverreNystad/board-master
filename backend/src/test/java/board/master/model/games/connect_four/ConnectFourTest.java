@@ -141,7 +141,6 @@ public class ConnectFourTest {
             assertNotEquals(originalStateHandler.getBoard(), transformedStateHandler.getBoard());
             
         }
-
     }
     @Nested
     class TestToMove {
@@ -229,7 +228,7 @@ public class ConnectFourTest {
         }
 
         @Test
-        void testUtilityAfter3Diagonally() {
+        void testUtilityAfterLeftToRightDiagonal() {
             int baseNumber = 2;
             int playerPiecesInADiagonal = 2;
             int botPiecesInARow = 1;
@@ -251,6 +250,97 @@ public class ConnectFourTest {
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+
+            int actual = connectFour.utility(1);
+
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityAfterRightToLeftDiagonaly() {
+            int baseNumber = 2;
+            int playerPiecesInADiagonal = 2;
+            int botPiecesInARow = 1;
+
+            // Player has 2 diagonals with 3 and 2 pieces in a row respectively
+            int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal)
+            + (int) Math.pow(baseNumber, playerPiecesInADiagonal - 1);
+
+            // Bot has 2 diagonal with 2 pieces in a row
+            int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow)*2;
+
+            // The value for player - the value for bot
+            int expected = playerDiagonalValue - botDiagonalValue;
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+
+            int actual = connectFour.utility(1);
+
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityAfterDiagonalVerticalAndHorizontally() {
+            int baseNumber = 2;
+            int playerPiecesInADiagonal = 2;
+            int botPiecesInARow = 1;
+
+            // Player has 2 diagonals with 3 pieces, a horizontal with 2 pieces in a row and a vertical with 3 pieces in a row
+            int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal)*3
+            + (int) Math.pow(baseNumber, playerPiecesInADiagonal - 1);
+
+            // Bot has 2 diagonal with 2 and 3 pieces in a row and a horizontal with 2 pieces in a row
+            int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow)*2 
+            + (int) Math.pow(baseNumber, botPiecesInARow + 1);
+
+            // The value for player - the value for bot
+            int expected = playerDiagonalValue - botDiagonalValue;
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(4));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+
+            int actual = connectFour.utility(1);
+
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityWithSymbolInTopLeftCorner() {
+            int baseNumber = 2;
+            int playerPiecesInADiagonal = 1;
+
+            // Player has 2 pieces in a row vertically
+            int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal);
+
+            // Bot has 0 pieces in a row
+            int botDiagonalValue = 0;
+
+            // The value for player - the value for bot
+            int expected = playerDiagonalValue - botDiagonalValue;
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+
 
             int actual = connectFour.utility(1);
 
