@@ -1,7 +1,9 @@
 package board.master.model.games.connect_four;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import board.master.model.Action;
 import board.master.model.StateHandler;
@@ -178,11 +180,14 @@ public class ConnectFour implements StateHandler {
     private int checkHorizontal(int player) {
         int score = 0;
 
-        for (int row = 0; row < rowLength; row++) {
+        for (int col = 0; col < columnHeight; col++) {
             String preSymbol = "";
             int piecesInARow = 0;
-            for (int col = 0; col < columnHeight; col++) {
-                processPosition(row, col, player, score, piecesInARow, preSymbol);
+            for (int row = 0; row < rowLength; row++) {
+                Result result = processPosition(row, col, player, score, piecesInARow, preSymbol);
+                preSymbol = result.preSymbol;
+                piecesInARow = result.piecesInARow;
+                score = result.score;
             }
         }
         return score;
@@ -191,11 +196,14 @@ public class ConnectFour implements StateHandler {
     private int checkVertical(int player) {
         int score = 0;
 
-        for (int col = 0; col < columnHeight; col++) {
+        for (int row = 0; row < rowLength; row++) {
             String preSymbol = "";
             int piecesInARow = 0;
-            for (int row = 0; row < rowLength; row++) {
-                processPosition(row, col, player, score, piecesInARow, preSymbol);
+            for (int col = 0; col < columnHeight; col++) {
+                Result result = processPosition(row, col, player, score, piecesInARow, preSymbol);
+                preSymbol = result.preSymbol;
+                piecesInARow = result.piecesInARow;
+                score = result.score;
             }
         }
         return score;
@@ -216,7 +224,10 @@ public class ConnectFour implements StateHandler {
                     int x = row;
                     int y = col;
                     while(x < rowLength && y < columnHeight) {
-                        processPosition(x, y, player, score, piecesInARow, preSymbol);
+                        Result result = processPosition(x, y, player, score, piecesInARow, preSymbol);
+                        preSymbol = result.preSymbol;
+                        piecesInARow = result.piecesInARow;
+                        score = result.score;
                         x++;
                         y++;
                     }
@@ -226,9 +237,12 @@ public class ConnectFour implements StateHandler {
                 int x = row;
                 int y = 0;
                 while(x < rowLength && y < columnHeight) {
-                        processPosition(row, y, player, score, piecesInARow, preSymbol);
-                        x++;
-                        y++;
+                    Result result = processPosition(x, y, player, score, piecesInARow, preSymbol);
+                    preSymbol = result.preSymbol;
+                    piecesInARow = result.piecesInARow;
+                    score = result.score;
+                    x++;
+                    y++;
                     }
                 
             }
@@ -247,7 +261,10 @@ public class ConnectFour implements StateHandler {
                     int x = row;
                     int y = col;
                     while(x > -1 && y < columnHeight) {
-                        processPosition(x, y, player, score, piecesInARow, preSymbol);
+                        Result result = processPosition(x, y, player, score, piecesInARow, preSymbol);
+                        preSymbol = result.preSymbol;
+                        piecesInARow = result.piecesInARow;
+                        score = result.score;
                         x--;
                         y++;
                     }
@@ -256,18 +273,21 @@ public class ConnectFour implements StateHandler {
             } else  {
                 int x = row;
                 int y = 0;
-                while(x > -1 && y < columnHeight) {
-                        processPosition(row, y, player, score, piecesInARow, preSymbol);
-                        x--;
-                        y++;
-                    }
+                while (x > -1 && y < columnHeight) {
+                    Result result = processPosition(x, y, player, score, piecesInARow, preSymbol);
+                    preSymbol = result.preSymbol;
+                    piecesInARow = result.piecesInARow;
+                    score = result.score;
+                    x--;
+                    y++;
+                }
                 
             }
         }
         return score;
     }
 
-    private void processPosition(int row, int column, int player, int score,
+    private Result processPosition(int row, int column, int player, int score,
     int piecesInARow, String preSymbol) {
         String cuSymbol = board.getPosition(row, column);
         if (preSymbol == cuSymbol && !preSymbol.equals("") ) {
@@ -276,7 +296,8 @@ public class ConnectFour implements StateHandler {
             calculateScore(piecesInARow, preSymbol, score, player);
             piecesInARow = 0;
         }
-        preSymbol = cuSymbol;
+
+        return new Result(preSymbol, piecesInARow, score); 
     }
 
     private void calculateScore(int piecesInARow, String preSymbol, 
