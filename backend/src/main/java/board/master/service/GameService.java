@@ -121,11 +121,11 @@ public class GameService {
 
     private String getBoardStatus(StateHandler stateHandler, boolean player) {
         if(stateHandler.isTerminal()) {
-            if (stateHandler.utility(stateHandler.toMove()) == 1) {
+            if (stateHandler.utility(stateHandler.toMove()) >= 1) {
                 
                 return (player) ? "You won" : "Bot won";
             }
-            else if (stateHandler.utility(stateHandler.toMove()) == -1) {
+            else if (stateHandler.utility(stateHandler.toMove()) <= -1) {
                 return (player) ? "You won" : "Bot won";
             }
             else if (stateHandler.utility(stateHandler.toMove()) == 0) {
