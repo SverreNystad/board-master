@@ -12,8 +12,12 @@ function MainMenu() {
     <div className="main-menu">
       <h1>BoardMaster</h1>
       <img src="/images/BoardMaster.png" alt="BoardMaster Logo" width="20%"/>
-      <Link to={routes.chess}><button>Start New Chess game</button></Link>
-      <Link to={routes.tic_tac_toe}><button>Start New Tic Tac Toe game</button></Link>
+      <h2>Choose a game</h2>
+      <div className='games'>
+        <Link to={routes.chess}><button className='notImplemented'>Start New Chess game</button></Link>
+        <Link to={routes.tic_tac_toe}><button className='Implemented'>Start New Tic Tac Toe game</button></Link>
+        <Link to={routes.connect_four}><button className='Implemented'>Start New Connect Four game</button></Link>
+      </div>
 </div>
   );
 }
