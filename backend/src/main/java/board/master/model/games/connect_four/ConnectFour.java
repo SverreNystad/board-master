@@ -17,6 +17,8 @@ public class ConnectFour implements StateHandler {
     private final int rowLength = 7;
     private final int columnHeight = 6;
     private final int base = 2; //the base for the heuristic function
+    private String preSymbol = "";
+    private int piecesInARow = 0;
 
     public ConnectFour() {
         playerToMove = 1;
@@ -181,41 +183,50 @@ public class ConnectFour implements StateHandler {
         int score = 0;
 
         for (int col = 0; col < columnHeight; col++) {
-            String preSymbol = "";
-            int piecesInARow = 0;
             for (int row = 0; row < rowLength; row++) {
-                Result result = processPosition(row, col, player, score, piecesInARow, preSymbol);
-                preSymbol = result.preSymbol;
-                piecesInARow = result.piecesInARow;
-                score = result.score;
+                score += processPosition(row, col, player);
             }
+            score += calculateScore(player);
+            this.preSymbol = "";
+
         }
         return score;
     }
 
+    /**
+     * Analyzes the board vertically and returns a the score.
+     * The score is calculated by the number of pieces in a row 
+     * is positive if the player has the pieces in a row or 
+     * negative if the opponent has the pieces in a row.
+     * 
+     * @return int with the score for the board
+     */
     private int checkVertical(int player) {
         int score = 0;
 
         for (int row = 0; row < rowLength; row++) {
-            String preSymbol = "";
-            int piecesInARow = 0;
             for (int col = 0; col < columnHeight; col++) {
-                Result result = processPosition(row, col, player, score, piecesInARow, preSymbol);
-                preSymbol = result.preSymbol;
-                piecesInARow = result.piecesInARow;
-                score = result.score;
+                score += processPosition(row, col, player);
             }
+            score += calculateScore(player);
+            this.preSymbol = "";
         }
         return score;
     }
 
+    /**
+     * Analyzes the board diagonally and returns a the score.
+     * The score is calculated by the number of pieces in a row 
+     * is positive if the player has the pieces in a row or 
+     * negative if the opponent has the pieces in a row.
+     * 
+     * @return int with the score for the board
+     */
     private int checkDiagonal(int player) {
         int score = 0;
 
         // Check diagonal (top-left to bottom-right)
         for (int row = 0; row < rowLength - 1; row++) {
-            String preSymbol = "";
-            int piecesInARow = 0;
 
             // If it is the first row, go through the column and check the diagonal
             // from every point in the column
@@ -224,26 +235,23 @@ public class ConnectFour implements StateHandler {
                     int x = row;
                     int y = col;
                     while(x < rowLength && y < columnHeight) {
-                        Result result = processPosition(x, y, player, score, piecesInARow, preSymbol);
-                        preSymbol = result.preSymbol;
-                        piecesInARow = result.piecesInARow;
-                        score = result.score;
+                        score += processPosition(x, y, player);
                         x++;
                         y++;
                     }
-                    preSymbol = "";
+                    score += calculateScore(player);
+                    this.preSymbol = "";
                 }
             } else  {
                 int x = row;
                 int y = 0;
                 while(x < rowLength && y < columnHeight) {
-                    Result result = processPosition(x, y, player, score, piecesInARow, preSymbol);
-                    preSymbol = result.preSymbol;
-                    piecesInARow = result.piecesInARow;
-                    score = result.score;
+                    score += processPosition(x, y, player);
                     x++;
                     y++;
-                    }
+                }
+                score += calculateScore(player);
+                this.preSymbol = "";
                 
             }
             
@@ -251,9 +259,6 @@ public class ConnectFour implements StateHandler {
 
         // Check diagonal (bottom-left to top-right)
         for (int row = rowLength - 1; row > -1; row--) {
-            String preSymbol = "";
-            int piecesInARow = 0;
-
             // If it is the last row, go through the column and check the diagonal
             // from every point in the column
             if (row == rowLength - 1) {
@@ -261,55 +266,55 @@ public class ConnectFour implements StateHandler {
                     int x = row;
                     int y = col;
                     while(x > -1 && y < columnHeight) {
-                        Result result = processPosition(x, y, player, score, piecesInARow, preSymbol);
-                        preSymbol = result.preSymbol;
-                        piecesInARow = result.piecesInARow;
-                        score = result.score;
+                        score += processPosition(x, y, player);
                         x--;
                         y++;
                     }
-                    preSymbol = "";
+                    score += calculateScore(player);
+                    this.preSymbol = "";
                 }
             } else  {
                 int x = row;
                 int y = 0;
                 while (x > -1 && y < columnHeight) {
-                    Result result = processPosition(x, y, player, score, piecesInARow, preSymbol);
-                    preSymbol = result.preSymbol;
-                    piecesInARow = result.piecesInARow;
-                    score = result.score;
+                    score += processPosition(x, y, player);
                     x--;
                     y++;
                 }
+                score += calculateScore(player);
+                this.preSymbol = "";
                 
             }
         }
         return score;
     }
 
-    private Result processPosition(int row, int column, int player, int score,
-    int piecesInARow, String preSymbol) {
+    private int processPosition(int row, int column, int player) {
         String cuSymbol = board.getPosition(row, column);
-        if (preSymbol == cuSymbol && !preSymbol.equals("") ) {
-            piecesInARow++;
-        } else if (preSymbol != cuSymbol && !preSymbol.equals("")) {
-            calculateScore(piecesInARow, preSymbol, score, player);
-            piecesInARow = 0;
+        int score = 0;
+        if (this.preSymbol == cuSymbol && !this.preSymbol.equals("") ) {
+            this.piecesInARow++;
+            
+        } else if (this.preSymbol != cuSymbol && !this.preSymbol.equals("")) {
+            score += calculateScore(player);
+            this.piecesInARow = 0;
         }
+        this.preSymbol = cuSymbol;
 
-        return new Result(preSymbol, piecesInARow, score); 
+        return score; 
     }
 
-    private void calculateScore(int piecesInARow, String preSymbol, 
-    int score, int player) {
-        if (piecesInARow > 0) {
-            if (preSymbol.equals(getPlayerSymbol(player))) {
-                score += Math.pow(base, piecesInARow);
+    private int calculateScore(int player) {
+        int score = 0;
+        if (this.piecesInARow > 0) {
+            if (this.preSymbol.equals(getPlayerSymbol(player))) {
+                score += Math.pow(base, this.piecesInARow);
             }
-            else if (preSymbol.equals(getPlayerSymbol(-player))) {
-                score -= Math.pow(base, piecesInARow);
+            else if (this.preSymbol.equals(getPlayerSymbol(-player))) {
+                score -= Math.pow(base, this.piecesInARow);
             }
         }
+        return score;
     }
 
     @Override
