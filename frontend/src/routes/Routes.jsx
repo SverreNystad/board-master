@@ -7,6 +7,7 @@ import { routes } from './routeDefinitions';
 // Import your page components
 import Chess from '../pages/chess/Chess';
 import TicTacToe from '../pages/tictactoe/TicTacToe';
+import ConnectFour from '../pages/connectFour/ConnectFour';
 import MainMenu from '../pages/mainmenu/MainMenu';
 import SomeNotFoundComponent from '../pages/somenotfoundcomponent/SomeNotFoundComponent';
 
@@ -18,6 +19,7 @@ const AppRoutes  = () => {
       <Route path={routes.mainMenu} element={<MainMenu/>} />
       <Route path={routes.chess} element={<Chess/>} />
       <Route path={routes.tic_tac_toe} element={<TicTacToe/>} />
+      <Route path={routes.connect_four} element={<ConnectFour/>} />
       <Route path="*" element={<SomeNotFoundComponent />} />
     </Routes >
   );
