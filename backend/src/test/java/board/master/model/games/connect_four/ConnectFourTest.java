@@ -26,14 +26,14 @@ public class ConnectFourTest {
 
         @Test
         void testGetAllActionsAtStart() {
-            int expected = 7;
+            int expected = 6;
             int actual = connectFour.getActions().size();
             assertEquals(expected, actual);
         }
 
         @Test
         void testGetAllActionsAfterOneMove() {
-            int expected = 7;
+            int expected = 6;
             connectFour.result(connectFour.getActions().get(0));
             int actual = connectFour.getActions().size();
             assertEquals(expected, actual);
@@ -41,7 +41,7 @@ public class ConnectFourTest {
 
         @Test
         void testGetAllActionsAfterColumnIsFull() {
-            int expected = 6;
+            int expected = 5;
             for (int i = 0; i < columnHeight; i++) {
                 connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             }

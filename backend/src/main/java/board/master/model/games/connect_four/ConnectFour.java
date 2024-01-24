@@ -14,8 +14,8 @@ public class ConnectFour implements StateHandler {
 
     private int playerToMove;
     private Board board;
-    private final int rowLength = 7;
-    private final int columnHeight = 6;
+    private final int rowLength = 6;
+    private final int columnHeight = 7;
     private final int base = 2; //the base for the heuristic function
     private String preSymbol = "";
     private int piecesInARow = 0;
