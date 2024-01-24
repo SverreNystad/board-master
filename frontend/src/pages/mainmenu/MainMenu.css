@@ -10,11 +10,23 @@ h1 {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    padding: 20px; 
+    /* padding: 10px; */
   }
-  
 
-  button {
+.games {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 50vh; 
+    /* padding: 20px; */
+}
+
+.games button {
+    margin-right: 20px;
+}
+
+ button {
     background-color: #50BDDE;
     border: none;
     color: white;
@@ -28,6 +40,23 @@ h1 {
     cursor: pointer;
     border-radius: 12px;
     box-shadow: 0 6px #999;
+    width: 200px;
+ }
+
+.notImplemented {
+    background-color: rgba(255, 0, 0, 0.76);
+    border: none;
+    color: #122836;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; 
+    margin: 20px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 6px #8f4646;
     width: 200px;
 }
 
@@ -50,3 +79,4 @@ button:active {
     margin-left: auto; 
     margin-right: auto;
 }
+
