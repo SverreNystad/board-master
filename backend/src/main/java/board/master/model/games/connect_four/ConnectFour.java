@@ -14,6 +14,7 @@ public class ConnectFour implements StateHandler {
     private Board board;
     private final int rowLength = 7;
     private final int columnHeight = 6;
+    private final int base = 2; //the base for the heuristic function
 
     public ConnectFour() {
         playerToMove = 1;
@@ -155,11 +156,139 @@ public class ConnectFour implements StateHandler {
      * @return The expected utility of the current state
      */
     private int heuristic(int player) {
-        String playerSymbol = getPlayerSymbol(player);
         int score = 0;
         // Check horizontal
+        score += checkHorizontal(player);
+        // Check vertical
+        score += checkVertical(player);
+        // Check diagonal
+        score += checkDiagonal(player);
 
-        return 0;
+        return score;
+    }
+
+    /**
+     * Analyzes the board horizontally and returns a the score.
+     * The score is calculated by the number of pieces in a row 
+     * is positive if the player has the pieces in a row or 
+     * negative if the opponent has the pieces in a row.
+     * 
+     * @return int with the score for the board
+     */
+    private int checkHorizontal(int player) {
+        int score = 0;
+
+        for (int row = 0; row < rowLength; row++) {
+            String preSymbol = "";
+            int piecesInARow = 0;
+            for (int col = 0; col < columnHeight; col++) {
+                processPosition(row, col, player, score, piecesInARow, preSymbol);
+            }
+        }
+        return score;
+    }
+
+    private int checkVertical(int player) {
+        int score = 0;
+
+        for (int col = 0; col < columnHeight; col++) {
+            String preSymbol = "";
+            int piecesInARow = 0;
+            for (int row = 0; row < rowLength; row++) {
+                processPosition(row, col, player, score, piecesInARow, preSymbol);
+            }
+        }
+        return score;
+    }
+
+    private int checkDiagonal(int player) {
+        int score = 0;
+
+        // Check diagonal (top-left to bottom-right)
+        for (int row = 0; row < rowLength - 1; row++) {
+            String preSymbol = "";
+            int piecesInARow = 0;
+
+            // If it is the first row, go through the column and check the diagonal
+            // from every point in the column
+            if (row == 0) {
+                for (int col = 0; col < columnHeight; col++) {
+                    int x = row;
+                    int y = col;
+                    while(x < rowLength && y < columnHeight) {
+                        processPosition(x, y, player, score, piecesInARow, preSymbol);
+                        x++;
+                        y++;
+                    }
+                    preSymbol = "";
+                }
+            } else  {
+                int x = row;
+                int y = 0;
+                while(x < rowLength && y < columnHeight) {
+                        processPosition(row, y, player, score, piecesInARow, preSymbol);
+                        x++;
+                        y++;
+                    }
+                
+            }
+            
+        }
+
+        // Check diagonal (bottom-left to top-right)
+        for (int row = rowLength - 1; row > -1; row--) {
+            String preSymbol = "";
+            int piecesInARow = 0;
+
+            // If it is the last row, go through the column and check the diagonal
+            // from every point in the column
+            if (row == rowLength - 1) {
+                for (int col = 0; col < columnHeight; col++) {
+                    int x = row;
+                    int y = col;
+                    while(x > -1 && y < columnHeight) {
+                        processPosition(x, y, player, score, piecesInARow, preSymbol);
+                        x--;
+                        y++;
+                    }
+                    preSymbol = "";
+                }
+            } else  {
+                int x = row;
+                int y = 0;
+                while(x > -1 && y < columnHeight) {
+                        processPosition(row, y, player, score, piecesInARow, preSymbol);
+                        x--;
+                        y++;
+                    }
+                
+            }
+        }
+        return score;
+    }
+
+    private void processPosition(int row, int column, int player, int score,
+    int piecesInARow, String preSymbol) {
+        String cuSymbol = board.getPosition(row, column);
+        if (preSymbol == cuSymbol && !preSymbol.equals("") ) {
+            piecesInARow++;
+        } else if (preSymbol != cuSymbol && !preSymbol.equals("")) {
+            calculateScore(piecesInARow, preSymbol, score, player);
+            piecesInARow = 0;
+        }
+        preSymbol = cuSymbol;
+    }
+
+    private void calculateScore(int piecesInARow, String preSymbol, 
+    int score, int player) {
+        if (piecesInARow > 0) {
+            if (preSymbol.equals(getPlayerSymbol(player))) {
+                score += Math.pow(base, piecesInARow);
+            }
+            else if (preSymbol.equals(getPlayerSymbol(-player))) {
+                score -= Math.pow(base, piecesInARow);
+            }
+        }
     }
 
     @Override
