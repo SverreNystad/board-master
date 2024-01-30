@@ -96,25 +96,25 @@ function ConnectFour() {
     }
 
     const botMove = async () => {
-    console.log("Bot Move");
-    setErrorMessage(null);
-    setShallLoad(true);
+      console.log("Bot Move");
+      setErrorMessage(null);
+      setShallLoad(true);
 
-    let requestBody = {
-        gameId: gameData.gameId,
-    }
-    if (gameData.status === "Game in progress") {
-        const response = gameService.botMove(requestBody)
-        .then(result => {
-            // Update state with response data
-            setGameData(result);
-            console.log('Bot move result:', result);
-        })
-        .catch(error => {
-        setErrorMessage(error.message);
-        console.error('Error while making bot move:', error);
-        });
-    }
+      let requestBody = {
+          gameId: gameData.gameId,
+      }
+      if (gameData.status === "Game in progress") {
+          const response = gameService.botMove(requestBody)
+          .then(result => {
+              // Update state with response data
+              setGameData(result);
+              console.log('Bot move result:', result);
+          })
+          .catch(error => {
+          setErrorMessage(error.message);
+          console.error('Error while making bot move:', error);
+          });
+      }
     
         setShallLoad(false);
     }
