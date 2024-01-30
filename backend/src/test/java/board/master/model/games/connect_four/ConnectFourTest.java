@@ -2,6 +2,7 @@ package board.master.model.games.connect_four;
 
 import org.junit.jupiter.api.Test;
 
+import board.master.model.Action;
 import board.master.model.games.Board;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -242,6 +243,7 @@ public class ConnectFourTest {
 
             // The value for player - the value for bot
             int expected = playerDiagonalValue - botDiagonalValue;
+            // Action action = connectFour.getActions().get(0);
 
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
@@ -257,7 +259,7 @@ public class ConnectFourTest {
         }
 
         @Test
-        void testUtilityAfterRightToLeftDiagonaly() {
+        void testUtilityAfterRightToLeftDiagonally() {
             int baseNumber = 2;
             int playerPiecesInADiagonal = 2;
             int botPiecesInARow = 1;
@@ -322,7 +324,7 @@ public class ConnectFourTest {
         @Test
         void testUtilityWithSymbolInTopLeftCorner() {
             int baseNumber = 2;
-            int playerPiecesInADiagonal = 1;
+            int playerPiecesInADiagonal = 2;
 
             // Player has 2 pieces in a row vertically
             int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal);
@@ -339,6 +341,8 @@ public class ConnectFourTest {
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(4));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
 
 
