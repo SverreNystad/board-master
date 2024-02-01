@@ -10,7 +10,7 @@ public class Move extends Action {
 
     public Move(Integer x) {
         this.x = Integer.toString(x);
-        this.y = null;
+        this.y = sentinel;
     }
     
     public Move(String x, String y) {
@@ -26,9 +26,9 @@ public class Move extends Action {
     // Factory method to create instances of Move
     public static Move createMove(String x, String y) {
         if (y.equals(sentinel)) {
-            return new Move(x, null);
+            return new Move(x, sentinel);
         } else if (x.equals(sentinel)) {
-            return new Move(null, y);
+            return new Move(sentinel, y);
         } else {
             return new Move(x, y);
         }
@@ -49,6 +49,15 @@ public class Move extends Action {
         }
         if (!(obj instanceof Move)) {
             return false;
+        }
+
+        if (this.y.equals(sentinel)) {
+            Move otherMove = (Move) obj;
+            return this.x.equals(otherMove.getX());
+        }
+        if (this.x.equals(sentinel)) {
+            Move otherMove = (Move) obj;
+            return this.y.equals(otherMove.getY());
         }
         Move otherMove = (Move) obj;
         return this.x.equals(otherMove.getX()) && this.y.equals(otherMove.getY());
