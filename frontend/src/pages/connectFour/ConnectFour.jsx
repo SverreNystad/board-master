@@ -109,7 +109,7 @@ function ConnectFour() {
           //const response = gameService.botMove(requestBody)
           .then(result => {
               // Update state with response data
-              setGameData(result);
+              setGameData(result.data);
               console.log('Bot move result:', result);
           })
           .catch(error => {
