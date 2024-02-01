@@ -10,7 +10,7 @@ public class MoveRequest {
     private final String gameId;
     private final Move move;
 
-    public MoveRequest(String gameId, int x, int y) {
+    public MoveRequest(String gameId, Integer x, Integer y) {
         this.gameId = gameId;
         this.move = new Move(x, y);
     }
