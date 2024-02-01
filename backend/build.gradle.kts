@@ -10,7 +10,9 @@ group = "com.example"
 version = "1.0.0-SNAPSHOT"
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 repositories {
@@ -28,7 +30,7 @@ tasks.withType<Test> {
 }
 
 jacoco {
-    toolVersion = "0.8.11" c
+    toolVersion = "0.8.11"
 }
 
 tasks.jacocoTestReport {
