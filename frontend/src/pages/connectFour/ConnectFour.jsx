@@ -76,8 +76,8 @@ function ConnectFour() {
     
         let requestBoard = {
           gameId: gameData.gameId,
-          x: y, //changed coordinates to match backend (?)
-          y: x
+          x: String(x), //changed coordinates to match backend (?)
+          y: "BLANK-INPUT"
         } 
         if (gameData.status === "Game in progress") {
           try {
@@ -104,7 +104,9 @@ function ConnectFour() {
           gameId: gameData.gameId,
       }
       if (gameData.status === "Game in progress") {
-          const response = gameService.botMove(requestBody)
+          console.log("Sending Bot Move")
+          const response = await axios.post(apiRoutes.botMove, requestBody)
+          //const response = gameService.botMove(requestBody)
           .then(result => {
               // Update state with response data
               setGameData(result);
