@@ -7,7 +7,7 @@ public class Move extends Action {
     private final String x; // e.g., "e2"
     private final String y;   // e.g., "e4"
 
-    public Move(int x) {
+    public Move(Integer x) {
         this.x = Integer.toString(x);
         this.y = null;
     }
@@ -17,7 +17,7 @@ public class Move extends Action {
         this.y = y;
     }
 
-    public Move (int x, int y) {
+    public Move (Integer x, Integer y) {
         this.x = Integer.toString(x);
         this.y = Integer.toString(y);
     }
