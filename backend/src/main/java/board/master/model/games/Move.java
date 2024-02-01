@@ -6,6 +6,7 @@ public class Move extends Action {
     
     private final String x; // e.g., "e2"
     private final String y;   // e.g., "e4"
+    private final static String sentinel = "BLANK-INPUT";
 
     public Move(Integer x) {
         this.x = Integer.toString(x);
@@ -22,7 +23,16 @@ public class Move extends Action {
         this.y = Integer.toString(y);
     }
 
-    
+    // Factory method to create instances of Move
+    public static Move createMove(String x, String y) {
+        if (y.equals(sentinel)) {
+            return new Move(x, null);
+        } else if (x.equals(sentinel)) {
+            return new Move(null, y);
+        } else {
+            return new Move(x, y);
+        }
+    }
 
     public String getX() {
         return x;
