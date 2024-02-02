@@ -40,10 +40,10 @@ public class ServiceIntegrationTest {
         @DisplayName("Test minimax tries to win")
         void testMinimaxTriesToWin() {
             String expected = "X";
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 0, 0)); // X
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 1, 0)); // O
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 0, 1)); // X
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 1, 1)); // O
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "0", "0")); // X
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "1", "0")); // O
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "0", "1")); // X
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "1", "1")); // O
 
             // Minimax should try to win
             GameResponse gameResponse = gameService.botMove(gameIdOfGameInService); // X
@@ -61,12 +61,12 @@ public class ServiceIntegrationTest {
             // o - - |    | o x - 
 
             String expected = "X";
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 0, 0)); // X
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 0, 2)); // O
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 2, 0)); // X
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 1, 0)); // O
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 0, 1)); // X
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 1, 1)); // O
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "0", "0")); // X
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "0", "2")); // O
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "2", "0")); // X
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "1", "0")); // O
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "0", "1")); // X
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "1", "1")); // O
 
             // Minimax should try to block
             GameResponse gameResponse = gameService.botMove(gameIdOfGameInService); // X
@@ -84,11 +84,11 @@ public class ServiceIntegrationTest {
             // - x - |    | - x - 
 
             String expected = "O";
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 0, 0)); // X
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 1, 1)); // O
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 1, 2)); // X
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 0, 1)); // O
-            gameService.playerMove(new MoveRequest(gameIdOfGameInService, 2, 0)); // X
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "0", "0")); // X
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "1", "1")); // O
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "1", "2")); // X
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "0", "1")); // O
+            gameService.playerMove(new MoveRequest(gameIdOfGameInService, "2", "0")); // X
 
             // Minimax should try to win
             GameResponse gameResponse = gameService.botMove(gameIdOfGameInService); // O

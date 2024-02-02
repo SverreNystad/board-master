@@ -109,8 +109,8 @@ public class GameServiceTest {
         @Test
         @DisplayName("Test of legal playerMove changes the board in the game")
         void testPlayerMoveChess() {
-            int x = 1;
-            int y = 1;
+            String x = "1";
+            String y = "1";
 
             Board originalBoard = boardOfGameInService;
 
@@ -134,8 +134,8 @@ public class GameServiceTest {
         @Test
         @DisplayName("Test of valid request with non-existing gameId")
         void testPlayerMoveNonExistingGameId() {
-            int x = 1;
-            int y = 1;
+            String x = "1";
+            String y = "1";
             MoveRequest request = new MoveRequest(nonUsedGameId, x, y);
 
             assertThrows(IllegalArgumentException.class, () -> {
@@ -146,8 +146,8 @@ public class GameServiceTest {
         @Test
         @DisplayName("Test of request with illegal move")
         void testPlayerMoveIllegalMove() {
-            int x = -1;
-            int y = -1;
+            String x = "-1";
+            String y = "-1";
             MoveRequest request = new MoveRequest(gameIdOfGameInService, x, y);
 
             assertThrows(IllegalArgumentException.class, () -> {
