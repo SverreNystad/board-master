@@ -1,9 +1,7 @@
 package board.master.model.games.connect_four;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import board.master.model.Action;
 import board.master.model.StateHandler;
@@ -99,7 +97,7 @@ public class ConnectFour implements StateHandler {
     }
 
     private boolean checkVerticalWin(int player) {
-        String playerSymbol = Integer.toString(player);
+        String playerSymbol = getPlayerSymbol(player);
         for (int col = 0; col < columnHeight; col++) {
             for (int row = 0; row < rowLength - 3; row++) {
                 if (board.getPosition(row, col).equals(playerSymbol)
@@ -114,7 +112,7 @@ public class ConnectFour implements StateHandler {
     }
 
     private boolean checkDiagonalWin(int player) {
-        String playerSymbol = Integer.toString(player);
+        String playerSymbol = getPlayerSymbol(player);
         // Check diagonal (top-left to bottom-right)
         for (int row = 0; row < rowLength - 3; row++) {
             for (int col = 0; col < columnHeight - 3; col++) {
