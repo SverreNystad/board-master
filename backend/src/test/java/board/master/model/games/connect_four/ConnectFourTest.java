@@ -13,12 +13,12 @@ import org.junit.jupiter.api.Nested;
 public class ConnectFourTest {
 
     private ConnectFour connectFour;
-    private int columnHeight;
+    private final int rowLength = 6;
+    private final int columnHeight = 7;
 
     @BeforeEach
     void setUp() {
         connectFour = new ConnectFour();
-        columnHeight = 7;
     }
 
     @Nested
@@ -26,14 +26,14 @@ public class ConnectFourTest {
 
         @Test
         void testGetAllActionsAtStart() {
-            int expected = 6;
+            int expected = columnHeight;
             int actual = connectFour.getActions().size();
             assertEquals(expected, actual);
         }
 
         @Test
         void testGetAllActionsAfterOneMove() {
-            int expected = 6;
+            int expected = columnHeight;
             connectFour.result(connectFour.getActions().get(0));
             int actual = connectFour.getActions().size();
             assertEquals(expected, actual);
@@ -41,7 +41,7 @@ public class ConnectFourTest {
 
         @Test
         void testGetAllActionsAfterColumnIsFull() {
-            int expected = 5;
+            int expected = columnHeight -1;
             for (int i = 0; i < columnHeight; i++) {
                 connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             }
@@ -68,10 +68,10 @@ public class ConnectFourTest {
         @Test
         void testGetBoardAfterOneMove() {
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
-            String laidPiece = connectFour.getBoard().getPosition(0, 0);
+            String laidPiece = connectFour.getBoard().getPosition(rowLength -1, 0);
             assertEquals("X", laidPiece);
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
-            laidPiece = connectFour.getBoard().getPosition(0, 1);
+            laidPiece = connectFour.getBoard().getPosition(rowLength -2, 0);
             assertEquals("O", laidPiece);
         }
 
