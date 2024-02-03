@@ -175,31 +175,7 @@ public class ConnectFour implements StateHandler {
     }
 
     /**
-     * Analyzes the board horizontally and returns a the score.
-     * The score is calculated by the number of pieces in a row 
-     * is positive if the player has the pieces in a row or 
-     * negative if the opponent has the pieces in a row.
-     * 
-     * @return int with the score for the board
-     */
-    private int checkHorizontal(int player) {
-        int score = 0;
-
-        for (int col = 0; col < columnHeight; col++) {
-            for (int row = 0; row < rowLength; row++) {
-                score += processPosition(row, col, player);
-            }
-            score += resetValues(true, player);
-            // score += calculateScore(player);
-            // this.piecesInARow = 0;
-            // this.preSymbol = "";
-
-        }
-        return score;
-    }
-
-    /**
-     * Analyzes the board vertically and returns a the score.
+     * Analyzes the board horizontally and returns a score.
      * The score is calculated by the number of pieces in a row 
      * is positive if the player has the pieces in a row or 
      * negative if the opponent has the pieces in a row.
@@ -207,6 +183,27 @@ public class ConnectFour implements StateHandler {
      * @return int with the score for the board
      */
     private int checkVertical(int player) {
+        int score = 0;
+
+        for (int col = 0; col < columnHeight; col++) {
+            for (int row = 0; row < rowLength; row++) {
+                score += processPosition(row, col, player);
+            }
+            score += resetValues(true, player);
+
+        }
+        return score;
+    }
+
+    /**
+     * Analyzes the board horizontally and returns a score.
+     * The score is calculated by the number of pieces in a row 
+     * is positive if the player has the pieces in a row or 
+     * negative if the opponent has the pieces in a row.
+     * 
+     * @return int with the score for the board
+     */
+    private int checkHorizontal(int player) {
         int score = 0;
 
         for (int row = 0; row < rowLength; row++) {
@@ -297,24 +294,20 @@ public class ConnectFour implements StateHandler {
     private int processPosition(int row, int column, int player) {
         String cuSymbol = board.getPosition(row, column);
         int score = 0;
-        if (this.preSymbol == cuSymbol && !this.preSymbol.equals("") ) {
+        if (this.preSymbol == cuSymbol && !this.preSymbol.isEmpty() ) {
             this.piecesInARow++;
             
         } else if (this.preSymbol != cuSymbol && !this.preSymbol.equals(startOfRow)) {
-            boolean emptyCurrent = cuSymbol.equals("");
-            if (this.preSymbol.equals("")) { 
+            boolean emptyCurrent = cuSymbol.isEmpty();
+            if (this.preSymbol.isEmpty()) { 
                 // If the symbol before current symbol is empty, emptySpace is true
                 this.emptySpace = true;
-            } else if (emptySpace && emptyCurrent) { 
-                // If an empty space is before or after an piece in a row, 
-                // the score is calculated as double
-                this.emptySpace = true;
-                score += resetValues(false, player)*2;
 
             } else if (emptySpace || emptyCurrent) { 
                 // If an empty space is before or after an piece in a row, the score is calculated
+                int empty = (emptySpace && emptyCurrent) ? 2 : 1;
                 this.emptySpace = true;
-                score += resetValues(false, player);
+                score += resetValues(false, player) * empty;
 
             } else {
                 this.piecesInARow = 0;
