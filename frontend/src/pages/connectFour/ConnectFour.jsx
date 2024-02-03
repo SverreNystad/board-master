@@ -76,7 +76,7 @@ function ConnectFour() {
     
         let requestBoard = {
           gameId: gameData.gameId,
-          x: String(x), //changed coordinates to match backend (?)
+          x: String(y), //Send column number to backend
           y: "BLANK-INPUT",
         } 
         if (gameData.status === "Game in progress") {
@@ -154,7 +154,7 @@ function ConnectFour() {
               <p>Game ID: {gameData.gameId}</p>
               <p>Status: {gameData.status}</p>
               <div className='board-container'>
-                <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad} placeSign={(playerStarts) ? "X" : "O"} reverse = {true}/> 
+                <Board grid={gameData.board.grid} onClickCallback={makeMove} shallLoad={shallLoad} placeSign={(playerStarts) ? "X" : "O"}/> 
               </div>
             </div>
           )}
