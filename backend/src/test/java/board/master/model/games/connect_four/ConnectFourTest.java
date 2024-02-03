@@ -15,6 +15,7 @@ public class ConnectFourTest {
     private ConnectFour connectFour;
     private final int rowLength = 6;
     private final int columnHeight = 7;
+    private final int baseNumber = 2;
 
     @BeforeEach
     void setUp() {
@@ -253,7 +254,6 @@ public class ConnectFourTest {
 
         @Test
         void testUtilityAfter3InAColumn() {
-            int baseNumber = 2;
             int playerPiecesInAColumn = 2;
             int botPiecesInARow = 1;
 
@@ -272,7 +272,6 @@ public class ConnectFourTest {
 
         @Test
         void testUtilityAfter3InARow() {
-            int baseNumber = 2;
             int playerPiecesInARow = 2;
             int botPiecesInARow = 1;
 
@@ -292,20 +291,17 @@ public class ConnectFourTest {
 
         @Test
         void testUtilityAfterLeftToRightDiagonal() {
-            int baseNumber = 2;
             int playerPiecesInADiagonal = 2;
             int botPiecesInARow = 1;
 
             // Player has 2 diagonals with 3 and 2 pieces in a row respectively
-            int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal)
-            + (int) Math.pow(baseNumber, playerPiecesInADiagonal - 1);
+            int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal);
 
             // Bot has 2 diagonal with 2 pieces in a row
             int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow)*2;
 
             // The value for player - the value for bot
             int expected = playerDiagonalValue - botDiagonalValue;
-            // Action action = connectFour.getActions().get(0);
 
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
@@ -322,7 +318,6 @@ public class ConnectFourTest {
 
         @Test
         void testUtilityAfterRightToLeftDiagonally() {
-            int baseNumber = 2;
             int playerPiecesInADiagonal = 2;
             int botPiecesInARow = 1;
 
@@ -331,7 +326,7 @@ public class ConnectFourTest {
             + (int) Math.pow(baseNumber, playerPiecesInADiagonal - 1);
 
             // Bot has 2 diagonal with 2 pieces in a row
-            int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow)*2;
+            int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow);
 
             // The value for player - the value for bot
             int expected = playerDiagonalValue - botDiagonalValue;
@@ -351,13 +346,11 @@ public class ConnectFourTest {
 
         @Test
         void testUtilityAfterDiagonalVerticalAndHorizontally() {
-            int baseNumber = 2;
             int playerPiecesInADiagonal = 2;
             int botPiecesInARow = 1;
 
             // Player has 2 diagonals with 3 pieces, a horizontal with 2 pieces in a row and a vertical with 3 pieces in a row
-            int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal)*3
-            + (int) Math.pow(baseNumber, playerPiecesInADiagonal - 1);
+            int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal)*2;
 
             // Bot has 2 diagonal with 2 and 3 pieces in a row and a horizontal with 2 pieces in a row
             int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow)*2 
@@ -385,11 +378,9 @@ public class ConnectFourTest {
 
         @Test
         void testUtilityWithSymbolInTopLeftCorner() {
-            int baseNumber = 2;
-            int playerPiecesInADiagonal = 2;
 
-            // Player has 2 pieces in a row vertically
-            int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal);
+            // Player has 2 pieces in a row vertically, but they are locked in
+            int playerDiagonalValue = 0;
 
             // Bot has 0 pieces in a row
             int botDiagonalValue = 0;
