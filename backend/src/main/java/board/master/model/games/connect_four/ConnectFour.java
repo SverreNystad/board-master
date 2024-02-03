@@ -15,8 +15,12 @@ public class ConnectFour implements StateHandler {
     private final int rowLength = 6;
     private final int columnHeight = 7;
     private final int base = 2; //the base for the heuristic function
-    private String preSymbol = "";
+    private String startOfRow = "start";
+    private String preSymbol = startOfRow;
+    
     private int piecesInARow = 0;
+    private boolean emptySpace = false; // If there is an empty space before the pieces in a row
+
 
     public ConnectFour() {
         playerToMove = 1;
@@ -185,9 +189,10 @@ public class ConnectFour implements StateHandler {
             for (int row = 0; row < rowLength; row++) {
                 score += processPosition(row, col, player);
             }
-            score += calculateScore(player);
-            this.piecesInARow = 0;
-            this.preSymbol = "";
+            score += resetValues(true, player);
+            // score += calculateScore(player);
+            // this.piecesInARow = 0;
+            // this.preSymbol = "";
 
         }
         return score;
@@ -208,9 +213,8 @@ public class ConnectFour implements StateHandler {
             for (int col = 0; col < columnHeight; col++) {
                 score += processPosition(row, col, player);
             }
-            score += calculateScore(player);
-            this.piecesInARow = 0;
-            this.preSymbol = "";
+            score += resetValues(true, player);
+
         }
         return score;
     }
@@ -227,12 +231,14 @@ public class ConnectFour implements StateHandler {
         int score = 0;
 
         // Check diagonal (top-left to bottom-right)
-        for (int row = 0; row < rowLength - 1; row++) {
+        for (int row = 0; row < rowLength - 3; row++) {
+            // No use to give score for last 3 rows as you can't get 4 in a row there
 
             // If it is the first row, go through the column and check the diagonal
             // from every point in the column
             if (row == 0) {
-                for (int col = 0; col < columnHeight; col++) {
+                for (int col = 0; col < columnHeight - 3; col++) {
+                    // No use to give score for last 3 columns as you can't get 4 in a row there
                     int x = row;
                     int y = col;
                     while(x < rowLength && y < columnHeight) {
@@ -240,8 +246,8 @@ public class ConnectFour implements StateHandler {
                         x++;
                         y++;
                     }
-                    score += calculateScore(player);
-                    this.preSymbol = "";
+                    score += resetValues(true, player);
+
                 }
             } else  {
                 int x = row;
@@ -251,20 +257,18 @@ public class ConnectFour implements StateHandler {
                     x++;
                     y++;
                 }
-                score += calculateScore(player);
-                this.piecesInARow = 0;
-                this.preSymbol = "";
+                score += resetValues(true, player);
                 
             }
             
         }
 
         // Check diagonal (bottom-left to top-right)
-        for (int row = rowLength - 1; row > -1; row--) {
+        for (int row = rowLength - 1; row > 2; row--) {
             // If it is the last row, go through the column and check the diagonal
             // from every point in the column
             if (row == rowLength - 1) {
-                for (int col = 0; col < columnHeight; col++) {
+                for (int col = 0; col < columnHeight - 3; col++) {
                     int x = row;
                     int y = col;
                     while(x > -1 && y < columnHeight) {
@@ -272,9 +276,8 @@ public class ConnectFour implements StateHandler {
                         x--;
                         y++;
                     }
-                    score += calculateScore(player);
-                    this.piecesInARow = 0;
-                    this.preSymbol = "";
+                    score += resetValues(true, player);
+
                 }
             } else  {
                 int x = row;
@@ -284,9 +287,7 @@ public class ConnectFour implements StateHandler {
                     x--;
                     y++;
                 }
-                score += calculateScore(player);
-                this.piecesInARow = 0;
-                this.preSymbol = "";
+                score += resetValues(true, player);
                 
             }
         }
@@ -299,9 +300,26 @@ public class ConnectFour implements StateHandler {
         if (this.preSymbol == cuSymbol && !this.preSymbol.equals("") ) {
             this.piecesInARow++;
             
-        } else if (this.preSymbol != cuSymbol && !this.preSymbol.equals("")) {
-            score += calculateScore(player);
-            this.piecesInARow = 0;
+        } else if (this.preSymbol != cuSymbol && !this.preSymbol.equals(startOfRow)) {
+            boolean emptyCurrent = cuSymbol.equals("");
+            if (this.preSymbol.equals("")) { 
+                // If the symbol before current symbol is empty, emptySpace is true
+                this.emptySpace = true;
+            } else if (emptySpace && emptyCurrent) { 
+                // If an empty space is before or after an piece in a row, 
+                // the score is calculated as double
+                this.emptySpace = true;
+                score += resetValues(false, player)*2;
+
+            } else if (emptySpace || emptyCurrent) { 
+                // If an empty space is before or after an piece in a row, the score is calculated
+                this.emptySpace = true;
+                score += resetValues(false, player);
+
+            } else {
+                this.piecesInARow = 0;
+            }
+            
         }
         this.preSymbol = cuSymbol;
 
@@ -318,6 +336,21 @@ public class ConnectFour implements StateHandler {
                 score -= Math.pow(base, this.piecesInARow);
             }
         }
+        return score;
+    }
+
+    private int resetValues(boolean resetPreSymbol, int player) {
+        int score = 0;
+        if (this.emptySpace) {
+            score = calculateScore(player);
+        }
+        this.piecesInARow = 0;
+        this.emptySpace = false;
+        
+        if (resetPreSymbol) {
+            this.preSymbol = startOfRow;
+        }
+        
         return score;
     }
 
