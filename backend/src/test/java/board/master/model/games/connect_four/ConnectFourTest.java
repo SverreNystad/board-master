@@ -2,6 +2,10 @@ package board.master.model.games.connect_four;
 
 import org.junit.jupiter.api.Test;
 
+import board.master.model.Action;
+import board.master.model.agents.Agent;
+import board.master.model.agents.AlphaBetaPruningMinimax;
+import board.master.model.agents.IterativeDeepeningAlphaBetaPruningMinimax;
 import board.master.model.games.Board;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -298,7 +302,7 @@ public class ConnectFourTest {
             int playerDiagonalValue = (int) Math.pow(baseNumber, playerPiecesInADiagonal);
 
             // Bot has 2 diagonal with 2 pieces in a row
-            int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow)*2;
+            int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow)*3;
 
             // The value for player - the value for bot
             int expected = playerDiagonalValue - botDiagonalValue;
@@ -326,7 +330,7 @@ public class ConnectFourTest {
             + (int) Math.pow(baseNumber, playerPiecesInADiagonal - 1);
 
             // Bot has 2 diagonal with 2 pieces in a row
-            int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow);
+            int botDiagonalValue = (int) Math.pow(baseNumber, botPiecesInARow)*2;
 
             // The value for player - the value for bot
             int expected = playerDiagonalValue - botDiagonalValue;
@@ -472,6 +476,72 @@ public class ConnectFourTest {
             int actual = connectFour.utility(-1);
 
             assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityOfSpecificStateFirst() {
+            int expected = -10;
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            
+            int actual = connectFour.utility(-1);
+
+            assertEquals(expected, actual);
+
+        }
+
+        @Test
+        void testUtilityOfSpecificStateSecond() {
+            int expected = -4;
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+
+            // Fills a column to lessen the amount of possible moves
+            /*
+            for (int i = 0; i < rowLength; i++) {
+                connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(columnHeight-1));
+            }*/
+
+            Agent iterativeDeep = new IterativeDeepeningAlphaBetaPruningMinimax(2);
+            Agent iterativeDeep2 = new IterativeDeepeningAlphaBetaPruningMinimax(60*10);
+            Agent iterativeDeep3 = new IterativeDeepeningAlphaBetaPruningMinimax(60*5);
+            //Agent alphaBetaPruning = new AlphaBetaPruningMinimax();
+
+            Action agentAction = iterativeDeep.getAction(connectFour);
+            //Action agentAction2 = iterativeDeep2.getAction(connectFour);
+            //Action agentAction3 = iterativeDeep3.getAction(connectFour);
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+
+            
+            int actual = connectFour.utility(-1);
+
+            assertEquals(expected, actual);
+
         }
     }
 }
