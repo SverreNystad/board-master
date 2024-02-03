@@ -1,7 +1,7 @@
 import React from 'react';
 import './Board.css';
 
-function Board({ grid, onClickCallback, shallLoad, placeSign, reverse }) {
+function Board({ grid, onClickCallback, shallLoad, placeSign}) {
 
   const handleClick = (rowIndex, columnIndex) => () => {
     // When the shallLoad prop is true, do not allow the user to click
@@ -18,7 +18,7 @@ function Board({ grid, onClickCallback, shallLoad, placeSign, reverse }) {
       )}
       <div className='columnGrid'>
         {
-          !!reverse && grid.map((row, rowIndex) => (
+          grid.map((row, rowIndex) => (
             <div key={rowIndex} style={{ display: 'flex' }}>
               {row.map((cell, columnIndex) => (
                 <div className='cell' key={columnIndex} style={cellStyle} onClick={handleClick(rowIndex, columnIndex)}>
@@ -31,19 +31,6 @@ function Board({ grid, onClickCallback, shallLoad, placeSign, reverse }) {
             </div>
           ))
         }
-        {
-        !!!reverse && grid[0].map((row, colIndex) => (
-          <div key={colIndex} style={{ display: 'flex' }}>
-            {grid.map((cell, rowIndex) => (
-              <div className='cell' key={rowIndex} style={cellStyle} onClick={handleClick(rowIndex, colIndex)}>
-                <div>
-                  {!!!cell[colIndex] && <b className='toBePlaced'>{placeSign}</b>}
-                  <b className='toBeKept'>{row[colIndex]}</b>
-                </div>
-              </div>
-            ))}
-          </div>
-        ))}
       </div>
     </div>
   );
