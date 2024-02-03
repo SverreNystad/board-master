@@ -58,6 +58,7 @@ public class AgentFactory {
         agents.put("RANDOM", new RandomStrategy());
         agents.put("ALPHABETA-MINIMAX", new AlphaBetaPruningMinimax());
         agents.put("ITERATIVE-DEEPENING-ALPHABETA-MINIMAX-2-SEC", new IterativeDeepeningAlphaBetaPruningMinimax(2));
+        agents.put("ITERATIVE-DEEPENING-ALPHABETA-MINIMAX-10-SEC", new IterativeDeepeningAlphaBetaPruningMinimax(10));
         agents.put("ITERATIVE-DEEPENING-ALPHABETA-MINIMAX-1-MIN", new IterativeDeepeningAlphaBetaPruningMinimax(60));
         return agents;
     }
