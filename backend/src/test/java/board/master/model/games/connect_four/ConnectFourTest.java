@@ -135,7 +135,32 @@ public class ConnectFourTest {
         }
 
         @Test
-        void testIsTerminalAfterGameIsWonDiagonally() {
+        void testIsTerminalAfterGameIsWonDiagonallyLeftToRight() {
+            boolean expected = true;
+            // Player 2 makes a diagonal and wins
+            // Column 0
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1)); // X
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0)); // O
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0)); // X
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0)); // O
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1)); // X
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0)); // O
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2)); // X
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1)); // O
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1)); // X
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2)); // O
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2)); // X
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3)); // O
+
+            boolean actual = connectFour.isTerminal();
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testIsTerminalAfterGameIsWonDiagonallyRightToLeft() {
             boolean expected = true;
             // Player 1 makes a diagonal and wins
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
@@ -388,5 +413,74 @@ public class ConnectFourTest {
             assertEquals(expected, actual);
         }
 
+        @Test
+        void testUtilityTerminalStatePlayerPos1WhenPos1Win() {
+            int expected = Integer.MAX_VALUE;
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+
+            int actual = connectFour.utility(1);
+
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityTerminalStatePlayerNeg1WhenPos1Win() {
+            int expected = Integer.MIN_VALUE;
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+
+            int actual = connectFour.utility(-1);
+
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityTerminalStatePlayerPos1WhenNeg1Win() {
+            int expected = Integer.MIN_VALUE;
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+
+            int actual = connectFour.utility(1);
+
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void testUtilityTerminalStatePlayerNeg1WhenNeg1Win() {
+            int expected = Integer.MAX_VALUE;
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(0));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
+
+            int actual = connectFour.utility(-1);
+
+            assertEquals(expected, actual);
+        }
     }
 }
