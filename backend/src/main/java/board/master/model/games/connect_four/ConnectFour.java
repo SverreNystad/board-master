@@ -41,9 +41,9 @@ public class ConnectFour implements StateHandler {
     @Override
     public List<Action> getActions() {
         List<Action> actions = new ArrayList<Action>();
-        for (int x = 0; x < rowLength; x++) {
-            if (board.getPosition(x, columnHeight-1) == "") {
-                actions.add(new Move(x));
+        for (int col = 0; col < columnHeight; col++) { // Goes through the columns on the board
+            if (board.getPosition(0, col) == "") { // If the column is not full (the top row is empty)
+                actions.add(new Move(col)); // Add the column to the list of possible moves
             }
         }
         return actions;
@@ -55,14 +55,15 @@ public class ConnectFour implements StateHandler {
         ConnectFour result = new ConnectFour(-playerToMove, board);
 
         Move move = (Move) action;
-        int x = Integer.valueOf(move.getX());
-        for (int y = 0; y < columnHeight; y++) {
-            if (result.getBoard().getPosition(x, y) == "") {
-                String symbol = getPlayerSymbol(this.toMove());
-                result.getBoard().setPosition(x, y, symbol);
-                break;
-            }
+        int col = Integer.valueOf(move.getX());
+        int row = rowLength - 1;
+        
+        while (row > -1 && result.getBoard().getPosition(row, col) != "") {
+            row--;
         }
+        String symbol = getPlayerSymbol(this.toMove());
+        result.getBoard().setPosition(row, col, symbol);
+
         return result;
     }
 
