@@ -82,18 +82,18 @@ public class ConnectFour implements StateHandler {
     }
 
     private boolean checkForWin(int player) {
+        String playerSymbol = getPlayerSymbol(player);
         // Check horizontal, vertical, and diagonal lines
-        return checkHorizontalWin(player) || checkVerticalWin(player) || checkDiagonalWin(player);
+        return checkStraightWin(playerSymbol, 0, 1, rowLength, columnHeight - 3) 
+        || checkStraightWin(playerSymbol, 1, 0 , rowLength - 3, columnHeight) 
+        || checkDiagonalWin(playerSymbol);
     }
 
-    private boolean checkHorizontalWin(int player) {
-        String playerSymbol = getPlayerSymbol(player);
+    private boolean checkStraightWin(String playerSymbol, int rowIncrement, int colIncrement, 
+    int rowLength, int colHeight) {
         for (int row = 0; row < rowLength; row++) {
-            for (int col = 0; col < columnHeight - 3; col++) {
-                if (board.getPosition(row, col).equals(playerSymbol)
-                        && board.getPosition(row, col + 1).equals(playerSymbol)
-                        && board.getPosition(row, col + 2).equals(playerSymbol)
-                        && board.getPosition(row, col + 3).equals(playerSymbol)) {
+            for (int col = 0; col < colHeight; col++) {
+                if (isWinningPosition(row, col, rowIncrement, colIncrement, playerSymbol)) {
                     return true;
                 }
             }
@@ -101,22 +101,30 @@ public class ConnectFour implements StateHandler {
         return false;
     }
 
-    private boolean checkVerticalWin(int player) {
-        String playerSymbol = getPlayerSymbol(player);
-        for (int col = 0; col < columnHeight; col++) {
-            for (int row = 0; row < rowLength - 3; row++) {
-                if (board.getPosition(row, col).equals(playerSymbol)
-                        && board.getPosition(row + 1, col).equals(playerSymbol)
-                        && board.getPosition(row + 2, col).equals(playerSymbol)
-                        && board.getPosition(row + 3, col).equals(playerSymbol)) {
-                    return true;
+    private boolean checkDiagonalWin(String playerSymbol) {
+        // Check both diagonals for a win
+        for (int row = 0; row < rowLength - 3; row++) {
+            for (int col = 0; col < columnHeight; col++) {
+                // If the column is 3 or less, check the diagonal to the right
+                if (col <= 3) {
+                    if (isWinningPosition(row, col, 1, 1, playerSymbol)) {
+                        return true;
+                    }
                 }
+
+                if (col >= 3) {
+                    if (isWinningPosition(row, col, 1, -1, playerSymbol)) {
+                        return true;
+                    }
+                }
+
             }
         }
+  
         return false;
     }
 
-    private boolean checkDiagonalWin(int player) {
+    private boolean check3DiagonalWin(int player) {
         String playerSymbol = getPlayerSymbol(player);
         // Check diagonal (top-left to bottom-right)
         for (int row = 0; row < rowLength - 3; row++) {
@@ -143,6 +151,15 @@ public class ConnectFour implements StateHandler {
         }
 
         return false;
+    }
+
+    private boolean isWinningPosition(int row, int col, int rowIncrement, int colIncrement, String playerSymbol) {
+        for (int i = 0; i < 4; i++) {
+            if (!board.getPosition(row + i * rowIncrement, col + i * colIncrement).equals(playerSymbol)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
