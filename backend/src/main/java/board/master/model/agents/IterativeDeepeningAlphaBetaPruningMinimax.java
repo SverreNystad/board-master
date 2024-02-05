@@ -68,7 +68,7 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
     }
 
     private float evaluateState(StateHandler state, float alpha, float beta, int depth, Boolean isMaximizingPlayer) {
-        if (state.isTerminal() || depth == 0 || isTimeUp()) {
+        if (state.isTerminal() || depth <= 0 || isTimeUp()) {
             return state.utility(agentPlayerId);
         }
 
