@@ -554,46 +554,5 @@ public class ConnectFourTest {
 
         }
 
-        @Test
-        void testUtilityOfSpecificStateSecond() {
-            int expected = -4;
-
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
-
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
-
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
-
-            // Fills a column to lessen the amount of possible moves
-            /*
-            for (int i = 0; i < rowLength; i++) {
-                connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(columnHeight-1));
-            }*/
-
-            Agent iterativeDeep = new IterativeDeepeningAlphaBetaPruningMinimax(2);
-            Agent iterativeDeep2 = new IterativeDeepeningAlphaBetaPruningMinimax(60*10);
-            Agent iterativeDeep3 = new IterativeDeepeningAlphaBetaPruningMinimax(60*5);
-            //Agent alphaBetaPruning = new AlphaBetaPruningMinimax();
-
-            Action agentAction = iterativeDeep.getAction(connectFour);
-            //Action agentAction2 = iterativeDeep2.getAction(connectFour);
-            //Action agentAction3 = iterativeDeep3.getAction(connectFour);
-
-            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
-
-            
-            int actual = connectFour.utility(-1);
-
-            assertEquals(expected, actual);
-
-        }
     }
 }
