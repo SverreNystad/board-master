@@ -12,21 +12,21 @@ Ensure you are in the `backend` directory of the project.
 ### Building the Docker Image
 To build the Docker image:
 ```
-docker compose build
+>gradlew bootBuildImage --imageName=cogito/boardmaster
 ```
 This command builds a Docker image based on the specifications in your Dockerfile.
 
 ### Running the Docker Image
 To run the Docker image:
 ```
-docker compose up
+docker run -p 8080:8080 -t cogito/boardmaster 
 ```
 This command starts the containers defined in your docker-compose.yml.
 
 ### Running in Production
 In a production environment, it's best to run the Docker container in detached mode:
 ```
-docker compose up -d
+docker run --detach -p 8080:8080 -t cogito/boardmaster 
 ```
 This runs your container in the background. If one does not do this the process will be removed when the terminal is closed or after a certain amount of time of inactivity.
 
@@ -34,7 +34,7 @@ This runs your container in the background. If one does not do this the process 
 ### Stopping the Docker Container
 To stop and remove containers, networks, and images created by up:
 ```
-docker compose down
+docker kill {container_id}
 ```
 
 ## Managing Docker Containers
