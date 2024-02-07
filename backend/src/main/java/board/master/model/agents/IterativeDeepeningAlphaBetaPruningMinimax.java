@@ -47,10 +47,11 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
 
         int depth = 1;
 
-        List<Action> priorityActions = state.getActions();
-        priorityActions.stream()
+        List<Action> priorityActions = state.getActions().stream()
                 .sorted(Comparator.comparingInt(action -> state.result(action).utility(agentPlayerId)))
                 .collect(Collectors.toList());
+        
+        Collections.reverse(priorityActions);
 
         while (!isTimeUp()) {
             //Find the best move ordering
@@ -72,16 +73,18 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
             return state.utility(agentPlayerId);
         }
 
-        List<Action> priorityActions = state.getActions();
-        priorityActions.stream()
+        List<Action> priorityActions = state.getActions().stream()
                 .sorted(Comparator.comparingInt(action -> state.result(action).utility(agentPlayerId)))
                 .collect(Collectors.toList());
 
         float value;
+        int minusDepth = depth - 1;
+
         if (isMaximizingPlayer) {
+            Collections.reverse(priorityActions);
             value = alpha;
             for (Action action : priorityActions) {
-                value = Math.max(value, evaluateState(state.result(action), value, beta, depth--, !isMaximizingPlayer));
+                value = Math.max(value, evaluateState(state.result(action), value, beta, minusDepth, !isMaximizingPlayer));
                 if (value >= beta) {
                     break;
                 }
@@ -90,10 +93,9 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
             return value;
         }
         else {
-            Collections.reverse(priorityActions);
             value = beta;
             for (Action action : priorityActions) {
-                value = Math.min(value, evaluateState(state.result(action), alpha, value, depth--, !isMaximizingPlayer));
+                value = Math.min(value, evaluateState(state.result(action), alpha, value, minusDepth, !isMaximizingPlayer));
                 if (alpha >= value) {
                     break;
                 }
