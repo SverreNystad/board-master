@@ -532,7 +532,7 @@ public class ConnectFourTest {
 
         @Test
         void testUtilityOfSpecificStateFirst() {
-            int expected = -10;
+            int expected = -14;
 
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(1));
@@ -548,6 +548,23 @@ public class ConnectFourTest {
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
             connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
             
+            int actual = connectFour.utility(-1);
+
+            assertEquals(expected, actual);
+
+        }
+
+        @Test
+        void testUtilityOfSpecificStateSecond() {
+            int expected = -4;
+
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(3));
+            connectFour = (ConnectFour) connectFour.result(connectFour.getActions().get(2));
+
+            Agent iterative = new IterativeDeepeningAlphaBetaPruningMinimax(2);
+
+            //Action action = iterative.getAction(connectFour);
             int actual = connectFour.utility(-1);
 
             assertEquals(expected, actual);
