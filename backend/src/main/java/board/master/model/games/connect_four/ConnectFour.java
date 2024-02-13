@@ -342,6 +342,14 @@ public class ConnectFour implements StateHandler {
 
             } else if (emptySpace || emptyCurrent) { 
                 // If an empty space is before or after an piece in a row, the score is calculated
+                if (!emptyCurrent && this.piecesInARow > 0) {
+                    if (cuSymbol.equals(getPlayerSymbol(player))) {
+                        score += 2;
+                    } else {
+                        score -= 2;
+                    }
+                }
+                
                 int empty = (emptySpace && emptyCurrent) ? 2 : 1;
                 this.emptySpace = true;
                 score += resetValues(false, player) * empty;
