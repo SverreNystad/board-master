@@ -104,7 +104,7 @@ Need to have docker installed on your machine. [Download Docker](https://www.doc
 
   * Java JDK 17 or higher - Java Development Kit is essential for compiling and running Java applications.
     * Download and install it from Oracle's Java JDK Download Page or adopt an open-source JDK like AdoptOpenJDK.
-    * After installation, verify the installation by running java -version and ```javac -version``` in your command line or terminal.
+    * After installation, verify the installation by running ```java -version``` and ```javac -version``` in your command line or terminal.
   </details>
 </ul>
 <ul>
