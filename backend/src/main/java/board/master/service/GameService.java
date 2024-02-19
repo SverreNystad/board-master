@@ -2,6 +2,8 @@ package board.master.service;
 
 import org.springframework.stereotype.Service;
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import board.master.model.games.GameStateHandlerFactory;
 import board.master.model.StateHandler;
@@ -22,6 +24,8 @@ public class GameService {
      */
     private HashMap<String, Game> games = new HashMap<>();
 
+    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
     /**
      * Logic to handle game creation
      * 
@@ -40,7 +44,10 @@ public class GameService {
 
         Game game = new Game(generateGameId(), agent, stateHandler);
         games.put(game.getGameId(), game);
-        
+
+        // Add task to scheduler to remove game after 1 hour
+        scheduler.schedule(() -> games.remove(game.getGameId()), 1, java.util.concurrent.TimeUnit.HOURS);
+
         return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler(), true), game.getBoard());
     }
 
