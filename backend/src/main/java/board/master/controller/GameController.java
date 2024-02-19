@@ -56,7 +56,7 @@ public class GameController {
             GameResponse response = gameService.playerMove(request);
             return ResponseEntity.ok(response);
         }
-        catch (IllegalArgumentException e) {
+        catch (IllegalArgumentException | IllegalStateException e) {
             return ResponseEntity.badRequest().build();
 
         }
@@ -87,6 +87,7 @@ public class GameController {
             return ResponseEntity.badRequest().build();
         }
         catch (Exception e) {
+            System.out.println("Bot move request: id:" + gameId + " error:" + e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
