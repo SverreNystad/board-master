@@ -24,7 +24,13 @@ public class GameService {
      */
     private HashMap<String, Game> games = new HashMap<>();
 
-    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private ScheduledExecutorService throttlingScheduler = Executors.newScheduledThreadPool(1);
+    private ScheduledExecutorService timeScheduler = Executors.newScheduledThreadPool(1);
+
+    /*
+     * Time to live for a game in minutes
+     */
+    private static final long timeToLive = 3;
 
     /**
      * Logic to handle game creation
@@ -46,7 +52,7 @@ public class GameService {
         games.put(game.getGameId(), game);
 
         // Add task to scheduler to remove game after 1 hour
-        scheduler.schedule(() -> games.remove(game.getGameId()), 1, java.util.concurrent.TimeUnit.HOURS);
+        timeScheduler.schedule(() -> games.remove(game.getGameId()), 1, java.util.concurrent.TimeUnit.HOURS);
 
         return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler(), true), game.getBoard());
     }
@@ -103,7 +109,7 @@ public class GameService {
      * @return updated game state
      * @throws IllegalArgumentException if the game id is invalid
      */
-    public GameResponse botMove(String gameId) throws IllegalArgumentException {
+    public GameResponse botMove(String gameId) throws IllegalArgumentException, IllegalStateException {
         
         Game game = null;
         if (games.containsKey(gameId)) {
@@ -116,14 +122,36 @@ public class GameService {
         if (game.getStateHandler().isTerminal()) {
             throw new IllegalStateException("Game is over");
         }
-        Agent agent = game.getAgent();
-        Action action = agent.getAction(game.getStateHandler());
-        
-        // update game state
-        StateHandler transformedGame = game.getStateHandler().result(action);
-        game.setStateHandler(transformedGame);
 
-        return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler(), false), game.getBoard());
+        // start clock
+        try {
+            startClock();
+
+            Agent agent = game.getAgent();
+            Action action = agent.getAction(game.getStateHandler());
+            
+            // update game state
+            StateHandler transformedGame = game.getStateHandler().result(action);
+            game.setStateHandler(transformedGame);
+
+            return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler(), false), game.getBoard());
+
+        } catch (IllegalStateException e) {
+            throw new IllegalStateException(e.getMessage(), e);
+        } finally {
+            // stop clock
+            throttlingScheduler.shutdownNow();
+        }
+    }
+
+    /**
+     * Start a clock to monitor the time it takes to make a move
+     * This follows the throttling performance tactic to make certain that 
+     * the request doesn't take to much resources
+     * @throws IllegalStateException if the request takes to long time
+     */
+    private void startClock() throws IllegalStateException {
+        throttlingScheduler.schedule(() -> {throw new IllegalStateException("Throttled due to request taking to long time");}, timeToLive, java.util.concurrent.TimeUnit.MINUTES);
     }
 
     private String getBoardStatus(StateHandler stateHandler, boolean player) {
