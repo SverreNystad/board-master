@@ -2,8 +2,13 @@ package board.master.service;
 
 import org.springframework.stereotype.Service;
 import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import board.master.model.games.GameStateHandlerFactory;
 import board.master.model.StateHandler;
@@ -30,7 +35,7 @@ public class GameService {
     /*
      * Time to live for a game in minutes
      */
-    private static final long timeToLive = 3;
+    private static final long timeToLive = 1;
 
     /**
      * Logic to handle game creation
@@ -122,36 +127,35 @@ public class GameService {
         if (game.getStateHandler().isTerminal()) {
             throw new IllegalStateException("Game is over");
         }
-
-        // start clock
-        try {
-            startClock();
-
-            Agent agent = game.getAgent();
-            Action action = agent.getAction(game.getStateHandler());
+        final Game taskGame = game;
+        Callable<GameResponse> botMoveTask = () -> {
+            // Bot move logic here
+            Agent agent = taskGame.getAgent();
+            Action action = agent.getAction(taskGame.getStateHandler());
+            StateHandler transformedGame = taskGame.getStateHandler().result(action);
+            taskGame.setStateHandler(transformedGame);
             
-            // update game state
-            StateHandler transformedGame = game.getStateHandler().result(action);
-            game.setStateHandler(transformedGame);
-
-            return new GameResponse(game.getGameId(), getBoardStatus(game.getStateHandler(), false), game.getBoard());
-
-        } catch (IllegalStateException e) {
-            throw new IllegalStateException(e.getMessage(), e);
+            return new GameResponse(taskGame.getGameId(), getBoardStatus(taskGame.getStateHandler(), false), taskGame.getBoard());
+        };
+        
+        Future<GameResponse> future = throttlingScheduler.submit(botMoveTask);
+        try {
+            // Wait for the bot move to complete or timeout
+            return future.get(timeToLive, TimeUnit.MINUTES);
+        } catch (TimeoutException e) {
+            // Handle timeout, e.g., by updating the game state or setting a flag
+            System.out.println("Error TimeoutException bot move " + e.getMessage());
+            future.cancel(true); // Attempt to cancel the ongoing task
+            throw new IllegalStateException("Bot move timed out");
+        } catch (InterruptedException | ExecutionException e) {
+            // Handle other exceptions
+            System.out.println("Error InterruptedException bot move " + e.getMessage());
+            throw new IllegalStateException("Error executing bot move", e);
         } finally {
             // stop clock
             throttlingScheduler.shutdownNow();
+            throttlingScheduler = Executors.newScheduledThreadPool(1);
         }
-    }
-
-    /**
-     * Start a clock to monitor the time it takes to make a move
-     * This follows the throttling performance tactic to make certain that 
-     * the request doesn't take to much resources
-     * @throws IllegalStateException if the request takes to long time
-     */
-    private void startClock() throws IllegalStateException {
-        throttlingScheduler.schedule(() -> {throw new IllegalStateException("Throttled due to request taking to long time");}, timeToLive, java.util.concurrent.TimeUnit.MINUTES);
     }
 
     private String getBoardStatus(StateHandler stateHandler, boolean player) {
