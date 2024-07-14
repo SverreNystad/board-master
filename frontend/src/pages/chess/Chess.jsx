@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { apiRoutes } from '../../routes/routeDefinitions.jsx';
-import { getAgents, startGame} from '../../services/gameService';
+import { getAgents} from '../../services/gameService';
 import Board from '../../components/game/Board';
 import Error from '../../components/game/Error';
 import axios from 'axios';
@@ -50,18 +50,24 @@ function Chess() {
   }, [gameData]);
 
   // Handle game start
-  const handleStartGame = () => {
+  const handleStartGame = async () => {
     // Reset state
     setGameStarted(false);
     setErrorMessage(null);
 
     console.log("Starting Game");
-    startGame(gameType, botType).then((response) => {
+    let requestData = {
+      botType: botType,
+      gameType: gameType
+    };
+    await axios.post(apiRoutes.startGame, requestData)
+    .then((response) => {
       const data = {
         gameId: response.gameId,
         status: response.status,
         board: response.board
       }
+      console.log("Data: ", data);
       
       setGameData(data);
       console.log("Game started:", response);
@@ -187,7 +193,7 @@ function Chess() {
         {!!!gameData && <button onClick={handleStartGame}>Start Game</button>}
         {gameData && (
         <div>
-          <button onClick={startGame}>Restart Game</button>
+          <button onClick={handleStartGame}>Restart Game</button>
           <p>Game ID: {gameData.gameId}</p>
           <p>Status: {gameData.status}</p>
           <div className='board-container'>
