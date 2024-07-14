@@ -68,6 +68,38 @@ function Chess() {
     });
   }
 
+  /**
+ * Handles a click on the board from the player. 
+ * If the player has clicked on a piece, it will be highlighted and
+ * the start move will be set. 
+ * If the player clicks on a another places, 
+ * the end move will be set and the move will be sent.
+ * If the player clicks on the same piece again, the start move will be reset.
+ * 
+ * @param {String} x 
+ * @param {String} y 
+ */
+  const handleClick = (x, y) => {
+    const move = String(x) + String(y);
+    console.log("Clicked: " + move);
+    if (startMove === move) {
+      setStartMove("");
+      return;
+    }
+
+    if (startMove === "") {
+      setStartMove(move);
+      return;
+    } else if (startMove !== "" && endMove === "") {
+      setEndMove(move);
+      console.log("Start Move: " + startMove + " End Move: " + endMove);
+      makeMove(startMove, move);
+    }
+
+    setStartMove("");
+    setEndMove("");
+  }
+
   const makeMove = async (x, y) => {
     console.log("Making Move: " + x + y);
     setErrorMessage(null);
@@ -93,37 +125,7 @@ function Chess() {
     }
   }
 
-  /**
-   * Handles a click on the board from the player. 
-   * If the player has clicked on a piece, it will be highlighted and
-   * the start move will be set. 
-   * If the player clicks on a another places, 
-   * the end move will be set and the move will be sent.
-   * If the player clicks on the same piece again, the start move will be reset.
-   * 
-   * @param {String} x 
-   * @param {String} y 
-   */
-  const handleClick = (x, y) => {
-    const move = String(x) + String(y);
-    console.log("Clicked: " + move);
-    if (startMove === move) {
-      setStartMove("");
-      return;
-    }
 
-    if (startMove === "") {
-      setStartMove(move);
-      return;
-    } else if (startMove !== "" && endMove === "") {
-      setEndMove(move);
-      console.log("Start Move: " + startMove + " End Move: " + endMove);
-      makeMove(startMove, move);
-    }
-
-    setStartMove("");
-    setEndMove("");
-  }
 
   /**
    * A method for handling the bot move.
@@ -136,11 +138,9 @@ function Chess() {
     let requestBody = {
         gameId: gameData.gameId,
     }
-    console.log("Game Status: " + gameData.gameId);
     if (gameData.status === "Game in progress") {
         console.log("Sending Bot Move")
-        const response = await axios.post(apiRoutes.botMove, requestBody)
-        //const response = gameService.botMove(requestBody)
+        await axios.post(apiRoutes.botMove, requestBody)
         .then(result => {
             // Update state with response data
             setGameData(result.data);
