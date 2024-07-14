@@ -14,7 +14,7 @@ function MainMenu() {
       <img src="/images/BoardMaster.png" alt="BoardMaster Logo" width="20%"/>
       <h2>Choose a game</h2>
       <div className='games'>
-        <Link to={routes.chess}><button className='notImplemented' disabled="True">Start New Chess game</button></Link>
+        <Link to={routes.chess}><button className='Implemented'>Start New Chess game</button></Link>
         <Link to={routes.tic_tac_toe}><button className='Implemented'>Start New Tic Tac Toe game</button></Link>
         <Link to={routes.connect_four}><button className='Implemented'>Start New Connect Four game</button></Link>
       </div>
