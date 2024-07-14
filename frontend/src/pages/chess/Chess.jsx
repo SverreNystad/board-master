@@ -4,6 +4,7 @@ import { routes } from '../../routes/routeDefinitions.jsx';
 import { getAgents, startGame, makeMove, botMove } from '../../services/gameService';
 import Board from '../../components/game/Board';
 import Error from '../../components/game/Error';
+import './Chess.css';
 function Chess() {
 
   const [gameData, setGameData] = useState(null);
