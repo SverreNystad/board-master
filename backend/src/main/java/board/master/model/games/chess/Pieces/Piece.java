@@ -78,6 +78,7 @@ public abstract class Piece {
      */
     public void move(int row, int column, Board board) throws IllegalArgumentException {
         if (!isValidMove(row, column, board)) {
+            System.err.println("Invalid move" + row + column);
             throw new IllegalArgumentException("Invalid move");
         }
         // Delete old position

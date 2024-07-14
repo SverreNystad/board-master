@@ -145,12 +145,13 @@ public class GameService {
         } catch (TimeoutException e) {
             // Handle timeout, e.g., by updating the game state or setting a flag
             System.out.println("Error TimeoutException bot move " + e.getMessage());
-            future.cancel(true); // Attempt to cancel the ongoing task
+            // Attempt to cancel the ongoing task
+            future.cancel(true); 
             throw new IllegalStateException("Bot move timed out");
         } catch (InterruptedException | ExecutionException e) {
             // Handle other exceptions
             System.out.println("Error InterruptedException bot move " + e.getMessage());
-            throw new IllegalStateException("Error executing bot move", e);
+            throw new IllegalStateException("Error executing bot move: ", e.getCause());
         } finally {
             // stop clock
             throttlingScheduler.shutdownNow();
