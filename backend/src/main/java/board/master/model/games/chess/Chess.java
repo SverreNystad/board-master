@@ -162,6 +162,13 @@ public class Chess implements StateHandler {
         return newState;
     }
 
+    /**
+     * Get the piece at the given position.
+     * The position is a String of to numbers where the first number is the row 
+     * and the second is the column. The numbers are from 0 to 7.
+     * @param position
+     * @return
+     */
     private Piece getPiece(String position) {
         // Position is of from "xy" where x is the row and y is the column
         if (position.length() != 2) {
@@ -169,6 +176,11 @@ public class Chess implements StateHandler {
         }
         int x = Character.getNumericValue(position.charAt(0));
         int y = Character.getNumericValue(position.charAt(1));
+        // Checks if the position is within the bounds of the board
+        if(x < 0 || x > this.board.getRows() - 1 
+        || y < 0 || y > this.board.getColumns() - 1) {
+            throw new IllegalArgumentException("Position must be between 0 and 7");
+        }
         String pieceSymbol = this.board.getPosition(x, y);
         return this.pieces.getOrDefault(pieceSymbol, null);
     }
