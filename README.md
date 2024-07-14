@@ -149,7 +149,7 @@ After starting the node package manager, the frontend should be available at htt
 ### Backend
 #### Build the backend with docker:
 
-*Note: Remember that `cmd` uses `gradlew` and `bash` uses `./gradlew`.*
+*Note: Remember that `cmd` uses `gradlew` and `bash` uses `gradlew`.*
 
 ```cmd
 gradlew bootBuildImage --imageName=cogito/boardmaster
