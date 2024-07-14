@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -237,6 +238,15 @@ public class ChessTest {
             assertNotEquals(transformed_chess, chess);
         }
 
+        @Test
+        public void testAllGetActionsAreLegal() {
+            List<Action> actions = chess.getActions();
+            for (Action action : actions) {
+                StateHandler transformed_chess = chess.result(action);
+                assertNotEquals(transformed_chess.getBoard(), chess.getBoard());
+            }
+        }
+        
         @Test
         void testResultChangesPiecePosition() {
 
