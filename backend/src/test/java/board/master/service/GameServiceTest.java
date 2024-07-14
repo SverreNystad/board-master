@@ -161,14 +161,26 @@ public class GameServiceTest {
     class botMove {
         @Test
         @DisplayName("Test of BotMove changes the board in the game")
-        void testPlayerMoveChess() {
+        void testBotMoveChess() {
             Board originalBoard = boardOfGameInService;
 
-            String gameId = gameIdOfGameInService;
-            GameResponse response = gameService.botMove(gameId);
+            GameResponse response = gameService.botMove(gameIdOfGameInService);
             assertNotEquals(originalBoard, response.getBoard());
         }
 
+        @Test
+        public void testLetBotMoveSeveralTime() {
+            // Let the bot move several times
+            for (int i = 0; i < 3; i++) {
+                MoveRequest moveHorse = new MoveRequest(gameIdOfGameInService, "71", "50");
+                MoveRequest moveHorseBack = new MoveRequest(gameIdOfGameInService, "50", "71");
+
+                gameService.botMove(gameIdOfGameInService);
+                gameService.playerMove(moveHorse);
+                gameService.botMove(gameIdOfGameInService);
+                gameService.playerMove(moveHorseBack);
+            }
+        }
         @Test
         @DisplayName("Test of valid request with non-existing gameId")
         void testBotMoveNonExistingGameId() {
