@@ -49,28 +49,18 @@ function Chess() {
     console.log("Game data:", gameData);
   }, [gameData]);
 
-  // Handle game start
   const handleStartGame = async () => {
     // Reset state
     setGameStarted(false);
     setErrorMessage(null);
 
-    console.log("Starting Game");
     let requestData = {
       botType: botType,
       gameType: gameType
     };
     await axios.post(apiRoutes.startGame, requestData)
     .then((response) => {
-      const data = {
-        gameId: response.gameId,
-        status: response.status,
-        board: response.board
-      }
-      console.log("Data: ", data);
-      
-      setGameData(data);
-      console.log("Game started:", response);
+      setGameData(response.data);
       setGameStarted(true);
     }).catch((error) => {
       setErrorMessage(error.message);
