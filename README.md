@@ -148,12 +148,15 @@ After starting the node package manager, the frontend should be available at htt
 
 ### Backend
 #### Build the backend with docker:
-```bash
+
+*Note: Remember that `cmd` uses `gradlew` and `bash` uses `./gradlew`.*
+
+```cmd
 gradlew bootBuildImage --imageName=cogito/boardmaster
 ```
 
 ##### **Start backend:**
-```bash
+```cmd
 docker run -p 8080:8080 -t cogito/boardmaster 
 ```
 After starting the backend, the backend should be available at http://localhost:8080/
