@@ -18,6 +18,7 @@ import board.master.model.communication.Game;
 import board.master.model.communication.GameResponse;
 import board.master.model.communication.GameStartRequest;
 import board.master.model.communication.MoveRequest;
+import board.master.model.communication.Status;
 import board.master.model.Action;
 
 import java.util.HashMap;
@@ -159,21 +160,17 @@ public class GameService {
         }
     }
 
-    private String getBoardStatus(StateHandler stateHandler, boolean player) {
+    private Status getBoardStatus(StateHandler stateHandler, boolean player) {
         if(stateHandler.isTerminal()) {
-            if (stateHandler.utility(stateHandler.toMove()) >= 1) {
-                
-                return (player) ? "You won" : "Bot won";
+            int utility = stateHandler.utility(stateHandler.toMove());
+            if (utility >= 1 || utility <= -1) {
+                return (player) ? Status.PLAYER_WIN : Status.BOT_WIN;
             }
-            else if (stateHandler.utility(stateHandler.toMove()) <= -1) {
-                return (player) ? "You won" : "Bot won";
-            }
-            else if (stateHandler.utility(stateHandler.toMove()) == 0) {
-                return "Draw";
+            else if (utility == 0) {
+                return Status.DRAW;
             }
         }
-        
-        return "Game in progress";
+        return Status.IN_PROGRESS;
     }
 
     /**

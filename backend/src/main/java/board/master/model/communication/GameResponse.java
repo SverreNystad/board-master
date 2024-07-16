@@ -4,10 +4,10 @@ import board.master.model.games.Board;
 
 public class GameResponse {
     private final String gameId;
-    private final String status;
+    private final Status status;
     private final Board board;
 
-    public GameResponse(String gameId, String status, Board board) {
+    public GameResponse(String gameId, Status status, Board board) {
         this.gameId = gameId;
         this.status = status;
         this.board = board;
@@ -18,7 +18,7 @@ public class GameResponse {
     }
 
     public String getStatus() {
-        return status;
+        return status.getMessage();
     }
 
     public Board getBoard() {
