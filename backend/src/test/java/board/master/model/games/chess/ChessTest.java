@@ -248,6 +248,17 @@ public class ChessTest {
         }
         
         @Test
+        public void testPlayGame() {
+            StateHandler transformed_chess = chess;
+            List<Action> actions = transformed_chess.getActions();
+            while (!transformed_chess.isTerminal()) {
+                Action action = actions.get(0);
+                transformed_chess = transformed_chess.result(action);
+                actions = transformed_chess.getActions();
+            }
+        }
+        
+        @Test
         void testResultChangesPiecePosition() {
 
         }
