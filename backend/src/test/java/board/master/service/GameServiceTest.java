@@ -169,17 +169,24 @@ public class GameServiceTest {
         }
 
         @Test
+        @DisplayName("Test of multiple botMove with Chess")
         public void testLetBotMoveSeveralTime() {
+            String gameType = "chess";
+            String botType = "random";
+            GameStartRequest request = new GameStartRequest(botType, gameType);
+            GameResponse response = gameService.startGame(request);
+            gameIdOfGameInService = response.getGameId();
             // Let the bot move several times
             for (int i = 0; i < 3; i++) {
-                MoveRequest moveHorse = new MoveRequest(gameIdOfGameInService, "71", "50");
-                MoveRequest moveHorseBack = new MoveRequest(gameIdOfGameInService, "50", "71");
+                MoveRequest moveHorse = new MoveRequest(gameIdOfGameInService, "01", "20");
+                MoveRequest moveHorseBack = new MoveRequest(gameIdOfGameInService, "20", "01");
 
                 gameService.botMove(gameIdOfGameInService);
                 gameService.playerMove(moveHorse);
                 gameService.botMove(gameIdOfGameInService);
                 gameService.playerMove(moveHorseBack);
             }
+            System.out.println("Test of multiple botMove with Chess done");
         }
         @Test
         @DisplayName("Test of valid request with non-existing gameId")
