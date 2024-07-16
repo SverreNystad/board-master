@@ -78,7 +78,7 @@ public abstract class Piece {
      */
     public void move(int row, int column, Board board) throws IllegalArgumentException {
         if (!isValidMove(row, column, board)) {
-            System.err.println("Invalid move" + row + column);
+            System.err.println("Invalid move: " + String.valueOf(row) + String.valueOf(column) + " for piece: " + getSymbol() + " at position: " + String.valueOf(this.row) + String.valueOf(this.column));
             throw new IllegalArgumentException("Invalid move");
         }
         // Delete old position
