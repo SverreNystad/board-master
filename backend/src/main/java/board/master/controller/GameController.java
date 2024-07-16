@@ -1,5 +1,6 @@
 package board.master.controller;
 
+import java.util.logging.Logger;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import board.master.service.GameService;
 @RestController
 @RequestMapping("/api")
 public class GameController {
-
+    private final Logger logger = Logger.getLogger(getClass().getName());
     private final GameService gameService;
 
     @Autowired
@@ -78,16 +79,12 @@ public class GameController {
             GameResponse response = gameService.botMove(id);
             return ResponseEntity.ok(response);
         }
-        catch (IllegalArgumentException e) {
-            System.out.println("Bot move request: id:" + gameId + " error:" + e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
-        catch (IllegalStateException e) {
-            System.out.println("Bot move request: id:" + gameId + " error:" + e.getMessage());
+        catch (IllegalArgumentException | IllegalStateException e) {
+            logger.warning("Bot move request: id:" + gameId + " error:" + e.getMessage());
             return ResponseEntity.badRequest().build();
         }
         catch (Exception e) {
-            System.out.println("Bot move request: id:" + gameId + " error:" + e.getMessage());
+            logger.severe("Bot move request: id:" + gameId + " error:" + e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }

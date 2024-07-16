@@ -1,6 +1,7 @@
 package board.master.model.games.chess.Pieces;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import board.master.model.Action;
 import board.master.model.games.Board;
@@ -11,6 +12,8 @@ import board.master.model.games.chess.Color;
  * Abstract class for a chess piece
  */
 public abstract class Piece {
+    private final Logger logger = Logger.getLogger(getClass().getName());
+
     public final Color color;
     public int row;
     public int column;
@@ -78,7 +81,7 @@ public abstract class Piece {
      */
     public void move(int row, int column, Board board) throws IllegalArgumentException {
         if (!isValidMove(row, column, board)) {
-            System.err.println("Invalid move: " + String.valueOf(row) + String.valueOf(column) + " for piece: " + getSymbol() + " at position: " + String.valueOf(this.row) + String.valueOf(this.column));
+            logger.severe("Invalid move: " + String.valueOf(row) + String.valueOf(column) + " for piece: " + getSymbol() + " at position: " + String.valueOf(this.row) + String.valueOf(this.column));
             throw new IllegalArgumentException("Invalid move");
         }
         // Delete old position
