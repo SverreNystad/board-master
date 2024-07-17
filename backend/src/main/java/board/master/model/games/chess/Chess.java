@@ -27,7 +27,7 @@ public class Chess implements StateHandler {
     
     public Chess() {
         this.toMove = 1;
-        this.board = CreateInitialBoard();
+        this.board = new Board(8, 8);
         this.pieces = new HashMap<String, Piece>();
         initializePieces();
 
@@ -35,10 +35,6 @@ public class Chess implements StateHandler {
             this.board.setPosition(value.row, value.column, key);
         } );
 
-    }
-    
-    private static Board CreateInitialBoard() {
-        return new Board(8,8);
     }
 
     private void initializePieces() { 

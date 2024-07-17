@@ -43,11 +43,12 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
 
         float currentBestMaximizer = Float.NEGATIVE_INFINITY;
         float currentBestMinimizer = Float.POSITIVE_INFINITY;
-        Action currentBestAction = null;
+        List<Action> actions = state.getActions();
+        Action currentBestAction = actions.get(0);
 
         int depth = 1;
 
-        List<Action> priorityActions = state.getActions().stream()
+        List<Action> priorityActions = actions.stream()
                 .sorted(Comparator.comparingInt(action -> state.result(action).utility(agentPlayerId)))
                 .collect(Collectors.toList());
         
