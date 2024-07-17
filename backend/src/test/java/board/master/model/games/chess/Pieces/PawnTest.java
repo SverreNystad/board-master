@@ -1,17 +1,17 @@
 package board.master.model.games.chess.Pieces;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import board.master.model.games.Board;
+import board.master.model.games.Move;
+import board.master.model.games.chess.Color;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import board.master.model.games.Board;
-import board.master.model.games.Move;
-import board.master.model.games.chess.Color;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PawnTest {
     private Pawn pawn;
@@ -22,6 +22,7 @@ public class PawnTest {
         pawn = new Pawn(Color.WHITE, 6, 1);
         board = new Board(8, 8);
     }
+
     @Test
     @DisplayName("Test Pawn constructor")
     void testGetColor() {
@@ -102,13 +103,12 @@ public class PawnTest {
         assertEquals(validMoves, pawn.getValidMoves(board).size());
     }
 
-
     @Test
     @DisplayName("Test Pawn isValidMove when true")
     void testIsValidMoveWhenTrue() {
         int x = 5;
         int y = 1;
-        
+
         assertTrue(pawn.isValidMove(x, y, board));
     }
 
@@ -117,7 +117,7 @@ public class PawnTest {
     void testIsValidMoveWhenFalse() {
         int x = 3;
         int y = 1;
-        
+
         assertFalse(pawn.isValidMove(x, y, board));
     }
 

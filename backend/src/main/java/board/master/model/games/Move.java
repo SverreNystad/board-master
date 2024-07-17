@@ -3,22 +3,22 @@ package board.master.model.games;
 import board.master.model.Action;
 
 public class Move extends Action {
-    
+
     private final String x; // e.g., "e2"
-    private final String y;   // e.g., "e4"
-    private final static String sentinel = "BLANK-INPUT";
+    private final String y; // e.g., "e4"
+    private static final String sentinel = "BLANK-INPUT";
 
     public Move(Integer x) {
         this.x = Integer.toString(x);
         this.y = sentinel;
     }
-    
+
     public Move(String x, String y) {
         this.x = x;
         this.y = y;
     }
 
-    public Move (Integer x, Integer y) {
+    public Move(Integer x, Integer y) {
         this.x = Integer.toString(x);
         this.y = Integer.toString(y);
     }

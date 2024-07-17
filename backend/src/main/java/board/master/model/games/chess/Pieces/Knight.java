@@ -12,7 +12,7 @@ import board.master.model.games.chess.Color;
  * This class extends the abstract class Piece
  */
 public class Knight extends Piece {
-    
+
     /**
      * Creates a new Knight
      * @param color     the color of the Knight
@@ -31,7 +31,7 @@ public class Knight extends Piece {
     public List<Action> getValidMoves(Board board) {
         List<Action> actions = new ArrayList<Action>();
 
-        //testing the possible moves row by row
+        // testing the possible moves row by row
         checkMove(board, this.row - 2, this.column - 1, actions);
         checkMove(board, this.row - 2, this.column + 1, actions);
 

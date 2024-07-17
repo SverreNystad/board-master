@@ -1,13 +1,13 @@
 package board.master.model.games.chess.Pieces;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import board.master.model.games.Board;
+import board.master.model.games.chess.Color;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import board.master.model.games.Board;
-import board.master.model.games.chess.Color;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class QueenTest {
     private Queen queen;
@@ -29,6 +29,7 @@ public class QueenTest {
         assertEquals(row, queen.getRow());
         assertEquals(column, queen.getColumn());
     }
+
     @Test
     @DisplayName("Test Queen getValidMoves without other pieces")
     void testGetValidMovesNoOtherPieces() {
@@ -57,5 +58,4 @@ public class QueenTest {
         int numberOfMoves = 18;
         assertEquals(numberOfMoves, queen.getValidMoves(board).size());
     }
-
 }

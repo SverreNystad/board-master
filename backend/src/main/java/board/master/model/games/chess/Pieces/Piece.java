@@ -46,8 +46,7 @@ public abstract class Piece {
             String newPos = move.getY();
             String x = String.valueOf(newPos.charAt(0));
             String y = String.valueOf(newPos.charAt(1));
-            if (x.equals(String.valueOf(row))
-                && y.equals(String.valueOf(column))) {
+            if (x.equals(String.valueOf(row)) && y.equals(String.valueOf(column))) {
                 return true;
             }
         }
@@ -81,7 +80,8 @@ public abstract class Piece {
      */
     public void move(int row, int column, Board board) throws IllegalArgumentException {
         if (!isValidMove(row, column, board)) {
-            logger.severe("Invalid move: " + String.valueOf(row) + String.valueOf(column) + " for piece: " + getSymbol() + " at position: " + String.valueOf(this.row) + String.valueOf(this.column));
+            logger.severe("Invalid move: " + String.valueOf(row) + String.valueOf(column) + " for piece: " + getSymbol()
+                    + " at position: " + String.valueOf(this.row) + String.valueOf(this.column));
             throw new IllegalArgumentException("Invalid move");
         }
         // Delete old position
@@ -90,7 +90,6 @@ public abstract class Piece {
         this.row = row;
         this.column = column;
         board.setPosition(row, column, getSymbol());
-        
     }
 
     /**
@@ -105,7 +104,7 @@ public abstract class Piece {
             String position = board.getPosition(row, col);
             String currentPos = String.valueOf(this.row) + String.valueOf(this.column);
             String newPos = String.valueOf(row) + String.valueOf(col);
-            
+
             if (checkEmptySpace(board, row, col)) {
                 actions.add((Action) new Move(currentPos, newPos));
             } else if (position.charAt(colorIndex) == oppositeColor()) {
@@ -117,7 +116,7 @@ public abstract class Piece {
     public boolean checkEmptySpace(Board board, int row, int col) {
         if (isValidPosition(row, col)) {
             String position = board.getPosition(row, col);
-            
+
             if (position.equals("")) {
                 return true;
             }

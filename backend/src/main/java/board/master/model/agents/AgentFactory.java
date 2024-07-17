@@ -8,14 +8,13 @@ import java.util.List;
  */
 public class AgentFactory {
 
-    private final static HashMap<String, Agent> agents = initializeAvailableAgents();
-
+    private static final HashMap<String, Agent> agents = initializeAvailableAgents();
 
     /**
      * Creates an instance of a game-playing agent based on the specified strategy.
-     * 
+     *
      * Supported agent types are listed in the {@link #getAvailableAgentTypesList()} method.
-     * 
+     *
      * @param strategyType - the strategy type for which to create an agent
      * @return Agent instance implementing the specified strategy
      * @throws IllegalArgumentException if the specified strategy type is unsupported
@@ -30,7 +29,7 @@ public class AgentFactory {
 
     /**
      * Checks if a given strategy type is supported for agent creation.
-     * 
+     *
      * @param strategyType - the strategy type to check
      * @return true if the strategy type is supported, false otherwise
      */
@@ -40,7 +39,7 @@ public class AgentFactory {
 
     /**
      * Retrieves a list of supported strategy types for game-playing agents.
-     * 
+     *
      * @return List of supported strategy types
      */
     public static List<String> getAvailableAgentTypesList() {
@@ -49,7 +48,7 @@ public class AgentFactory {
 
     /**
      * Initializes and returns a map of strategy types to their corresponding Agent instances.
-     * 
+     *
      * @return HashMap mapping strategy types to Agent instances
      */
     private static HashMap<String, Agent> initializeAvailableAgents() {

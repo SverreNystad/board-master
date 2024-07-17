@@ -1,9 +1,9 @@
 package board.master.model.games.tictactoe;
 
-import java.util.List;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import board.master.model.Action;
 import board.master.model.StateHandler;
@@ -20,7 +20,7 @@ public class TicTacToe implements StateHandler {
     // Game board representation, player turn, and other necessary state variables
     // TODO: Define the game board and other state variables
     private Board board;
-    
+
     /**
      * Constructs a new TicTacToe game with an empty board and sets the starting
      * player.
@@ -31,14 +31,14 @@ public class TicTacToe implements StateHandler {
     }
 
     public TicTacToe(TicTacToe ticTacToe) {
-        this.board = new Board(ticTacToe.getBoard().getRows(), 
-        ticTacToe.getBoard().getColumns());
+        this.board =
+                new Board(ticTacToe.getBoard().getRows(), ticTacToe.getBoard().getColumns());
         for (int x = 0; x < ticTacToe.getBoard().getRows(); x++) {
             for (int y = 0; y < ticTacToe.getBoard().getColumns(); y++) {
                 this.board.setPosition(x, y, ticTacToe.getBoard().getPosition(x, y));
             }
         }
-        //this.board.setGrid(ticTacToe.getBoard().getGrid()); !!!DONT DO THIS!!!
+        // this.board.setGrid(ticTacToe.getBoard().getGrid()); !!!DONT DO THIS!!!
         // TODO: Initialize the game board and set the starting player
     }
 
@@ -55,14 +55,13 @@ public class TicTacToe implements StateHandler {
                 }
             }
         }
-        //In this code, X always goes first
+        // In this code, X always goes first
         if (emptySpaces == 0) {
             return 0;
         }
-        if (emptySpaces % 2 == 0) { //if even, it's O's turn
+        if (emptySpaces % 2 == 0) { // if even, it's O's turn
             return -1;
-        }
-        else { //if odd, it's X's turn
+        } else { // if odd, it's X's turn
             return 1;
         }
     }
@@ -96,7 +95,7 @@ public class TicTacToe implements StateHandler {
         String value = (this.toMove() == 1) ? "X" : "O";
         TicTacToe newState = new TicTacToe(this);
         newState.setPosition(Integer.parseInt(move.getX()), Integer.parseInt(move.getY()), value);
-        
+
         return newState;
     }
 
@@ -108,7 +107,7 @@ public class TicTacToe implements StateHandler {
         if (checkWin() != "") {
             return true;
         }
-        //Check for draw (no more empty spaces)
+        // Check for draw (no more empty spaces)
         return getActions().isEmpty();
     }
 
@@ -136,8 +135,7 @@ public class TicTacToe implements StateHandler {
         Map<String, Integer> analysis = analyzeBoard();
         if (analysis.containsKey("X")) {
             return (player == 1) ? analysis.get("X") : -analysis.get("X");
-        }
-        else {
+        } else {
             return (player == -1) ? analysis.get("O") : -analysis.get("O");
         }
     }
@@ -155,23 +153,23 @@ public class TicTacToe implements StateHandler {
     }
 
     /**
-     * Checks for a win in the current state of the game. 
-     * Returns the symbol of the winning player if there is a win, 
+     * Checks for a win in the current state of the game.
+     * Returns the symbol of the winning player if there is a win,
      * or null if there is no win yet or the game is a draw.
      * @return
      */
     private String checkWin() {
         String checkWin = "";
-        //check for win in rows and columns
+        // check for win in rows and columns
         for (int i = 0; i < 3; i++) {
             Boolean isNotEmpty = !board.getPosition(i, i).isEmpty();
-            
-            Boolean sameSignCol = board.getPosition(i, 0).equals(board.getPosition(i, 1)) 
-            && board.getPosition(i, 1).equals(board.getPosition(i, 2));
-            
-            Boolean sameSignRow = board.getPosition(0, i).equals(board.getPosition(1, i)) 
-            && board.getPosition(1, i).equals(board.getPosition(2, i));
-            
+
+            Boolean sameSignCol = board.getPosition(i, 0).equals(board.getPosition(i, 1))
+                    && board.getPosition(i, 1).equals(board.getPosition(i, 2));
+
+            Boolean sameSignRow = board.getPosition(0, i).equals(board.getPosition(1, i))
+                    && board.getPosition(1, i).equals(board.getPosition(2, i));
+
             if (sameSignCol && isNotEmpty) {
                 return board.getPosition(i, 0);
             }
@@ -183,16 +181,16 @@ public class TicTacToe implements StateHandler {
 
         Boolean isNotEmpty = !board.getPosition(1, 1).isEmpty();
 
-        //check for win in diagonals
-        if (board.getPosition(0, 0).equals(board.getPosition(1, 1)) 
-        && board.getPosition(1, 1).equals(board.getPosition(2, 2)) 
-        && isNotEmpty) {
+        // check for win in diagonals
+        if (board.getPosition(0, 0).equals(board.getPosition(1, 1))
+                && board.getPosition(1, 1).equals(board.getPosition(2, 2))
+                && isNotEmpty) {
             return board.getPosition(1, 1);
         }
 
-        if(board.getPosition(0, 2).equals(board.getPosition(1, 1))
-        && board.getPosition(1, 1).equals(board.getPosition(2, 0))
-        && isNotEmpty) {
+        if (board.getPosition(0, 2).equals(board.getPosition(1, 1))
+                && board.getPosition(1, 1).equals(board.getPosition(2, 0))
+                && isNotEmpty) {
             return board.getPosition(1, 1);
         }
         return checkWin;
@@ -206,14 +204,12 @@ public class TicTacToe implements StateHandler {
         if (!checkWin.isEmpty()) {
             analysis.put(checkWin, 1);
             return analysis;
-            
         }
 
         int count = 0;
         if (count > 0) {
             analysis.put("X", count);
-        }
-        else {
+        } else {
             analysis.put("O", count);
         }
         return analysis;

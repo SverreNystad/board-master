@@ -66,7 +66,7 @@ public interface StateHandler {
 
     /**
      * Returns the board object associated with the current state.
-     * 
+     *
      * @return the board object associated with the current state.
      */
     public Board getBoard();

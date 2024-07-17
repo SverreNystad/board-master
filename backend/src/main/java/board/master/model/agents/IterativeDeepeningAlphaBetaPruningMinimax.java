@@ -2,17 +2,17 @@ package board.master.model.agents;
 
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Comparator;
 
 import board.master.model.Action;
 import board.master.model.StateHandler;
 
 /**
  * An implementation of the Iterative Deepening Alpha-Beta Pruning Minimax algorithm.
- * This class functions as an agent in turn-based board games. It employs the 
- * Iterative Deepening technique to incrementally deepen the search depth, 
+ * This class functions as an agent in turn-based board games. It employs the
+ * Iterative Deepening technique to incrementally deepen the search depth,
  * combined with Alpha-Beta pruning to optimize the Minimax search process.
  * The agent selects the best move based on the current state of the game.
  */
@@ -23,9 +23,8 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
     private long startTime;
 
     public IterativeDeepeningAlphaBetaPruningMinimax(long maxTime) {
-        this.maxTime = maxTime*1000;
+        this.maxTime = maxTime * 1000;
     }
-
 
     /**
      * Determines the best action to take in the given game state.
@@ -51,13 +50,14 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
         List<Action> priorityActions = actions.stream()
                 .sorted(Comparator.comparingInt(action -> state.result(action).utility(agentPlayerId)))
                 .collect(Collectors.toList());
-        
+
         Collections.reverse(priorityActions);
 
         while (!isTimeUp()) {
-            //Find the best move ordering
+            // Find the best move ordering
             for (Action action : priorityActions) {
-                float value = evaluateState(state.result(action), currentBestMaximizer, currentBestMinimizer, depth, false);
+                float value =
+                        evaluateState(state.result(action), currentBestMaximizer, currentBestMinimizer, depth, false);
                 if (currentBestMaximizer < value) {
                     currentBestMaximizer = value;
                     currentBestAction = action;
@@ -85,18 +85,19 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
             Collections.reverse(priorityActions);
             value = alpha;
             for (Action action : priorityActions) {
-                value = Math.max(value, evaluateState(state.result(action), value, beta, minusDepth, !isMaximizingPlayer));
+                value = Math.max(
+                        value, evaluateState(state.result(action), value, beta, minusDepth, !isMaximizingPlayer));
                 if (value >= beta) {
                     break;
                 }
             }
-            
+
             return value;
-        }
-        else {
+        } else {
             value = beta;
             for (Action action : priorityActions) {
-                value = Math.min(value, evaluateState(state.result(action), alpha, value, minusDepth, !isMaximizingPlayer));
+                value = Math.min(
+                        value, evaluateState(state.result(action), alpha, value, minusDepth, !isMaximizingPlayer));
                 if (alpha >= value) {
                     break;
                 }
@@ -108,5 +109,4 @@ public class IterativeDeepeningAlphaBetaPruningMinimax implements Agent {
     private boolean isTimeUp() {
         return Calendar.getInstance().getTimeInMillis() - startTime >= maxTime;
     }
-
 }

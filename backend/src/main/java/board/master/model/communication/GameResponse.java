@@ -24,5 +24,4 @@ public class GameResponse {
     public Board getBoard() {
         return board;
     }
-
 }

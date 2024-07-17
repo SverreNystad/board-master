@@ -1,30 +1,29 @@
 package board.master.model.games.chess;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import board.master.model.Action;
 import board.master.model.StateHandler;
 import board.master.model.games.Board;
 import board.master.model.games.Move;
-import board.master.model.games.chess.Pieces.Piece;
 import board.master.model.games.chess.Pieces.Bishop;
 import board.master.model.games.chess.Pieces.King;
 import board.master.model.games.chess.Pieces.Knight;
 import board.master.model.games.chess.Pieces.Pawn;
+import board.master.model.games.chess.Pieces.Piece;
 import board.master.model.games.chess.Pieces.Queen;
 import board.master.model.games.chess.Pieces.Rook;
-import board.master.model.Action;
-
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 public class Chess implements StateHandler {
-    
+
     private Board board;
     private int toMove;
     private Map<String, Piece> pieces;
 
-    
     public Chess() {
         this.toMove = 1;
         this.board = new Board(8, 8);
@@ -33,11 +32,10 @@ public class Chess implements StateHandler {
 
         pieces.forEach((key, value) -> {
             this.board.setPosition(value.row, value.column, key);
-        } );
-
+        });
     }
 
-    private void initializePieces() { 
+    private void initializePieces() {
         for (int i = 0; i < 8; i++) { // Pawns
             Pawn whitePawn = new Pawn(Color.WHITE, 6, i);
             Pawn blackPawn = new Pawn(Color.BLACK, 1, i);
@@ -71,10 +69,10 @@ public class Chess implements StateHandler {
 
         // Queens and Kings
         Piece whiteQueen = new Queen(Color.WHITE, 7, 3);
-        Piece blackQueen = new Queen(Color.BLACK, 0, 3);   
+        Piece blackQueen = new Queen(Color.BLACK, 0, 3);
         this.pieces.put(whiteQueen.getSymbol(), whiteQueen);
         this.pieces.put(blackQueen.getSymbol(), blackQueen);
-        
+
         Piece whiteKing = new King(Color.WHITE, 7, 4);
         Piece blackKing = new King(Color.BLACK, 0, 4);
         this.pieces.put(whiteKing.getSymbol(), whiteKing);
@@ -83,21 +81,21 @@ public class Chess implements StateHandler {
 
     protected Chess(Board board, int toMove, Map<String, Piece> pieces) {
         Board newBoard = new Board(board.getRows(), board.getColumns());
-        
+
         Map<String, Piece> newPieces = new HashMap<String, Piece>();
         pieces.forEach((key, value) -> {
             newPieces.put(key, value.copy());
-        } );
+        });
 
         newPieces.forEach((key, value) -> {
             newBoard.setPosition(value.row, value.column, key);
-        } );
+        });
 
         this.pieces = newPieces;
         this.board = newBoard;
         this.toMove = toMove;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -114,7 +112,7 @@ public class Chess implements StateHandler {
         if (isTerminal()) {
             return actions;
         }
-        
+
         actions = getAllActions();
         return actions;
     }
@@ -126,7 +124,7 @@ public class Chess implements StateHandler {
                 piece.getValidMoves(this.board).forEach(action -> actions.add(action));
             } else if (toMove() == 1 && piece.getColor() == Color.WHITE) {
                 piece.getValidMoves(this.board).forEach(action -> actions.add(action));
-            }    
+            }
         }
         return actions;
     }
@@ -143,8 +141,8 @@ public class Chess implements StateHandler {
         Move move = (Move) action;
         String currentPos = move.getX();
         Piece toMovePiece = newState.getPiece(currentPos);
-        
-        // Change its position 
+
+        // Change its position
         String newPos = move.getY();
         int toX = Character.getNumericValue(newPos.charAt(0));
         int toY = Character.getNumericValue(newPos.charAt(1));
@@ -160,7 +158,7 @@ public class Chess implements StateHandler {
 
     /**
      * Get the piece at the given position.
-     * The position is a String of to numbers where the first number is the row 
+     * The position is a String of to numbers where the first number is the row
      * and the second is the column. The numbers are from 0 to 7.
      * @param position
      * @return
@@ -173,8 +171,7 @@ public class Chess implements StateHandler {
         int x = Character.getNumericValue(position.charAt(0));
         int y = Character.getNumericValue(position.charAt(1));
         // Checks if the position is within the bounds of the board
-        if(x < 0 || x > this.board.getRows() - 1 
-        || y < 0 || y > this.board.getColumns() - 1) {
+        if (x < 0 || x > this.board.getRows() - 1 || y < 0 || y > this.board.getColumns() - 1) {
             throw new IllegalArgumentException("Position must be between 0 and 7");
         }
         String pieceSymbol = this.board.getPosition(x, y);
@@ -190,8 +187,8 @@ public class Chess implements StateHandler {
         Piece blackKing = this.pieces.get("KB");
 
         if (isKingInCheck(whiteKing)) {
-           return isKingInCheckMate(whiteKing);
-            
+            return isKingInCheckMate(whiteKing);
+
         } else if (isKingInCheck(blackKing)) {
             return isKingInCheckMate(blackKing);
         } else {
@@ -200,11 +197,10 @@ public class Chess implements StateHandler {
     }
 
     private boolean isKingInCheck(Piece king) {
-        String kingPosition = String.valueOf(king.getRow()) +
-                String.valueOf(king.getColumn());
-        
-        Chess newState = new Chess(this.board, this.toMove*-1, this.pieces);
-        
+        String kingPosition = String.valueOf(king.getRow()) + String.valueOf(king.getColumn());
+
+        Chess newState = new Chess(this.board, this.toMove * -1, this.pieces);
+
         Iterator<Action> actions = newState.getAllActions().iterator();
 
         boolean isCheck = false;
@@ -217,7 +213,7 @@ public class Chess implements StateHandler {
             if (newPos.equals(kingPosition)) {
                 isCheck = true;
             }
-            //actions.next();
+            // actions.next();
         }
         return isCheck;
     }
@@ -231,9 +227,9 @@ public class Chess implements StateHandler {
         for (Action action : whiteActions) {
             Chess newState = (Chess) result(action);
             newState.toMove *= -1;
-            Piece newKing  = newState.pieces.get(king.getSymbol());
+            Piece newKing = newState.pieces.get(king.getSymbol());
 
-            //if there is a move that gets the king out of check, then it is not checkmate
+            // if there is a move that gets the king out of check, then it is not checkmate
             if (!newState.isKingInCheck(newKing)) {
                 return false;
             }
@@ -250,8 +246,7 @@ public class Chess implements StateHandler {
 
         if (analysis.containsKey(Color.WHITE)) {
             return (player == 1) ? analysis.get(Color.WHITE) : -analysis.get(Color.WHITE);
-        }
-        else {
+        } else {
             return (player == -1) ? analysis.get(Color.BLACK) : -analysis.get(Color.BLACK);
         }
     }

@@ -1,15 +1,15 @@
 package board.master.model.games.tictactoe;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import board.master.model.games.Board;
+import board.master.model.games.Move;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import board.master.model.games.Board;
-import board.master.model.games.Move;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TicTacToeTest {
     private TicTacToe ticTacToe;
@@ -21,6 +21,7 @@ public class TicTacToeTest {
     void TicTacToeSetup() {
         ticTacToe = new TicTacToe();
     }
+
     @Nested
     @DisplayName("TicTacToeConstructor")
     class TicTacToeConstructor {
@@ -48,7 +49,6 @@ public class TicTacToeTest {
             assertEquals(value, newTicTacToe.getBoard().getPosition(x, y));
         }
     }
-    
 
     @Nested
     @DisplayName("Test of utility")
@@ -67,15 +67,15 @@ public class TicTacToeTest {
             int expectedX = 0;
             int expectedO = 0;
 
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 2));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 2));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 2));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 1));
 
             assertEquals(expectedX, ticTacToe.utility(playerX));
             assertEquals(expectedO, ticTacToe.utility(playerO));
@@ -87,11 +87,11 @@ public class TicTacToeTest {
 
             int expected = -1;
             int x = 1;
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x-1, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x-1, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x - 1, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x - 1, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x, 2));
             assertEquals(expected, ticTacToe.utility(playerO));
         }
 
@@ -100,12 +100,12 @@ public class TicTacToeTest {
         void testUtility4() {
             int expected = 1;
             int x = 1;
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x-1, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x+1, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x-1, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x,2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x - 1, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x + 1, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x - 1, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x, 2));
             assertEquals(expected, ticTacToe.utility(playerO));
         }
     }
@@ -124,15 +124,15 @@ public class TicTacToeTest {
         @DisplayName("Test of getActions when board is full")
         void testGetActions2() {
             int expected = 0;
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 2));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 2));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 2));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 1));
             assertEquals(expected, ticTacToe.getActions().size());
         }
     }
@@ -141,12 +141,11 @@ public class TicTacToeTest {
     void testGetBoard() {
         Board newBoard = new Board(3, 3);
         assertEquals(newBoard.getGrid(), ticTacToe.getBoard().getGrid());
-
     }
 
     @Test
     void testGetPosition() {
-        ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 0));
+        ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 0));
         assertEquals("X", ticTacToe.getPosition(0, 0));
     }
 
@@ -164,11 +163,11 @@ public class TicTacToeTest {
         @DisplayName("Test if TicTacToe is terminal when row is of the same value")
         void testIsTerminal() {
             int x = 1;
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x-1, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x-1, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(x, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x - 1, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x - 1, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(x, 2));
 
             assertEquals(true, ticTacToe.isTerminal());
         }
@@ -176,27 +175,27 @@ public class TicTacToeTest {
         @Test
         @DisplayName("Test if TicTacToe is terminal when diagonal is of the same value")
         void testIsTerminalOnDiagonalWin() {
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 2));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 2));
-            
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 2));
+
             assertEquals(true, ticTacToe.isTerminal());
         }
 
         @Test
         @DisplayName("Test if TicTacToe is terminal when full")
         void testIsTerminalFullBoard() {
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 1));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(0, 2));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 2));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(1, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 0));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 2));
-            ticTacToe  = (TicTacToe) ticTacToe.result(new Move(2, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 1));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(0, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(1, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 0));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 2));
+            ticTacToe = (TicTacToe) ticTacToe.result(new Move(2, 1));
             assertEquals(true, ticTacToe.isTerminal());
         }
 
@@ -276,5 +275,3 @@ public class TicTacToeTest {
         }
     }
 }
-
-

@@ -12,7 +12,7 @@ import board.master.model.games.chess.Color;
  * This class extends the abstract class Piece
  */
 public class Rook extends Piece {
-    
+
     /**
      * Creates a new Rook
      * @param color     the color of the Rook
@@ -31,28 +31,28 @@ public class Rook extends Piece {
     public List<Action> getValidMoves(Board board) {
         List<Action> actions = new ArrayList<Action>();
 
-        //test for horizontal moves left
+        // test for horizontal moves left
         int left = this.column;
         do {
             left--;
             checkMove(board, this.row, left, actions);
         } while (checkEmptySpace(board, this.row, left));
 
-        //test for horizontal moves right
+        // test for horizontal moves right
         int right = this.column;
         do {
             right++;
             checkMove(board, this.row, right, actions);
         } while (checkEmptySpace(board, this.row, right));
 
-        //test for vertical moves up
+        // test for vertical moves up
         int up = this.row;
         do {
             up--;
             checkMove(board, up, this.column, actions);
         } while (checkEmptySpace(board, up, this.column));
 
-        //test for vertical moves down
+        // test for vertical moves down
         int down = this.row;
         do {
             down++;
@@ -60,7 +60,7 @@ public class Rook extends Piece {
         } while (checkEmptySpace(board, down, this.column));
 
         return actions;
-    }  
+    }
 
     /**
      * Creates a copy of the Rook

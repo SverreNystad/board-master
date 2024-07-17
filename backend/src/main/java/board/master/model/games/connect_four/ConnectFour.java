@@ -14,13 +14,12 @@ public class ConnectFour implements StateHandler {
     private Board board;
     private final int rowLength = 6;
     private final int columnHeight = 7;
-    private final int base = 2; //the base for the heuristic function
+    private final int base = 2; // the base for the heuristic function
     private String startOfRow = "start";
     private String preSymbol = startOfRow;
-    
+
     private int piecesInARow = 0;
     private boolean emptySpace = false; // If there is an empty space before the pieces in a row
-
 
     public ConnectFour() {
         playerToMove = 1;
@@ -61,7 +60,7 @@ public class ConnectFour implements StateHandler {
         Move move = (Move) action;
         int col = Integer.valueOf(move.getX());
         int row = rowLength - 1;
-        
+
         while (row > -1 && result.getBoard().getPosition(row, col) != "") {
             row--;
         }
@@ -84,21 +83,21 @@ public class ConnectFour implements StateHandler {
     /**
      * Checks if the player has won the game.
      * Checks for horizontal, vertical, and diagonal lines.
-     * 
+     *
      * @param player
      * @return true if the player has won the game
      */
     private boolean checkForWin(int player) {
         String playerSymbol = getPlayerSymbol(player);
         // Check horizontal, vertical, and diagonal lines
-        return checkStraightWin(playerSymbol, 0, 1, rowLength, columnHeight - 3) 
-        || checkStraightWin(playerSymbol, 1, 0 , rowLength - 3, columnHeight) 
-        || checkDiagonalWin(playerSymbol);
+        return checkStraightWin(playerSymbol, 0, 1, rowLength, columnHeight - 3)
+                || checkStraightWin(playerSymbol, 1, 0, rowLength - 3, columnHeight)
+                || checkDiagonalWin(playerSymbol);
     }
 
     /**
      * Checks for a win in the horizontal or vertical direction.
-     * 
+     *
      * @param playerSymbol The symbol of the player
      * @param rowIncrement The amount the row is incremented
      * @param colIncrement The amount the column is incremented
@@ -106,8 +105,8 @@ public class ConnectFour implements StateHandler {
      * @param colHeight    The height of the column
      * @return true if the player has won the game
      */
-    private boolean checkStraightWin(String playerSymbol, int rowIncrement, int colIncrement, 
-    int rowLength, int colHeight) {
+    private boolean checkStraightWin(
+            String playerSymbol, int rowIncrement, int colIncrement, int rowLength, int colHeight) {
         for (int row = 0; row < rowLength; row++) {
             for (int col = 0; col < colHeight; col++) {
                 if (isWinningPosition(row, col, rowIncrement, colIncrement, playerSymbol)) {
@@ -120,7 +119,7 @@ public class ConnectFour implements StateHandler {
 
     /**
      * Checks for a win in the diagonal direction.
-     * 
+     *
      * @param playerSymbol The symbol of the player
      * @return true if the player has won the game
      */
@@ -140,16 +139,15 @@ public class ConnectFour implements StateHandler {
                         return true;
                     }
                 }
-
             }
         }
-  
+
         return false;
     }
 
     /**
      * Checks if the player has four pieces in a row in the given direction.
-     * 
+     *
      * @param row          The current row
      * @param col          The current column
      * @param rowIncrement The amount the row is incremented
@@ -159,7 +157,8 @@ public class ConnectFour implements StateHandler {
      */
     private boolean isWinningPosition(int row, int col, int rowIncrement, int colIncrement, String playerSymbol) {
         for (int i = 0; i < 4; i++) {
-            if (!board.getPosition(row + i * rowIncrement, col + i * colIncrement).equals(playerSymbol)) {
+            if (!board.getPosition(row + i * rowIncrement, col + i * colIncrement)
+                    .equals(playerSymbol)) {
                 return false;
             }
         }
@@ -179,9 +178,9 @@ public class ConnectFour implements StateHandler {
 
     /**
      * Heuristic function for Connect Four.
-     * The heuristic function checks for horizontal, vertical, and diagonal lines 
+     * The heuristic function checks for horizontal, vertical, and diagonal lines
      * and returns a score based on the number of pieces in a row.
-     * 
+     *
      * @param player
      * @return The expected utility of the current state
      */
@@ -199,10 +198,10 @@ public class ConnectFour implements StateHandler {
 
     /**
      * Analyzes the board horizontally and returns a score.
-     * The score is calculated by the number of pieces in a row 
-     * is positive if the player has the pieces in a row or 
+     * The score is calculated by the number of pieces in a row
+     * is positive if the player has the pieces in a row or
      * negative if the opponent has the pieces in a row.
-     * 
+     *
      * @return int with the score for the board
      */
     private int checkVertical(int player) {
@@ -213,17 +212,16 @@ public class ConnectFour implements StateHandler {
                 score += processPosition(row, col, player);
             }
             score += resetValues(true, player);
-
         }
         return score;
     }
 
     /**
      * Analyzes the board horizontally and returns a score.
-     * The score is calculated by the number of pieces in a row 
-     * is positive if the player has the pieces in a row or 
+     * The score is calculated by the number of pieces in a row
+     * is positive if the player has the pieces in a row or
      * negative if the opponent has the pieces in a row.
-     * 
+     *
      * @return int with the score for the board
      */
     private int checkHorizontal(int player) {
@@ -234,17 +232,16 @@ public class ConnectFour implements StateHandler {
                 score += processPosition(row, col, player);
             }
             score += resetValues(true, player);
-
         }
         return score;
     }
 
     /**
      * Analyzes the board diagonally and returns a the score.
-     * The score is calculated by the number of pieces in a row 
-     * is positive if the player has the pieces in a row or 
+     * The score is calculated by the number of pieces in a row
+     * is positive if the player has the pieces in a row or
      * negative if the opponent has the pieces in a row.
-     * 
+     *
      * @return int with the score for the board
      */
     private int checkDiagonal(int player) {
@@ -261,26 +258,23 @@ public class ConnectFour implements StateHandler {
                     // No use to give score for last 3 columns as you can't get 4 in a row there
                     int x = row;
                     int y = col;
-                    while(x < rowLength && y < columnHeight) {
+                    while (x < rowLength && y < columnHeight) {
                         score += processPosition(x, y, player);
                         x++;
                         y++;
                     }
                     score += resetValues(true, player);
-
                 }
-            } else  {
+            } else {
                 int x = row;
                 int y = 0;
-                while(x < rowLength && y < columnHeight) {
+                while (x < rowLength && y < columnHeight) {
                     score += processPosition(x, y, player);
                     x++;
                     y++;
                 }
                 score += resetValues(true, player);
-                
             }
-            
         }
 
         // Check diagonal (bottom-left to top-right)
@@ -291,15 +285,14 @@ public class ConnectFour implements StateHandler {
                 for (int col = 0; col < columnHeight - 3; col++) {
                     int x = row;
                     int y = col;
-                    while(x > -1 && y < columnHeight) {
+                    while (x > -1 && y < columnHeight) {
                         score += processPosition(x, y, player);
                         x--;
                         y++;
                     }
                     score += resetValues(true, player);
-
                 }
-            } else  {
+            } else {
                 int x = row;
                 int y = 0;
                 while (x > -1 && y < columnHeight) {
@@ -308,7 +301,6 @@ public class ConnectFour implements StateHandler {
                     y++;
                 }
                 score += resetValues(true, player);
-                
             }
         }
         return score;
@@ -316,13 +308,13 @@ public class ConnectFour implements StateHandler {
 
     /**
      * Processes the position and calculates the score for the position.
-     * If the previous space and the current are the same (and not empty), 
+     * If the previous space and the current are the same (and not empty),
      * the piecesInARow variable is incremented. If the space before the current
      * and the current are different, it either marks the start of a new row or
      * calculates the score for the previous row. When calculating score for a previous
      * row it only gives score if there is an empty space before
      * or after the row. If there is an empty space before and after the row, the score is doubled.
-     * 
+     *
      * @param row          The current row to process
      * @param column       The current column to process
      * @param player       The player to calculate the score for
@@ -331,16 +323,16 @@ public class ConnectFour implements StateHandler {
     private int processPosition(int row, int column, int player) {
         String cuSymbol = board.getPosition(row, column);
         int score = 0;
-        if (this.preSymbol == cuSymbol && !this.preSymbol.isEmpty() ) {
+        if (this.preSymbol == cuSymbol && !this.preSymbol.isEmpty()) {
             this.piecesInARow++;
-            
+
         } else if (this.preSymbol != cuSymbol && !this.preSymbol.equals(startOfRow)) {
             boolean emptyCurrent = cuSymbol.isEmpty();
-            if (this.preSymbol.isEmpty()) { 
+            if (this.preSymbol.isEmpty()) {
                 // If the symbol before current symbol is empty, emptySpace is true
                 this.emptySpace = true;
 
-            } else if (emptySpace || emptyCurrent) { 
+            } else if (emptySpace || emptyCurrent) {
                 // If an empty space is before or after an piece in a row, the score is calculated
                 if (!emptyCurrent && this.piecesInARow > 0) {
                     if (cuSymbol.equals(getPlayerSymbol(player))) {
@@ -349,7 +341,7 @@ public class ConnectFour implements StateHandler {
                         score -= 2;
                     }
                 }
-                
+
                 int empty = (emptySpace && emptyCurrent) ? 2 : 1;
                 this.emptySpace = true;
                 score += resetValues(false, player) * empty;
@@ -357,18 +349,17 @@ public class ConnectFour implements StateHandler {
             } else {
                 this.piecesInARow = 0;
             }
-            
         }
         this.preSymbol = cuSymbol;
 
-        return score; 
+        return score;
     }
 
     /**
      * Calculates the score for the current row based on the player and the amount
-     * of pieces in a row. The score is calculated by the base number 
+     * of pieces in a row. The score is calculated by the base number
      * {@Link #base} raised to the power of the {@Link #piecesInARow}.
-     * 
+     *
      * @param player       The player to calculate the score for
      * @return int with the score for the row
      */
@@ -377,8 +368,7 @@ public class ConnectFour implements StateHandler {
         if (this.piecesInARow > 0) {
             if (this.preSymbol.equals(getPlayerSymbol(player))) {
                 score += Math.pow(base, this.piecesInARow);
-            }
-            else if (this.preSymbol.equals(getPlayerSymbol(-player))) {
+            } else if (this.preSymbol.equals(getPlayerSymbol(-player))) {
                 score -= Math.pow(base, this.piecesInARow);
             }
         }
@@ -390,7 +380,7 @@ public class ConnectFour implements StateHandler {
      * is reset to the startOfRow. If resetPreSymbol is false, the preSymbol is not reset.
      * If there is an empty space before the pieces in a row, the score is calculated and
      * the piecesInARow and emptySpace variables are reset.
-     * 
+     *
      * @param resetPreSymbol       If the preSymbol should be reset
      * @param player               The player to calculate the score for
      * @return int with the score for the row
@@ -402,11 +392,11 @@ public class ConnectFour implements StateHandler {
         }
         this.piecesInARow = 0;
         this.emptySpace = false;
-        
+
         if (resetPreSymbol) {
             this.preSymbol = startOfRow;
         }
-        
+
         return score;
     }
 
@@ -414,9 +404,8 @@ public class ConnectFour implements StateHandler {
     public Board getBoard() {
         return board;
     }
-    
+
     private String getPlayerSymbol(int player) {
         return player == 1 ? "X" : "O";
     }
-
 }

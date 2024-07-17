@@ -1,13 +1,13 @@
 package board.master.model.games.chess.Pieces;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import board.master.model.games.Board;
+import board.master.model.games.chess.Color;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import board.master.model.games.Board;
-import board.master.model.games.chess.Color;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KnightTest {
     private Knight knight;
@@ -19,7 +19,7 @@ public class KnightTest {
         board = new Board(8, 8);
     }
 
-       @Test
+    @Test
     @DisplayName("Test Knight constructor")
     void testConstructor() {
         Color color = Color.WHITE;
@@ -55,7 +55,6 @@ public class KnightTest {
         int numberOfMoves = 4;
         assertEquals(numberOfMoves, knight.getValidMoves(board).size());
     }
-
 
     @Test
     @DisplayName("Test Knight getValidMoves with an same colored piece")

@@ -11,7 +11,7 @@ import board.master.model.StateHandler;
 public class AlphaBetaPruningMinimax implements Agent {
 
     private int agentPlayerId;
-    
+
     /**
      * Returns the best action to take in the current state.
      * It evaluates possible actions and chooses the one with the highest value
@@ -33,7 +33,6 @@ public class AlphaBetaPruningMinimax implements Agent {
             if (currentBestMaximizer < value) {
                 currentBestMaximizer = value;
                 currentBestAction = action;
-                
             }
         }
 
@@ -58,25 +57,23 @@ public class AlphaBetaPruningMinimax implements Agent {
 
         float value;
         if (isMaximizingPlayer) {
-                value = alpha;
-                for (Action action : state.getActions()) {
-                    value = Math.max(value, evaluateState(state.result(action), value, beta, !isMaximizingPlayer));
-                    if (value >= beta) {
-                        break;
-                    }
+            value = alpha;
+            for (Action action : state.getActions()) {
+                value = Math.max(value, evaluateState(state.result(action), value, beta, !isMaximizingPlayer));
+                if (value >= beta) {
+                    break;
                 }
-                return value;
-        }
-        else {
-                value = beta;
-                for (Action action : state.getActions()) {
-                    value = Math.min(value, evaluateState(state.result(action), alpha, value, !isMaximizingPlayer));
-                    if (alpha >= value) {
-                        break;
-                    }
+            }
+            return value;
+        } else {
+            value = beta;
+            for (Action action : state.getActions()) {
+                value = Math.min(value, evaluateState(state.result(action), alpha, value, !isMaximizingPlayer));
+                if (alpha >= value) {
+                    break;
                 }
-                return value;
+            }
+            return value;
         }
     }
-    
 }

@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AgentControllerSmokeTest {
-    
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -23,8 +23,7 @@ public class AgentControllerSmokeTest {
     @Test
     @DisplayName("Test that getAgents works for legal request")
     public void testGetAgents() throws Exception {
-        mockMvc.perform(get(getAgentsEndpoint)
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(getAgentsEndpoint).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }

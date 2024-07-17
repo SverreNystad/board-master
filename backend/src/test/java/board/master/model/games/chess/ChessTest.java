@@ -1,16 +1,8 @@
 package board.master.model.games.chess;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Nested;
 
 import board.master.model.Action;
 import board.master.model.StateHandler;
@@ -20,9 +12,17 @@ import board.master.model.games.chess.Pieces.Pawn;
 import board.master.model.games.chess.Pieces.Piece;
 import board.master.model.games.chess.Pieces.Rook;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 public class ChessTest {
     private Chess chess;
-    //private Board board;
+    // private Board board;
 
     @BeforeEach
     void ChessSetUp() {
@@ -39,7 +39,6 @@ public class ChessTest {
         }
     }
 
-    
     @Test
     void testGetActionsAtStartOfGame() {
         assertEquals(20, chess.getActions().size(), "There should be 20 possible moves at the start of the game");
@@ -47,7 +46,7 @@ public class ChessTest {
 
     @Test
     void testNoMovesForTerminalState() {
-        Board board = new Board(8,8);
+        Board board = new Board(8, 8);
         Map<String, Piece> pieces = new HashMap<String, Piece>();
 
         Piece whiteKing = new King(Color.WHITE, 1, 1);
@@ -90,17 +89,12 @@ public class ChessTest {
         assertEquals(0, game.getActions().size(), "There should be no possible moves at the end of the game");
     }
 
-
+    @Test
+    void testGetBoard() {}
 
     @Test
-    void testGetBoard() {
+    void testIsTerminal() {}
 
-    }
-
-    @Test
-    void testIsTerminal() {
-
-    }
     @Nested
     class testIsTerminal {
         @Test
@@ -117,7 +111,7 @@ public class ChessTest {
 
         @Test
         void testIsNotTerminalWithCheck() {
-            Board board = new Board(8,8);
+            Board board = new Board(8, 8);
             Map<String, Piece> pieces = new HashMap<String, Piece>();
 
             Piece whiteKing = new King(Color.WHITE, 1, 1);
@@ -139,7 +133,7 @@ public class ChessTest {
 
         @Test
         void testIsNotTerminalWithOneMoveOutOfCheck() {
-            Board board = new Board(8,8);
+            Board board = new Board(8, 8);
             Map<String, Piece> pieces = new HashMap<String, Piece>();
 
             Piece whiteKing = new King(Color.WHITE, 1, 1);
@@ -182,7 +176,7 @@ public class ChessTest {
 
         @Test
         void testIsTerminalWithCheckMate() {
-            Board board = new Board(8,8);
+            Board board = new Board(8, 8);
             Map<String, Piece> pieces = new HashMap<String, Piece>();
 
             Piece whiteKing = new King(Color.WHITE, 1, 1);
@@ -223,7 +217,6 @@ public class ChessTest {
 
             chess = new Chess(board, 1, pieces);
             boolean isTerminal = chess.isTerminal();
-            
 
             assertEquals(true, isTerminal, "Game should be terminal with checkmate");
         }
@@ -246,7 +239,7 @@ public class ChessTest {
                 assertNotEquals(transformed_chess.getBoard(), chess.getBoard());
             }
         }
-        
+
         @Test
         public void testPlayGame() {
             StateHandler transformed_chess = chess;
@@ -257,17 +250,13 @@ public class ChessTest {
                 actions = transformed_chess.getActions();
             }
         }
-        
+
         @Test
-        void testResultChangesPiecePosition() {
-
-        }
-
+        void testResultChangesPiecePosition() {}
     }
 
-
     @Nested
-    class ToMoveTest  {
+    class ToMoveTest {
         @Test
         void testToMoveAtStart() {
             assertEquals(chess.toMove(), 1);
@@ -282,12 +271,8 @@ public class ChessTest {
             assertNotEquals(transformed_chess.toMove(), firstMove, "toMove should change after one move");
             assertEquals(chess.toMove(), firstMove, "toMove should not change after one move");
         }
-    
-        
     }
 
     @Test
-    void testUtility() {
-
-    }
+    void testUtility() {}
 }

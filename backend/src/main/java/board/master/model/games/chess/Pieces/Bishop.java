@@ -31,7 +31,7 @@ public class Bishop extends Piece {
     public List<Action> getValidMoves(Board board) {
         List<Action> actions = new ArrayList<Action>();
 
-        //test for diagonal moves up and left
+        // test for diagonal moves up and left
         int up = this.row;
         int left = this.column;
         do {
@@ -40,7 +40,7 @@ public class Bishop extends Piece {
             checkMove(board, up, left, actions);
         } while (checkEmptySpace(board, up, left));
 
-        //test for diagonal moves up and right
+        // test for diagonal moves up and right
         up = this.row;
         int right = this.column;
         do {
@@ -49,7 +49,7 @@ public class Bishop extends Piece {
             checkMove(board, up, right, actions);
         } while (checkEmptySpace(board, up, right));
 
-        //test for diagonal moves down and left
+        // test for diagonal moves down and left
         int down = this.row;
         left = this.column;
         do {
@@ -58,8 +58,8 @@ public class Bishop extends Piece {
             checkMove(board, down, left, actions);
         } while (checkEmptySpace(board, down, left));
 
-        //test for diagonal moves down and right
-        down = this.row ;
+        // test for diagonal moves down and right
+        down = this.row;
         right = this.column;
         do {
             down++;

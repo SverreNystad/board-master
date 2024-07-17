@@ -1,7 +1,7 @@
 package board.master.model.games;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Board {
     private List<List<String>> grid;
@@ -14,7 +14,7 @@ public class Board {
         this.grid = initializeBoard(rows, columns);
     }
 
-    /** 
+    /**
      * Initialize the board with empty strings or a default value
      * @param rows The number of rows in the board
      * @param columns The number of columns in the board

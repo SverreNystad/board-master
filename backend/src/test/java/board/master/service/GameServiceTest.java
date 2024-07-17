@@ -1,14 +1,5 @@
 package board.master.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
 import board.master.model.communication.GameResponse;
 import board.master.model.communication.GameStartRequest;
 import board.master.model.communication.MoveRequest;
@@ -16,15 +7,23 @@ import board.master.model.games.Board;
 import board.master.model.games.chess.Chess;
 import board.master.model.games.tictactoe.TicTacToe;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class GameServiceTest {
-    
+
     private GameService gameService;
-    
+
     private String gameIdOfGameInService;
     private Board boardOfGameInService;
 
     private final String nonUsedGameId = "nonUsedGameId";
-
 
     @BeforeEach
     void GameServiceSetup() {
@@ -36,13 +35,12 @@ public class GameServiceTest {
         GameStartRequest request = new GameStartRequest(botType, gameType);
         GameResponse response = gameService.startGame(request);
         gameIdOfGameInService = response.getGameId();
-
     }
 
     @Nested
     @DisplayName("Test of startGame")
     class CreationOfGames {
-        
+
         @Test
         @DisplayName("Test of startGame with chess")
         void testStartGameChess() {
@@ -72,7 +70,7 @@ public class GameServiceTest {
             String gameType = "invalid";
             String botType = "random";
             GameStartRequest request = new GameStartRequest(botType, gameType);
-            
+
             assertThrows(IllegalArgumentException.class, () -> {
                 gameService.startGame(request);
             });
@@ -84,7 +82,7 @@ public class GameServiceTest {
             String gameType = "chess";
             String botType = "invalid";
             GameStartRequest request = new GameStartRequest(botType, gameType);
-            
+
             assertThrows(IllegalArgumentException.class, () -> {
                 gameService.startGame(request);
             });
@@ -188,6 +186,7 @@ public class GameServiceTest {
             }
             System.out.println("Test of multiple botMove with Chess done");
         }
+
         @Test
         @DisplayName("Test of valid request with non-existing gameId")
         void testBotMoveNonExistingGameId() {

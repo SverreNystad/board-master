@@ -2,9 +2,7 @@ package board.master.model.communication;
 
 import board.master.model.StateHandler;
 import board.master.model.agents.Agent;
-import board.master.model.communication.Game;
 import board.master.model.games.Board;
-
 
 public class Game {
     private final String gameId;
@@ -17,7 +15,6 @@ public class Game {
         this.stateHandler = stateHandler;
     }
 
-
     public String getGameId() {
         return gameId;
     }
@@ -25,7 +22,7 @@ public class Game {
     public Agent getAgent() {
         return agent;
     }
-    
+
     public Board getBoard() {
         return stateHandler.getBoard();
     }

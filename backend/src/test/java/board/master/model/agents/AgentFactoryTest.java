@@ -1,9 +1,9 @@
 package board.master.model.agents;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AgentFactoryTest {
     @Test
@@ -11,8 +11,8 @@ public class AgentFactoryTest {
     void testCreateAgent() {
         String agentType = AgentFactory.getAvailableAgentTypesList().get(0);
         Agent agent = AgentFactory.createAgent(agentType);
-        assert(agent != null);
-        assert(agent instanceof Agent);
+        assert (agent != null);
+        assert (agent instanceof Agent);
     }
 
     @Test
@@ -24,12 +24,11 @@ public class AgentFactoryTest {
         });
     }
 
-
     @Test
     @DisplayName("Test of isValidAgentType with all legal agent types")
     void testIsValidAgentType() {
         for (String agentType : AgentFactory.getAvailableAgentTypesList()) {
-            assert(AgentFactory.isValidAgentType(agentType));
+            assert (AgentFactory.isValidAgentType(agentType));
         }
     }
 }

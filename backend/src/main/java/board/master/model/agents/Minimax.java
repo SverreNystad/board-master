@@ -3,11 +3,9 @@ package board.master.model.agents;
 import board.master.model.Action;
 import board.master.model.StateHandler;
 
-import java.lang.Math;
-
 /**
  * Class implementing the Minimax algorithm.
- * 
+ *
  * Minimax is a recursive algorithm used for choosing optimal moves in
  * game theory settings, particularly in turn-based games. This class provides
  * methods to calculate the best possible move considering future potential
@@ -20,7 +18,7 @@ public class Minimax implements Agent {
     private int agentPlayerId;
     /**
      * Calculates the best move to make in a given game state.
-     * 
+     *
      * This method applies the minimax algorithm to determine the optimal move.
      * It considers all possible moves, evaluates their outcomes, and chooses the
      * move that maximizes the player's chances of winning.
@@ -40,7 +38,6 @@ public class Minimax implements Agent {
             if (currentBestValue < value) {
                 currentBestValue = value;
                 currentBestAction = action;
-                
             }
         }
         return currentBestAction;
@@ -48,7 +45,7 @@ public class Minimax implements Agent {
 
     /**
      * Evaluates the given state of the game.
-     * 
+     *
      * The evaluation function assigns a numerical value to a game state,
      * indicating how favorable it is to the player using the minimax algorithm.
      * A more positive value indicates a more favorable state.
@@ -63,18 +60,17 @@ public class Minimax implements Agent {
         }
         float value;
         if (isMaximizingPlayer) {
-                value = Float.NEGATIVE_INFINITY;
-                for (Action action : state.getActions()) {
-                    value = Math.max(value, evaluateState(state.result(action), !isMaximizingPlayer));
-                }
-                return value;
-        }
-        else {
-                value = Float.POSITIVE_INFINITY;
-                for (Action action : state.getActions()) {
-                    value = Math.min(value, evaluateState(state.result(action), !isMaximizingPlayer));
-                }
-                return value;
+            value = Float.NEGATIVE_INFINITY;
+            for (Action action : state.getActions()) {
+                value = Math.max(value, evaluateState(state.result(action), !isMaximizingPlayer));
+            }
+            return value;
+        } else {
+            value = Float.POSITIVE_INFINITY;
+            for (Action action : state.getActions()) {
+                value = Math.min(value, evaluateState(state.result(action), !isMaximizingPlayer));
+            }
+            return value;
         }
     }
 }

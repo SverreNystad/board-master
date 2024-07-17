@@ -1,7 +1,7 @@
 package board.master.model.games.chess.Pieces;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import board.master.model.Action;
 import board.master.model.games.Board;
@@ -24,9 +24,9 @@ public class Queen extends Piece {
         Bishop bishop = new Bishop(this.color, this.row, this.column);
         actions.addAll(bishop.getValidMoves(board));
 
-    return actions;
-    }  
-    
+        return actions;
+    }
+
     /**
      * Creates a copy of the Queen
      * @return a copy of the Queen

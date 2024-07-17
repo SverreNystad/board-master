@@ -1,6 +1,7 @@
 package board.master.controller;
 
-
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,9 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,20 +37,20 @@ public class GameControllerSmokeTest {
     public void setup() throws Exception {
         badRequestJson = "{\"botType\":\"illegal\", \"gameType\":\"illegal\"}";
         legalGameStartJson = "{\"botType\":\"Random\", \"gameType\":\"tic-tac-toe\"}";
-        
+
         // Start a game to be used in tests
         MvcResult result = mockMvc.perform(post(startGameEndpoint)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(legalGameStartJson))
                 .andExpect(status().isOk())
                 .andReturn();
-        
+
         // Retrieve the gameId from the response
         String responseContent = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(responseContent);
         gameInService = rootNode.path("gameId").asText(); // Assuming "gameId" is the field in your response
-        
+
         // Create legal move requests for the game in service
         legalPlayerMoveJson = String.format("{\"gameId\":\"%s\", \"x\":1, \"y\":2}", gameInService);
         legalBotMoveJson = String.format("{\"gameId\":\"%s\"}", gameInService);

@@ -1,13 +1,13 @@
 package board.master.model.games.chess.Pieces;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import board.master.model.games.Board;
+import board.master.model.games.chess.Color;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import board.master.model.games.Board;
-import board.master.model.games.chess.Color;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KingTest {
     private King king;
@@ -29,6 +29,7 @@ public class KingTest {
         assertEquals(row, king.getRow());
         assertEquals(column, king.getColumn());
     }
+
     @Test
     @DisplayName("Test King getValidMoves without other pieces")
     void testGetValidMovesNoOtherPieces() {

@@ -1,20 +1,21 @@
 package board.master.model.games;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import board.master.model.StateHandler;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import board.master.model.StateHandler;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GameStateHandlerFactoryTest {
     @Test
     @DisplayName("Test of createGameHandler with legal stateHandler type")
     void testCreateGameHandler() {
-        String stateHandlerType = GameStateHandlerFactory.getSupportedGameHandlersList().get(0);
+        String stateHandlerType =
+                GameStateHandlerFactory.getSupportedGameHandlersList().get(0);
         StateHandler stateHandler = GameStateHandlerFactory.createGameHandler(stateHandlerType);
-        assert(stateHandler != null);
-        assert(stateHandler instanceof StateHandler);
+        assert (stateHandler != null);
+        assert (stateHandler instanceof StateHandler);
     }
 
     @Test
@@ -26,12 +27,11 @@ public class GameStateHandlerFactoryTest {
         });
     }
 
-
     @Test
     @DisplayName("Test of isValidstateHandlerType with all legal stateHandler types")
     void testIsValidstateHandlerType() {
         for (String stateHandlerType : GameStateHandlerFactory.getSupportedGameHandlersList()) {
-            assert(GameStateHandlerFactory.isValidGameHandler(stateHandlerType));
+            assert (GameStateHandlerFactory.isValidGameHandler(stateHandlerType));
         }
     }
 }
