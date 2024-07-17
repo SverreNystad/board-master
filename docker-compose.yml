@@ -10,11 +10,24 @@
 services:
   backend-board-master:
     build:
-      context: .
+      context: ./backend
+      dockerfile: Dockerfile
     image: board-master/backend:latest
     ports:
       - 8080:8080
     container_name: backend-board-master
+    restart: always
+
+  frontend-board-master:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: board-master/frontend:latest
+    ports:
+      - 3000:80
+    container_name: frontend-board-master
+    restart: always
+
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
