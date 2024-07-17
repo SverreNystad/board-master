@@ -1,9 +1,10 @@
 plugins {
-	java
-	jacoco
-	id("org.springframework.boot") version "3.3.1"
-	id("io.spring.dependency-management") version "1.1.5"
-	id("com.github.roroche.plantuml") version "1.0.2"
+    java
+    jacoco
+    id("org.springframework.boot") version "3.3.1"
+    id("io.spring.dependency-management") version "1.1.5"
+    id("com.github.roroche.plantuml") version "1.0.2"
+    id("com.diffplug.spotless") version "7.0.0.BETA1"
 }
 
 group = "com.example"
@@ -16,17 +17,38 @@ java {
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation("com.google.guava:guava:33.2.1-jre")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("com.google.guava:guava:33.2.1-jre")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
+}
+
+spotless {
+    // Optional: limit format enforcement to just the files changed by this feature branch
+    format("misc") {
+        // Define the files to apply `misc` to
+        target("*.gradle.kts", "*.gradle", ".gitattributes", ".gitignore")
+
+        // Define the steps to apply to those files
+        trimTrailingWhitespace()
+        indentWithSpaces() // or spaces. Takes an integer argument if you don't like 4
+        endWithNewline()
+    }
+
+    java {
+        target("src/**/*.java") // Define the target for Java files
+        palantirJavaFormat()
+        importOrder("java|javax", "board.master", "", "\\#board.master", "\\#")
+        removeUnusedImports()
+        formatAnnotations()
+    }
 }
 
 jacoco {
@@ -41,7 +63,7 @@ tasks.jacocoTestReport {
     }
 }
 
-classDiagram { // (1)
-    packageName = "board.master" // (2)
-    outputFile = project.file("../docs/backend.plantuml") // (3)
+classDiagram {
+    packageName = "board.master"
+    outputFile = project.file("../docs/backend.plantuml")
 }
