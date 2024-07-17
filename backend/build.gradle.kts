@@ -31,23 +31,25 @@ tasks.withType<Test> {
 }
 
 spotless {
-    // Optional: limit format enforcement to just the files changed by this feature branch
-    format("misc") {
-        // Define the files to apply `misc` to
-        target("*.gradle.kts", "*.gradle", ".gitattributes", ".gitignore")
+    if (!project.hasProperty("skipSpotless")) {
+        // Optional: limit format enforcement to just the files changed by this feature branch
+        format("misc") {
+            // Define the files to apply `misc` to
+            target("*.gradle.kts", "*.gradle", ".gitattributes", ".gitignore")
 
-        // Define the steps to apply to those files
-        trimTrailingWhitespace()
-        indentWithSpaces() // or spaces. Takes an integer argument if you don't like 4
-        endWithNewline()
-    }
+            // Define the steps to apply to those files
+            trimTrailingWhitespace()
+            indentWithSpaces() // or spaces. Takes an integer argument if you don"t like 4
+            endWithNewline()
+        }
 
-    java {
-        target("src/**/*.java") // Define the target for Java files
-        palantirJavaFormat()
-        importOrder("java|javax", "board.master", "", "\\#board.master", "\\#")
-        removeUnusedImports()
-        formatAnnotations()
+        java {
+            target("src/**/*.java") // Define the target for Java files
+            palantirJavaFormat()
+            importOrder("java|javax", "board.master", "", "\\#board.master", "\\#")
+            removeUnusedImports()
+            formatAnnotations()
+        }
     }
 }
 
