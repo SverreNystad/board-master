@@ -33,10 +33,7 @@ public class GameService {
     private ScheduledExecutorService throttlingScheduler = Executors.newScheduledThreadPool(1);
     private ScheduledExecutorService timeScheduler = Executors.newScheduledThreadPool(1);
 
-    /*
-     * Time to live for a game in minutes
-     */
-    private static final long timeToLive = 1;
+    private static final long timeToLiveMinutes = 1;
 
     /**
      * Logic to handle game creation
@@ -138,7 +135,7 @@ public class GameService {
         Future<GameResponse> future = throttlingScheduler.submit(botMoveTask);
         try {
             // Wait for the bot move to complete or timeout
-            return future.get(timeToLive, TimeUnit.MINUTES);
+            return future.get(timeToLiveMinutes, TimeUnit.MINUTES);
         } catch (TimeoutException e) {
             future.cancel(true);
             throw new IllegalStateException("Bot move timed out");
