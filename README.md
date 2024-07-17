@@ -26,7 +26,7 @@
     - [1. Clone the repository](#1-clone-the-repository)
     - [2. Navigate to the Project Directory:](#2-navigate-to-the-project-directory)
   - [Usage](#usage)
-  - [Documentation](#documentation)
+  - [Documentation 📚](#documentation-)
   - [Contributors](#contributors)
   - [License](#license)
 
@@ -94,13 +94,14 @@ The backend should be available at [http://localhost:8080/](http://localhost:808
 
 For the full development setup, see the [Developer Setup](docs/manuals/developer_setup.md) guide.
 
-## Documentation
-- [Developer Setup](docs/manuals/developer_setup.md)
-- [Testing](docs/manuals/testing.md)
-- [API Documentation](docs/manuals/api_documentation.md)
+## Documentation 📚
+- [Developer Setup](docs/manuals/developer_setup.md) 🛠️
+- [Testing](docs/manuals/testing.md) 🧪
+- [API Documentation](docs/manuals/api_documentation.md) 📖
+- [Docker Guide](docs/docker.md) 🐳
+- [Understanding the Minimax Algorithm](docs/minimax.md) 🧠
+- [Architecture](docs/architecture.md)  🏗️
 
-
-![Alt text](docs/images/backend.png)
 
 ## Contributors
 <table align="center">
