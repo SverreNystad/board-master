@@ -2,7 +2,7 @@ plugins {
     java
     jacoco
     id("org.springframework.boot") version "3.3.1"
-    id("io.spring.dependency-management") version "1.1.5"
+    id("io.spring.dependency-management") version "1.1.6"
     id("com.github.roroche.plantuml") version "1.0.2"
     id("com.diffplug.spotless") version "7.0.0.BETA1"
 }
